@@ -421,18 +421,8 @@ body >header a {
 }
 #textlogo {
   float: left;
-  width: 25%;
+  width: 75%;
   margin-left: 0.5em;
-}
-@media only screen and (min-width: 568px) {
-  #textlogo {
-    width: 75%;
-  }
-}
-@media only screen and (min-width: 1024px) {
-  #textlogo {
-    width: 75%;
-  }
 }
 #textlogo h1.site-name {
   width: 86%;
