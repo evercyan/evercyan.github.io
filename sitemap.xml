@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://evercyan.github.io/search/index.html</loc>
+    <lastmod>2015-05-24T03:06:45.770Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://evercyan.github.io/2015/05/24/aboutThisBlog/</loc>
     <lastmod>2015-05-23T18:37:51.896Z</lastmod>
   </url>
