@@ -2,8 +2,18 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://evercyan.github.io/categories/index.html</loc>
+    <lastmod>2015-05-24T04:01:22.492Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://evercyan.github.io/search/index.html</loc>
-    <lastmod>2015-05-24T03:06:45.770Z</lastmod>
+    <lastmod>2015-05-24T04:01:14.310Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://evercyan.github.io/tags/index.html</loc>
+    <lastmod>2015-05-24T04:01:09.548Z</lastmod>
   </url>
   
   <url>
@@ -14,16 +24,6 @@
   <url>
     <loc>http://evercyan.github.io/2015/05/24/helloWorld/</loc>
     <lastmod>2015-05-23T18:37:22.115Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://evercyan.github.io/categories/index.html</loc>
-    <lastmod>2015-05-22T03:27:43.943Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://evercyan.github.io/tags/index.html</loc>
-    <lastmod>2015-05-22T03:27:35.847Z</lastmod>
   </url>
   
   <url>
