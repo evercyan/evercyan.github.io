@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Make Some Difference]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://evercyan.github.io/"/>
-  <updated>2015-05-28T16:24:48.087Z</updated>
+  <updated>2015-05-28T16:24:33.000Z</updated>
   <id>http://evercyan.github.io/</id>
   
   <author>
@@ -13,65 +13,6 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title><![CDATA[关于这个 BLOG]]></title>
-    <link href="http://evercyan.github.io/2015/05/29/aboutThisBlog/"/>
-    <id>http://evercyan.github.io/2015/05/29/aboutThisBlog/</id>
-    <published>2015-05-28T16:24:48.087Z</published>
-    <updated>2015-05-28T16:24:48.087Z</updated>
-    <content type="html"><![CDATA[<blockquote>
-<p>我要说一个故事, 这个故事是这样子的.</p>
-</blockquote>
-<hr>
-<p>身为一个悲催的程序猿, 常在河边走, 总也会遇到一些不常见的坑坑洼洼让你摔个大跤.<br>所以不免从百度到谷歌, 千辛万苦找到了救命良方, 遂存之书签.<br>但日积月累, 书签越来越多, 然后出现了这样一个过程 :</p>
-<ul>
-<li>踩过的坑又踩</li>
-<li>搜过的东本又搜</li>
-<li>存之书签</li>
-<li>踩过坑又踩</li>
-<li>……</li>
-</ul>
-<p>于是想着弄个博客吧.</p>
-<p>然后…</p>
-<hr>
-<p>为什么放着那么多国内博客不用, 要用 <a href="https://github.com/" title="Github" target="_blank" rel="external">Github</a> 呢?</p>
-<ul>
-<li>有逼格</li>
-<li>有逼格</li>
-<li>有逼格</li>
-</ul>
-<p>听说重要的事要说三遍!!!</p>
-<blockquote>
-<p>好吧, 事情是这样子的.</p>
-</blockquote>
-<p>之前用 Github 仅限于搜一些好的开源代码, 然后你懂的.</p>
-<p>后来发现用 Github 写博客于我而言有以下好处 :</p>
-<ol>
-<li>免费</li>
-<li>接触新东西, 像之前有逼格的 Markdown 根本很少用, 然后一用发现像吃了炫迈一样完全停不下来啊</li>
-<li>经常用更有助于加深对 Github 的熟悉度, 之前用 SVN 的说</li>
-</ol>
-<p>发现有强迫症, 不满三点要凑足三点.</p>
-<ul>
-<li>我不是处女座</li>
-<li>我不是处女座</li>
-<li>我不是处女座</li>
-</ul>
-<hr>
-<p>写在后面, 记住一定要经常更新, 因为是写给自己看的.</p>
-<p>恩, 就是这样, 待会就是西甲最后一轮巴萨 VS 拉科鲁尼亚了, 感谢哈维, 加油巴萨.</p>
-<h1 id="三冠王我们来了!!!">三冠王我们来了!!!</h1>]]></content>
-    <summary type="html">
-    <![CDATA[我要说一个故事, 这个故事是这样子的]]>
-    
-    </summary>
-    
-      <category term="博客" scheme="http://evercyan.github.io/tags/%E5%8D%9A%E5%AE%A2/"/>
-    
-      <category term="碎碎念" scheme="http://evercyan.github.io/categories/%E7%A2%8E%E7%A2%8E%E5%BF%B5/"/>
-    
-  </entry>
   
   <entry>
     <title><![CDATA[GTA5 攻略]]></title>
@@ -319,6 +260,65 @@
       <category term="采集" scheme="http://evercyan.github.io/tags/%E9%87%87%E9%9B%86/"/>
     
       <category term="采集" scheme="http://evercyan.github.io/categories/%E9%87%87%E9%9B%86/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[关于这个 BLOG]]></title>
+    <link href="http://evercyan.github.io/2015/05/24/aboutThisBlog/"/>
+    <id>http://evercyan.github.io/2015/05/24/aboutThisBlog/</id>
+    <published>2015-05-24T11:32:33.000Z</published>
+    <updated>2015-05-24T11:32:33.000Z</updated>
+    <content type="html"><![CDATA[<blockquote>
+<p>我要说一个故事, 这个故事是这样子的.</p>
+</blockquote>
+<hr>
+<p>身为一个悲催的程序猿, 常在河边走, 总也会遇到一些不常见的坑坑洼洼让你摔个大跤.<br>所以不免从百度到谷歌, 千辛万苦找到了救命良方, 遂存之书签.<br>但日积月累, 书签越来越多, 然后出现了这样一个过程 :</p>
+<ul>
+<li>踩过的坑又踩</li>
+<li>搜过的东本又搜</li>
+<li>存之书签</li>
+<li>踩过坑又踩</li>
+<li>……</li>
+</ul>
+<p>于是想着弄个博客吧.</p>
+<p>然后…</p>
+<hr>
+<p>为什么放着那么多国内博客不用, 要用 <a href="https://github.com/" title="Github" target="_blank" rel="external">Github</a> 呢?</p>
+<ul>
+<li>有逼格</li>
+<li>有逼格</li>
+<li>有逼格</li>
+</ul>
+<p>听说重要的事要说三遍!!!</p>
+<blockquote>
+<p>好吧, 事情是这样子的.</p>
+</blockquote>
+<p>之前用 Github 仅限于搜一些好的开源代码, 然后你懂的.</p>
+<p>后来发现用 Github 写博客于我而言有以下好处 :</p>
+<ol>
+<li>免费</li>
+<li>接触新东西, 像之前有逼格的 Markdown 根本很少用, 然后一用发现像吃了炫迈一样完全停不下来啊</li>
+<li>经常用更有助于加深对 Github 的熟悉度, 之前用 SVN 的说</li>
+</ol>
+<p>发现有强迫症, 不满三点要凑足三点.</p>
+<ul>
+<li>我不是处女座</li>
+<li>我不是处女座</li>
+<li>我不是处女座</li>
+</ul>
+<hr>
+<p>写在后面, 记住一定要经常更新, 因为是写给自己看的.</p>
+<p>恩, 就是这样, 待会就是西甲最后一轮巴萨 VS 拉科鲁尼亚了, 感谢哈维, 加油巴萨.</p>
+<h1 id="三冠王我们来了!!!">三冠王我们来了!!!</h1>]]></content>
+    <summary type="html">
+    <![CDATA[我要说一个故事, 这个故事是这样子的]]>
+    
+    </summary>
+    
+      <category term="博客" scheme="http://evercyan.github.io/tags/%E5%8D%9A%E5%AE%A2/"/>
+    
+      <category term="碎碎念" scheme="http://evercyan.github.io/categories/%E7%A2%8E%E7%A2%8E%E5%BF%B5/"/>
     
   </entry>
   
