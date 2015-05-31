@@ -25,7 +25,10 @@ Hexo">
     <link rel="apple-touch-icon-precomposed" href="/img/pacman.jpg">
     
     <link rel="stylesheet" href="/css/style.css" type="text/css">
+
+
 <script>
+//百度统计
 var _hmt = _hmt || [];
 (function() {
   var hm = document.createElement("script");
@@ -34,6 +37,7 @@ var _hmt = _hmt || [];
   s.parentNode.insertBefore(hm, s);
 })();
 </script>
+
 
 </head>
 
@@ -78,7 +82,7 @@ var _hmt = _hmt || [];
     </header>
     <div id="container">
       <div id="main" class="post" itemscope itemprop="blogPost">
-	<article itemprop="articleBody"> 
+	<article itemprop="articleBody">
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
@@ -101,7 +105,7 @@ var _hmt = _hmt || [];
 <p><a href="http://hexo.io/" target="_blank" rel="external">Hexo</a></p>
 </blockquote>
 <hr>
-  
+
 	</div>
 		<footer class="article-footer clearfix">
 
@@ -120,11 +124,11 @@ var _hmt = _hmt || [];
 
 <div class="article-share" id="share">
 
-  <div data-url="http://evercyan.github.io/2015/05/21/helloWorld/" data-title="Hello World | Ryan&#39;s Blog" data-tsina="aronleeyant" class="share clearfix">
+  <div data-url="http://evercyan.github.io/2015/05/21/helloWorld/" data-title="Hello World | Ryan&#39;s Blog" data-tsina="1649089717" class="share clearfix">
   </div>
 
 </div>
-</footer>   	       
+</footer>
 	</article>
 	
 <nav class="article-nav clearfix">
@@ -145,7 +149,8 @@ var _hmt = _hmt || [];
 	<div class="ds-thread"></div>
 </section>
 
-</div>  
+</div>
+
       <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
 
 <div id="asidepart">
@@ -159,6 +164,8 @@ var _hmt = _hmt || [];
 		
 			<li><a href="/categories/碎碎念/" title="碎碎念">碎碎念<sup>2</sup></a></li>
 		
+			<li><a href="/categories/采集/" title="采集">采集<sup>1</sup></a></li>
+		
 		</ul>
 </div>
 
@@ -168,11 +175,43 @@ var _hmt = _hmt || [];
 	<p class="asidetitle">标签</p>
 		<ul class="clearfix">
 		
+			<li><a href="/tags/GTA5/" title="GTA5">GTA5<sup>1</sup></a></li>
+		
 			<li><a href="/tags/Hello/" title="Hello">Hello<sup>1</sup></a></li>
+		
+			<li><a href="/tags/PHP/" title="PHP">PHP<sup>1</sup></a></li>
 		
 			<li><a href="/tags/博客/" title="博客">博客<sup>1</sup></a></li>
 		
+			<li><a href="/tags/采集/" title="采集">采集<sup>1</sup></a></li>
+		
 		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://hexo.io" target="_blank" title="Hexo">Hexo</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="https://github.com/A-limon/pacman" target="_blank" title="Pacman is a flat and responsive design theme for Hexo">Pacman</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+   <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=0&speed=0&skin=5&isTitle=1&noborder=1&isWeibo=1&isFans=1&uid=1649089717&verifier=743a2fc7&dpc=1"></iframe>
 </div>
 
 
@@ -279,6 +318,7 @@ $(document).ready(function(){
       t  = $('#toc'),
       h  = $('article h2')
       ah = $('article h2'),
+      ah1 = $('article h1'),
       ta = $('#toc.toc-aside'),
       o  = $('.openaside'),
       c  = $('.closeaside');
@@ -288,7 +328,7 @@ $(document).ready(function(){
   if(ae.length>0){
    ae.wrap('<div class="video-container" />');
   };
-  if(ah.length==0){
+  if(ah.length==0 && ah1.length == 0){
     t.css('display','none');
   }else{
     c.click(function(){
