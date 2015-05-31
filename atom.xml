@@ -265,12 +265,12 @@
   
   <entry>
     <title><![CDATA[关于这个 BLOG]]></title>
-    <link href="http://evercyan.github.io/2015/05/26/aboutThisBlog/"/>
-    <id>http://evercyan.github.io/2015/05/26/aboutThisBlog/</id>
-    <published>2015-05-26T11:32:33.000Z</published>
-    <updated>2015-05-26T11:32:33.000Z</updated>
+    <link href="http://evercyan.github.io/2015/05/24/aboutThisBlog/"/>
+    <id>http://evercyan.github.io/2015/05/24/aboutThisBlog/</id>
+    <published>2015-05-24T11:30:33.000Z</published>
+    <updated>2015-05-24T11:30:33.000Z</updated>
     <content type="html"><![CDATA[<blockquote>
-<p>我要说一个故事, 这个故事是这样子的.</p>
+<p>我要说一个故事, 这个故事是这样子的.<a id="more"></a></p>
 </blockquote>
 <hr>
 <p>身为一个悲催的程序猿, 常在河边走, 总也会遇到一些不常见的坑坑洼洼让你摔个大跤.<br>所以不免从百度到谷歌, 千辛万苦找到了救命良方, 遂存之书签.<br>但日积月累, 书签越来越多, 然后出现了这样一个过程 :</p>
@@ -312,7 +312,8 @@
 <p>恩, 就是这样, 待会就是西甲最后一轮巴萨 VS 拉科鲁尼亚了, 感谢哈维, 加油巴萨.</p>
 <h1 id="三冠王我们来了!!!">三冠王我们来了!!!</h1>]]></content>
     <summary type="html">
-    <![CDATA[我要说一个故事, 这个故事是这样子的]]>
+    <![CDATA[<blockquote>
+<p>我要说一个故事, 这个故事是这样子的.]]>
     
     </summary>
     
@@ -324,18 +325,18 @@
   
   <entry>
     <title><![CDATA[Hello World]]></title>
-    <link href="http://evercyan.github.io/2015/05/24/helloWorld/"/>
-    <id>http://evercyan.github.io/2015/05/24/helloWorld/</id>
-    <published>2015-05-23T18:37:22.115Z</published>
-    <updated>2015-05-23T18:37:22.115Z</updated>
+    <link href="http://evercyan.github.io/2015/05/21/helloWorld/"/>
+    <id>http://evercyan.github.io/2015/05/21/helloWorld/</id>
+    <published>2015-05-21T12:10:33.000Z</published>
+    <updated>2015-05-21T12:10:33.000Z</updated>
     <content type="html"><![CDATA[<h2 id="Welcome_to_EverCyan!">Welcome to <a href="http://evercyan.github.io/">EverCyan</a>!</h2><blockquote>
 <p><a href="http://hexo.io/" target="_blank" rel="external">Hexo</a></p>
 </blockquote>
 <hr>
 ]]></content>
     <summary type="html">
-    <![CDATA[Welcome to EverCyan]]>
-    
+    <![CDATA[<h2 id="Welcome_to_EverCyan!">Welcome to <a href="http://evercyan.github.io/">EverCyan</a>!</h2><blockquote>
+<p><a href="http://hexo.io/" ta]]>
     </summary>
     
       <category term="Hello" scheme="http://evercyan.github.io/tags/Hello/"/>

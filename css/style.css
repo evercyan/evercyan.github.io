@@ -117,6 +117,9 @@ body {
   color: #817c7c;
   line-height: 1.5;
 }
+iframe {
+  margin-top: 10px;
+}
 small {
   font-size: 80%;
 }
@@ -390,6 +393,9 @@ body >header >div {
 body >header a {
   color: #fff;
 }
+h1 {
+  margin: 0;
+}
 #imglogo {
   float: left;
   width: 4em;
@@ -424,6 +430,7 @@ body >header a {
   margin-left: 0.5em;
 }
 #textlogo h1.site-name {
+  margin: 0;
   width: 86%;
   font-family: "covered_by_your_graceregular";
   font-size: 200%;
@@ -755,15 +762,18 @@ header nav ul li a:hover {
 .archive-part section.post {
   width: 100%;
 }
-@media only screen and (min-width: 768px) {
-  .archive-part section.post {
-    float: left;
-    width: 50%;
+.archive-part section.post time {
+  font-size: 1.1em !important;
+  float: left;
+}
+@media only screen and (max-width: 568px) {
+  .archive-part section.post time {
+    width: 100%;
   }
 }
-@media only screen and (min-width: 1024px) {
-  .archive-part section.post {
-    width: 33.333%;
+@media only screen and (min-width: 568px) {
+  .archive-part section.post time {
+    width: 20%;
   }
 }
 @media only screen and (min-width: 768px) {
@@ -863,8 +873,15 @@ article .article-content h1,
 article .article-content h2 {
   font-size: 180%;
   line-height: 1.2em;
+  padding-bottom: 0.3em;
+  margin-top: 1.5em;
+  border-bottom: 2px solid #dbdbdb;
 }
-article .article-content h3,
+article .article-content h3 {
+  font-size: 140%;
+  line-height: 1em;
+  margin-top: 1.3em;
+}
 article .article-content h4,
 article .article-content h5,
 article .article-content h6 {
@@ -879,8 +896,6 @@ article .article-content h6 {
   color: #333;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  padding: 0.3em 0;
-  margin: 0.5em 0;
 }
 article .article-content h1 >code,
 article .article-content h2 >code,
@@ -948,16 +963,21 @@ article .article-content ul li>code,
 article .article-content ol li>code,
 article .article-content p code,
 article .article-content strong code,
-article .article-content em code {
+article .article-content em code,
+article .article-content table th>code,
+article .article-content table td>code {
   font-family: Monaco, Menlo, Consolas, Courier New, monospace;
   background: #eee;
-  color: #747070;
+  color: #d14;
   border: 1px solid #d6d6d6;
   padding: 0 5px;
   margin: 0 2px;
   font-size: 90%;
   white-space: nowrap;
   text-shadow: 0 1px #fff;
+  -webkit-border-radius: 0.25em;
+  -webkit-border-radius: 0.25em;
+  border-radius: 0.25em;
 }
 article .article-content p {
   font-size: 105%;
@@ -1124,8 +1144,8 @@ footer.article-footer {
   content: "\f18a";
 }
 .article-share-weibo:hover {
-  background: #eb182c;
-  text-shadow: 0 1px #bf1121;
+  background: #c64d3e;
+  text-shadow: 0 1px #a13c2f;
 }
 .article-share-qrcode:before {
   content: "\f029";
@@ -1878,6 +1898,201 @@ footer {
 .copyright a:hover {
   color: #2ca6cb;
 }
+.article-content pre,
+.article-content .highlight,
+.article-content .highlight pre {
+  background: #2d2d2d;
+  margin: 0.5em 0;
+  padding: 0.5em 2%;
+  color: #ccc;
+  line-height: 1.5;
+  font-size: 0.8em;
+  -webkit-border-radius: 0.35em;
+  -webkit-border-radius: 0.35em;
+  border-radius: 0.35em;
+  word-wrap: break-word;
+}
+@media only screen and (min-width: 568px) {
+  .article-content pre,
+  .article-content .highlight,
+  .article-content .highlight pre {
+    font-size: 0.9em;
+  }
+}
+.article-content .highlight .gutter pre,
+.article-content .gist .gist-file .gist-data .line-numbers {
+  color: #666;
+  font-size: 0.4em;
+}
+@media only screen and (min-width: 568px) {
+  .article-content .highlight .gutter pre,
+  .article-content .gist .gist-file .gist-data .line-numbers {
+    font-size: 0.9em;
+    line-height: 1.5;
+  }
+}
+.article-content pre {
+  font-family: Monaco, Menlo, Consolas, Courier New, monospace;
+  background: #f5f5f5;
+  border: 1px solid #ccc;
+}
+.article-content pre code {
+  color: #333;
+  background: none;
+  text-shadow: none;
+  padding: 0;
+}
+.article-content .highlight {
+  overflow: auto;
+  font-size: 0.4em;
+}
+@media only screen and (min-width: 568px) {
+  .article-content .highlight {
+    font-size: 0.9em;
+  }
+}
+.article-content .highlight pre {
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+.article-content .highlight table {
+  margin: 0;
+  width: auto;
+}
+.article-content .highlight td {
+  border: none;
+  padding: 0;
+}
+.article-content .highlight figcaption {
+  zoom: 1;
+  font-size: 0.85em;
+  text-align: left;
+  color: #999;
+  line-height: 1em;
+  padding: 0.5em 0;
+  margin-bottom: 0.5em;
+}
+.article-content .highlight figcaption:before,
+.article-content .highlight figcaption:after {
+  content: "";
+  display: table;
+}
+.article-content .highlight figcaption:after {
+  clear: both;
+}
+.article-content .highlight figcaption a {
+  float: right;
+}
+.article-content .highlight .gutter pre {
+  text-align: right;
+  padding-right: 1.5em;
+}
+.article-content .highlight .line {
+  height: 20px;
+}
+.article-content .gist {
+  margin: 0.5em 0;
+  background: #2d2d2d;
+  padding: 1em 2%;
+  -webkit-border-radius: 0.35em;
+  -webkit-border-radius: 0.35em;
+  border-radius: 0.35em;
+}
+.article-content .gist .gist-file {
+  border: none;
+  font-family: Monaco, Menlo, Consolas, Courier New, monospace;
+  margin: 0;
+}
+.article-content .gist .gist-file .gist-data {
+  background: none;
+  border: none;
+}
+.article-content .gist .gist-file .gist-data .line-numbers {
+  background: none;
+  border: none;
+  padding: 0 1.5em 0 0;
+}
+.article-content .gist .gist-file .gist-data .line-data {
+  padding: 0 !important;
+}
+.article-content .gist .gist-file .highlight {
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: #2d2d2d;
+}
+.article-content .gist .gist-file .gist-meta {
+  background: #2d2d2d;
+  color: #999;
+  font: 0.85em "Georgia", serif;
+  text-shadow: 0 0;
+  padding: 0;
+  margin-top: 1em;
+}
+.article-content .gist .gist-file .gist-meta a {
+  color: #2ca6cb;
+  font-weight: normal;
+}
+.article-content .gist .gist-file .gist-meta a:hover {
+  color: #2ca6cb;
+}
+pre .comment,
+pre .title {
+  color: #999;
+}
+pre .variable,
+pre .attribute,
+pre .tag,
+pre .regexp,
+pre .ruby .constant,
+pre .xml .tag .title,
+pre .xml .pi,
+pre .xml .doctype,
+pre .html .doctype,
+pre .css .id,
+pre .css .class,
+pre .css .pseudo {
+  color: #f2777a;
+}
+pre .number,
+pre .preprocessor,
+pre .built_in,
+pre .literal,
+pre .params,
+pre .constant {
+  color: #f99157;
+}
+pre .class,
+pre .ruby .class .title,
+pre .css .rules .attribute {
+  color: #9c9;
+}
+pre .string,
+pre .value,
+pre .inheritance,
+pre .header,
+pre .ruby .symbol,
+pre .xml .cdata {
+  color: #9c9;
+}
+pre .css .hexcolor {
+  color: #6cc;
+}
+pre .function,
+pre .python .decorator,
+pre .python .title,
+pre .ruby .function .title,
+pre .ruby .title .keyword,
+pre .perl .sub,
+pre .javascript .title,
+pre .coffeescript .title {
+  color: #69c;
+}
+pre .keyword,
+pre .javascript .function {
+  color: #c9c;
+}
 .ds-highlight {
   color: #2ca6cb !important;
 }
@@ -1962,7 +2177,7 @@ textarea::-moz-placeholder {
   right: 1em;
   cursor: pointer;
 }
-@media tabletmax {
+@media only screen and (max-width: 1024px) {
   #totop {
     display: none !important;
   }

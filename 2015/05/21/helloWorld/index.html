@@ -4,12 +4,13 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>Ryan&#39;s Blog</title>
+    <title>Hello World | Ryan&#39;s Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="严宇川">
     
-    <meta name="description" content="Make Some Difference">
+    <meta name="description" content="Welcome to EverCyan!
+Hexo">
     
     
     
@@ -80,56 +81,76 @@ var _hmt = _hmt || [];
 
     </header>
     <div id="container">
-      <div id="main">
-
-  <section class="post" itemscope itemprop="blogPost">
-  
-    <a href="/2015/05/29/gta5/" title="GTA5 攻略" itemprop="url">
-  
-    <h1 itemprop="name">GTA5 攻略</h1>
+      <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody">
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
     
-     
-       <p itemprop="description" >最近在玩 GTA5 , 一不小心用程序简单处理了下游民星空的攻略页面, 生成以下攻略.</p>
-      
+      <a href="/2015/05/21/helloWorld/" title="Hello World" itemprop="url">Hello World</a>
+  </h1>
+  <p class="article-author">By
     
-    <time datetime="2015-05-28T16:24:33.000Z" itemprop="datePublished">2015-05-29</time>
-  </a>
-</section>
-
-
-  <section class="post" itemscope itemprop="blogPost">
-  
-    <a href="/2015/05/24/aboutThisBlog/" title="关于这个 BLOG" itemprop="url">
-  
-    <h1 itemprop="name">关于这个 BLOG</h1>
-    
-     
-       <p itemprop="description" >我要说一个故事, 这个故事是这样子的.</p>
-      
-    
-    <time datetime="2015-05-24T11:30:33.000Z" itemprop="datePublished">2015-05-24</time>
-  </a>
-</section>
-
-
-  <section class="post" itemscope itemprop="blogPost">
-  
-    <a href="/2015/05/21/helloWorld/" title="Hello World" itemprop="url">
-  
-    <h1 itemprop="name">Hello World</h1>
-    
-     
-           <p itemprop="description" >Welcome to EverCyan!
-Hexo</p>
-        
-    
+      <a href="http://evercyan.github.io" title="严宇川">严宇川</a>
+    </p>
+  <p class="article-time">
     <time datetime="2015-05-21T12:10:33.000Z" itemprop="datePublished">2015-05-21</time>
-  </a>
-</section>
+    更新日期:<time datetime="2015-05-21T12:10:33.000Z" itemprop="dateModified">2015-05-21</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		
+		<h2 id="Welcome_to_EverCyan!">Welcome to <a href="http://evercyan.github.io/">EverCyan</a>!</h2><blockquote>
+<p><a href="http://hexo.io/" target="_blank" rel="external">Hexo</a></p>
+</blockquote>
+<hr>
+
+	</div>
+		<footer class="article-footer clearfix">
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Hello/">Hello</a>
+  </div>
 
 
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/碎碎念/">碎碎念</a>
+</div>
+
+
+
+<div class="article-share" id="share">
+
+  <div data-url="http://evercyan.github.io/2015/05/21/helloWorld/" data-title="Hello World | Ryan&#39;s Blog" data-tsina="1649089717" class="share clearfix">
+  </div>
 
 </div>
+</footer>
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2015/05/24/aboutThisBlog/" title="关于这个 BLOG">
+  <strong>PREVIOUS:</strong><br/>
+  <span>
+  关于这个 BLOG</span>
+</a>
+</div>
+
+
+</nav>
+
+	
+<section class="comment">
+	<div class="ds-thread"></div>
+</section>
+
+</div>
+
       <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
 
 <div id="asidepart">
@@ -290,9 +311,114 @@ $(document).ready(function(){
 });
 </script>
 
+<script type="text/javascript">
+$(document).ready(function(){
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ah1 = $('article h1'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0 && ah1.length == 0){
+    t.css('display','none');
+  }else{
+    c.click(function(){
+      ta.css('display', 'block').addClass('fadeIn');
+    });
+    o.click(function(){
+      ta.css('display', 'none');
+    });
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,320-$(this).scrollTop()));
+    });
+  };
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina');
+  /*
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#share"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="#textlogo" class="article-back-to-top" title="Top"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="QRcode"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="Weibo"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  */
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#share"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="#textlogo" class="article-back-to-top" title="Top"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="QRcode"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="Weibo"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"evercyan"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script>
 
 
 
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+});
+</script>
 
 <!-- Totop Begin -->
 
@@ -306,5 +432,5 @@ $(document).ready(function(){
 
 
   </body>
- </html>
+</html>
 
