@@ -4,13 +4,12 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>Hello World | 在云端</title>
+    <title>关于中文博客技术文章的一些牢骚 | 在云端</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="严宇川">
     
-    <meta name="description" content="Welcome to EverCyan!
-Hexo">
+    <meta name="description" content="首先表达下我的感觉, 令人抓狂..">
     
     
     
@@ -77,45 +76,59 @@ var _hmt = _hmt || [];
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/05/21/helloWorld/" title="Hello World" itemprop="url">Hello World</a>
+      <a href="/2015/06/02/php_extended/" title="关于中文博客技术文章的一些牢骚" itemprop="url">关于中文博客技术文章的一些牢骚</a>
   </h1>
   <p class="article-author">By
     
       <a href="http://evercyan.github.io" title="严宇川">严宇川</a>
     </p>
   <p class="article-time">
-    <time datetime="2015-05-21T12:10:33.000Z" itemprop="datePublished">2015-05-21</time>
-    更新日期:<time datetime="2015-05-21T12:10:33.000Z" itemprop="dateModified">2015-05-21</time>
+    <time datetime="2015-06-01T19:19:33.000Z" itemprop="datePublished">2015-06-02</time>
+    更新日期:<time datetime="2015-06-01T19:19:33.000Z" itemprop="dateModified">2015-06-02</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
 		
-		<h2 id="Welcome_to_EverCyan!">Welcome to <a href="http://evercyan.github.io/">EverCyan</a>!</h2><blockquote>
-<p><a href="http://hexo.io/" target="_blank" rel="external">Hexo</a></p>
+		<blockquote>
+<p>首先表达下我的感觉, 令人抓狂..<a id="more"></a></p>
 </blockquote>
 <hr>
+<p>晚上闲来无事, 想着学习下PHP开发扩展这块, 于是各种搜索引擎, 也确实搜到了一些资料, 当然中文资料中他们大部分是一样的, 就像这样 :</p>
+<ul>
+<li><a href="http://blog.haohtml.com/archives/6328" target="_blank" rel="external">http://blog.haohtml.com/archives/6328</a></li>
+<li><a href="http://blog.csdn.net/hn3e21/article/details/6080732" target="_blank" rel="external">http://blog.csdn.net/hn3e21/article/details/6080732</a></li>
+<li>….</li>
+</ul>
+<p>然后我按着流程走, 走到这一步, 开始报错 :</p>
+<blockquote>
+<p>命令行方式进入ext目录然后运行：<br>php ext_skel_win32.php -extname=myhello<br>运行该命令后，有人发现下面的错误<br>引用<br>Warning: fopen(myhello/myhello.dsp): failed to open stream: No such file or directory in D:\cygwin\php-5.2.6\ext\ext_skel_win32.php on line 45<br>Warning: fopen(myhello/myhello.php): failed to open stream: No such file or directory in D:\cygwin\php-5.2.6\ext\ext_skel_win32.php on line 52<br>说明你的 cygwin 安装不完整。要是没报错你的myhello扩展就创建成功了。这就是一个简单的扩展框架，用纯c语言编写。</p>
+</blockquote>
+<p>我在想什么叫我的 cygwin 安装不完整, 然后就又去搜BING 英文搜, 发现上述文章估计都翻译自这里 <a href="http://www.cprogramdevelop.com/4559368/" target="_blank" rel="external">http://www.cprogramdevelop.com/4559368/</a>, 我就呵呵了.</p>
+<p>然后调试呗, 打开 ext_skel_win32.php 文件在代码里DEBUG, 发现生成扩展文件名的代码是这样子处理的 :<br><figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (strtolower(<span class="keyword">substr</span>(<span class="variable">$arg</span>, <span class="number">0</span>, <span class="number">9</span>)) == <span class="string">"--extname"</span>) &#123;</span><br><span class="line">	<span class="variable">$extname</span> = <span class="keyword">substr</span>(<span class="variable">$arg</span>, <span class="number">10</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>居然前面是 — 两个中线, 狂吐一口血, 才发现示例文档里居然只有一条中线的说, 难道上述那些博客就只是拿来粘贴复制, 自己都不操作一遍的说??</p>
+<p>呜呼, 呵呵. 卒.</p>
 
 	</div>
 		<footer class="article-footer clearfix">
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/Hello/">Hello</a>
+  <span></span> <a href="/tags/PHP/">PHP</a><a href="/tags/扩展/">扩展</a>
   </div>
 
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/碎碎念/">碎碎念</a>
+  <a class="article-category-link" href="/categories/PHP/">PHP</a>
 </div>
 
 
 
 <div class="article-share" id="share">
 
-  <div data-url="http://evercyan.github.io/2015/05/21/helloWorld/" data-title="Hello World | 在云端" data-tsina="1649089717" class="share clearfix">
+  <div data-url="http://evercyan.github.io/2015/06/02/php_extended/" data-title="关于中文博客技术文章的一些牢骚 | 在云端" data-tsina="1649089717" class="share clearfix">
   </div>
 
 </div>
@@ -124,14 +137,14 @@ var _hmt = _hmt || [];
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2015/05/24/aboutThisBlog/" title="关于这个 BLOG">
-  <strong>PREVIOUS:</strong><br/>
-  <span>
-  关于这个 BLOG</span>
+
+<div class="next">
+<a href="/2015/05/29/gta5/"  title="GTA5 攻略">
+ <strong>NEXT:</strong><br/> 
+ <span>GTA5 攻略
+</span>
 </a>
 </div>
-
 
 </nav>
 
