@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Make Some Difference]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://evercyan.github.io/"/>
-  <updated>2015-05-28T16:24:33.000Z</updated>
+  <updated>2015-06-01T19:19:33.000Z</updated>
   <id>http://evercyan.github.io/</id>
   
   <author>
@@ -13,6 +13,45 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[关于中文博客技术文章的一些牢骚]]></title>
+    <link href="http://evercyan.github.io/2015/06/02/php_extended/"/>
+    <id>http://evercyan.github.io/2015/06/02/php_extended/</id>
+    <published>2015-06-01T19:19:33.000Z</published>
+    <updated>2015-06-01T19:19:33.000Z</updated>
+    <content type="html"><![CDATA[<blockquote>
+<p>首先表达下我的感觉, 令人抓狂..<a id="more"></a></p>
+</blockquote>
+<hr>
+<p>晚上闲来无事, 想着学习下PHP开发扩展这块, 于是各种搜索引擎, 也确实搜到了一些资料, 当然中文资料中他们大部分是一样的, 就像这样 :</p>
+<ul>
+<li><a href="http://blog.haohtml.com/archives/6328" target="_blank" rel="external">http://blog.haohtml.com/archives/6328</a></li>
+<li><a href="http://blog.csdn.net/hn3e21/article/details/6080732" target="_blank" rel="external">http://blog.csdn.net/hn3e21/article/details/6080732</a></li>
+<li>….</li>
+</ul>
+<p>然后我按着流程走, 走到这一步, 开始报错 :</p>
+<blockquote>
+<p>命令行方式进入ext目录然后运行：<br>php ext_skel_win32.php -extname=myhello<br>运行该命令后，有人发现下面的错误<br>引用<br>Warning: fopen(myhello/myhello.dsp): failed to open stream: No such file or directory in D:\cygwin\php-5.2.6\ext\ext_skel_win32.php on line 45<br>Warning: fopen(myhello/myhello.php): failed to open stream: No such file or directory in D:\cygwin\php-5.2.6\ext\ext_skel_win32.php on line 52<br>说明你的 cygwin 安装不完整。要是没报错你的myhello扩展就创建成功了。这就是一个简单的扩展框架，用纯c语言编写。</p>
+</blockquote>
+<p>我在想什么叫我的 cygwin 安装不完整, 然后就又去搜BING 英文搜, 发现上述文章估计都翻译自这里 <a href="http://www.cprogramdevelop.com/4559368/" target="_blank" rel="external">http://www.cprogramdevelop.com/4559368/</a>, 我就呵呵了.</p>
+<p>然后调试呗, 打开 ext_skel_win32.php 文件在代码里DEBUG, 发现生成扩展文件名的代码是这样子处理的 :<br><figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (strtolower(<span class="keyword">substr</span>(<span class="variable">$arg</span>, <span class="number">0</span>, <span class="number">9</span>)) == <span class="string">"--extname"</span>) &#123;</span><br><span class="line">	<span class="variable">$extname</span> = <span class="keyword">substr</span>(<span class="variable">$arg</span>, <span class="number">10</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>居然前面是 — 两个中线, 狂吐一口血, 才发现示例文档里居然只有一条中线的说, 难道上述那些博客就只是拿来粘贴复制, 自己都不操作一遍的说??</p>
+<p>呜呼, 呵呵. 卒.</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<blockquote>
+<p>首先表达下我的感觉, 令人抓狂..]]>
+    
+    </summary>
+    
+      <category term="PHP" scheme="http://evercyan.github.io/tags/PHP/"/>
+    
+      <category term="扩展" scheme="http://evercyan.github.io/tags/%E6%89%A9%E5%B1%95/"/>
+    
+      <category term="PHP" scheme="http://evercyan.github.io/categories/PHP/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[GTA5 攻略]]></title>
