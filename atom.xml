@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Make Some Difference]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://evercyan.github.io/"/>
-  <updated>2015-06-06T08:06:30.000Z</updated>
+  <updated>2015-06-07T14:13:20.000Z</updated>
   <id>http://evercyan.github.io/</id>
   
   <author>
@@ -13,6 +13,92 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[PHP 扩展开发笔记]]></title>
+    <link href="http://evercyan.github.io/2015/06/07/php_extension/"/>
+    <id>http://evercyan.github.io/2015/06/07/php_extension/</id>
+    <published>2015-06-07T14:13:20.000Z</published>
+    <updated>2015-06-07T14:13:20.000Z</updated>
+    <content type="html"><![CDATA[<blockquote>
+<p>以下基于 VirtualBox + Ubuntu 实现<br>虚拟机中已安装 PHP + Apache<br>编辑器推荐使用 Sublime Text 3<br>使用 root 账号, 不然记得加上 sudo</p>
+</blockquote>
+<hr>
+<h2 id="代码目录">代码目录</h2><pre><code><span class="built_in">cd</span> /
+<span class="built_in">mkdir</span> ever
+<span class="built_in">cd</span> ever
+</code></pre><h2 id="安装编译工具">安装编译工具</h2><pre><code>sudo apt-<span class="built_in">get</span> install gcc <span class="keyword">make</span> autoconf
+</code></pre><h2 id="下载PHP源码,_需要用到_-/ext/ext_skel">下载PHP源码, 需要用到 ./ext/ext_skel</h2><h3 id="http://php-net/"><a href="http://php.net/" target="_blank" rel="external">http://php.net/</a></h3><pre><code>下载 <span class="tag">php-5</span><span class="class">.6</span><span class="class">.9</span><span class="class">.tar</span><span class="class">.bz2</span> 
+</code></pre><h3 id="解压到目录_-/ever/php-src/下">解压到目录 ./ever/php-src/下</h3><pre><code>tar -jxvf xx<span class="class">.tar</span><span class="class">.bz2</span>  
+</code></pre><hr>
+<h2 id="创建默认扩展">创建默认扩展</h2><h3 id="进入_ext_目录">进入 ext 目录</h3><pre><code><span class="built_in">cd</span> php-src/ext
+</code></pre><h3 id="ext_skel_—extname=test">ext_skel —extname=test</h3><pre><code>创建 <span class="built_in">test</span> 扩展, 将会在当前目录, 也就是 ./ext/ 下新建 <span class="built_in">test</span> 目录及 C 文件, 
+</code></pre><h3 id="cd_test">cd test</h3><h3 id="启用扩展">启用扩展</h3><pre><code>vim config<span class="class">.m4</span>  
+</code></pre><p>将 :     </p>
+<pre><code>dnl PHP_ARG_ENABLE(test, whether <span class="keyword">to</span> enable test support,  
+dnl Make sure <span class="keyword">that</span> <span class="keyword">the</span> comment <span class="keyword">is</span> aligned:  
+dnl [  <span class="comment">--enable-test           Enable test support])   </span>
+</code></pre><p>更改为 :    </p>
+<pre><code>PHP_ARG_ENABLE(<span class="built_in">test</span>, whether to <span class="built_in">enable</span> <span class="built_in">test</span> support,  
+[  --enable-test           Enable <span class="built_in">test</span> support])    
+</code></pre><h3 id="编译,_依次执行">编译, 依次执行</h3><pre><code>phpize
+./configure
+<span class="built_in">make</span>
+<span class="built_in">make</span> install
+</code></pre><h3 id="编辑_php-ini,_开启_test_扩展">编辑 php.ini, 开启 test 扩展</h3><pre><code>php -i | <span class="keyword">grep</span> <span class="string">'php.ini'</span>
+vim <span class="regexp">/etc/</span>php5<span class="regexp">/cli/</span>php.ini
+extension=test.so
+</code></pre><h3 id="测试">测试</h3><pre><code><span class="php"><span class="preprocessor">&lt;?php</span>
+<span class="keyword">echo</span> confirm_test_compiled(<span class="string">"hello world"</span>);</span>
+</code></pre><p>终端执行 :  </p>
+<pre><code>php demo<span class="class">.php</span>  
+</code></pre><hr>
+<h2 id="开发扩展">开发扩展</h2><h3 id="编辑_test-c">编辑 test.c</h3><pre><code>const zend_<span class="keyword">function</span>_entry <span class="built_in">test</span>_<span class="built_in">functions</span>[] = {
+    PHP_FE(confirm_<span class="built_in">test</span>_compiled,    NULL)        /* For testing, remove later. */
+    //新增
+    PHP_FE(hello,    NULL)    
+    PHP_FE_END    /* Must be the last line <span class="keyword">in</span> <span class="built_in">test</span>_<span class="built_in">functions</span>[] */
+};
+</code></pre><p>新增 :  </p>
+<pre><code>PHP_FUNCTION(hello)
+{
+    <span class="keyword">long</span> a;
+    <span class="keyword">long</span> b;
+    <span class="keyword">char</span> *c;
+    <span class="keyword">int</span> c_len;
+
+    <span class="keyword">if</span> (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, <span class="string">"lls"</span>, &amp;a, &amp;b, &amp;c, &amp;c_len) == FAILURE) {
+        <span class="keyword">return</span>;
+    }
+    <span class="keyword">char</span> *<span class="keyword">str</span>;
+    <span class="keyword">int</span> len = spprintf(&amp;<span class="keyword">str</span>, <span class="number">0</span>, <span class="string">"%s : %d\n"</span>, c,  a*b );
+    RETURN_STRINGL(<span class="keyword">str</span>, len, <span class="number">0</span>);    
+
+}    
+</code></pre><h3 id="重编译">重编译</h3><pre><code><span class="built_in">make</span> 
+<span class="built_in">make</span> install
+</code></pre><h3 id="测试-1">测试</h3><pre><code><span class="php"><span class="preprocessor">&lt;?php</span>
+<span class="keyword">echo</span> hello(<span class="number">2</span>, <span class="number">3</span>, <span class="string">"hey"</span>);</span>
+</code></pre><p>终端执行 :  </p>
+<pre><code><span class="tag">php</span> <span class="tag">demo</span><span class="class">.php</span>
+</code></pre><hr>
+<h2 id="Web_访问_(Apache)">Web 访问 (Apache)</h2><h3 id="找到_Apache_的_php-ini_文件">找到 Apache 的 php.ini 文件</h3><pre><code>vim <span class="regexp">/etc/</span>php5<span class="regexp">/Apache/</span>php.ini   
+新增 extension=test.so
+</code></pre><h3 id="service_apache2_restart">service apache2 restart</h3><h3 id="浏览器访问相应文件即可,_可与_phpinfo()_里查看扩展是否有开启">浏览器访问相应文件即可, 可与 phpinfo() 里查看扩展是否有开启</h3><hr>
+<h3 id="帮助文档">帮助文档</h3><p><a href="http://wiki.swoole.com/wiki/page/238.html" target="_blank" rel="external">http://wiki.swoole.com/wiki/page/238.html</a><br><a href="http://blog.csdn.net/taft/article/details/596291" target="_blank" rel="external">http://blog.csdn.net/taft/article/details/596291</a></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[PHP 扩展开发笔记]]>
+    
+    </summary>
+    
+      <category term="PHP" scheme="http://evercyan.github.io/tags/PHP/"/>
+    
+      <category term="扩展" scheme="http://evercyan.github.io/tags/%E6%89%A9%E5%B1%95/"/>
+    
+      <category term="PHP" scheme="http://evercyan.github.io/categories/PHP/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[躲不过的时间]]></title>
@@ -62,7 +148,7 @@
     
     </summary>
     
-      <category term="知情" scheme="http://evercyan.github.io/tags/%E7%9F%A5%E6%83%85/"/>
+      <category term="矫情" scheme="http://evercyan.github.io/tags/%E7%9F%AB%E6%83%85/"/>
     
       <category term="碎碎念" scheme="http://evercyan.github.io/categories/%E7%A2%8E%E7%A2%8E%E5%BF%B5/"/>
     

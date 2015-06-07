@@ -4,13 +4,12 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>Hello World | 在云端</title>
+    <title>PHP 扩展开发笔记 | 在云端</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="严宇川">
     
-    <meta name="description" content="Welcome to EverCyan!
-Hexo">
+    <meta name="description" itemprop="description" content="PHP 扩展开发笔记">
     
     
     
@@ -77,45 +76,107 @@ var _hmt = _hmt || [];
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/05/21/helloWorld/" title="Hello World" itemprop="url">Hello World</a>
+      <a href="/2015/06/07/php_extension/" title="PHP 扩展开发笔记" itemprop="url">PHP 扩展开发笔记</a>
   </h1>
   <p class="article-author">By
     
       <a href="http://evercyan.github.io" title="严宇川">严宇川</a>
     </p>
   <p class="article-time">
-    <time datetime="2015-05-21T12:10:33.000Z" itemprop="datePublished">2015-05-21</time>
-    更新日期:<time datetime="2015-05-21T12:10:33.000Z" itemprop="dateModified">2015-05-21</time>
+    <time datetime="2015-06-07T14:13:20.000Z" itemprop="datePublished">2015-06-07</time>
+    更新日期:<time datetime="2015-06-07T14:13:20.000Z" itemprop="dateModified">2015-06-07</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
 		
-		<h2 id="Welcome_to_EverCyan!">Welcome to <a href="http://evercyan.github.io/">EverCyan</a>!</h2><blockquote>
-<p><a href="http://hexo.io/" target="_blank" rel="external">Hexo</a></p>
+		<blockquote>
+<p>以下基于 VirtualBox + Ubuntu 实现<br>虚拟机中已安装 PHP + Apache<br>编辑器推荐使用 Sublime Text 3<br>使用 root 账号, 不然记得加上 sudo</p>
 </blockquote>
 <hr>
+<h2 id="代码目录">代码目录</h2><pre><code><span class="built_in">cd</span> /
+<span class="built_in">mkdir</span> ever
+<span class="built_in">cd</span> ever
+</code></pre><h2 id="安装编译工具">安装编译工具</h2><pre><code>sudo apt-<span class="built_in">get</span> install gcc <span class="keyword">make</span> autoconf
+</code></pre><h2 id="下载PHP源码,_需要用到_-/ext/ext_skel">下载PHP源码, 需要用到 ./ext/ext_skel</h2><h3 id="http://php-net/"><a href="http://php.net/" target="_blank" rel="external">http://php.net/</a></h3><pre><code>下载 <span class="tag">php-5</span><span class="class">.6</span><span class="class">.9</span><span class="class">.tar</span><span class="class">.bz2</span> 
+</code></pre><h3 id="解压到目录_-/ever/php-src/下">解压到目录 ./ever/php-src/下</h3><pre><code>tar -jxvf xx<span class="class">.tar</span><span class="class">.bz2</span>  
+</code></pre><hr>
+<h2 id="创建默认扩展">创建默认扩展</h2><h3 id="进入_ext_目录">进入 ext 目录</h3><pre><code><span class="built_in">cd</span> php-src/ext
+</code></pre><h3 id="ext_skel_—extname=test">ext_skel —extname=test</h3><pre><code>创建 <span class="built_in">test</span> 扩展, 将会在当前目录, 也就是 ./ext/ 下新建 <span class="built_in">test</span> 目录及 C 文件, 
+</code></pre><h3 id="cd_test">cd test</h3><h3 id="启用扩展">启用扩展</h3><pre><code>vim config<span class="class">.m4</span>  
+</code></pre><p>将 :     </p>
+<pre><code>dnl PHP_ARG_ENABLE(test, whether <span class="keyword">to</span> enable test support,  
+dnl Make sure <span class="keyword">that</span> <span class="keyword">the</span> comment <span class="keyword">is</span> aligned:  
+dnl [  <span class="comment">--enable-test           Enable test support])   </span>
+</code></pre><p>更改为 :    </p>
+<pre><code>PHP_ARG_ENABLE(<span class="built_in">test</span>, whether to <span class="built_in">enable</span> <span class="built_in">test</span> support,  
+[  --enable-test           Enable <span class="built_in">test</span> support])    
+</code></pre><h3 id="编译,_依次执行">编译, 依次执行</h3><pre><code>phpize
+./configure
+<span class="built_in">make</span>
+<span class="built_in">make</span> install
+</code></pre><h3 id="编辑_php-ini,_开启_test_扩展">编辑 php.ini, 开启 test 扩展</h3><pre><code>php -i | <span class="keyword">grep</span> <span class="string">'php.ini'</span>
+vim <span class="regexp">/etc/</span>php5<span class="regexp">/cli/</span>php.ini
+extension=test.so
+</code></pre><h3 id="测试">测试</h3><pre><code><span class="php"><span class="preprocessor">&lt;?php</span>
+<span class="keyword">echo</span> confirm_test_compiled(<span class="string">"hello world"</span>);</span>
+</code></pre><p>终端执行 :  </p>
+<pre><code>php demo<span class="class">.php</span>  
+</code></pre><hr>
+<h2 id="开发扩展">开发扩展</h2><h3 id="编辑_test-c">编辑 test.c</h3><pre><code>const zend_<span class="keyword">function</span>_entry <span class="built_in">test</span>_<span class="built_in">functions</span>[] = {
+    PHP_FE(confirm_<span class="built_in">test</span>_compiled,    NULL)        /* For testing, remove later. */
+    //新增
+    PHP_FE(hello,    NULL)    
+    PHP_FE_END    /* Must be the last line <span class="keyword">in</span> <span class="built_in">test</span>_<span class="built_in">functions</span>[] */
+};
+</code></pre><p>新增 :  </p>
+<pre><code>PHP_FUNCTION(hello)
+{
+    <span class="keyword">long</span> a;
+    <span class="keyword">long</span> b;
+    <span class="keyword">char</span> *c;
+    <span class="keyword">int</span> c_len;
+
+    <span class="keyword">if</span> (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, <span class="string">"lls"</span>, &amp;a, &amp;b, &amp;c, &amp;c_len) == FAILURE) {
+        <span class="keyword">return</span>;
+    }
+    <span class="keyword">char</span> *<span class="keyword">str</span>;
+    <span class="keyword">int</span> len = spprintf(&amp;<span class="keyword">str</span>, <span class="number">0</span>, <span class="string">"%s : %d\n"</span>, c,  a*b );
+    RETURN_STRINGL(<span class="keyword">str</span>, len, <span class="number">0</span>);    
+
+}    
+</code></pre><h3 id="重编译">重编译</h3><pre><code><span class="built_in">make</span> 
+<span class="built_in">make</span> install
+</code></pre><h3 id="测试-1">测试</h3><pre><code><span class="php"><span class="preprocessor">&lt;?php</span>
+<span class="keyword">echo</span> hello(<span class="number">2</span>, <span class="number">3</span>, <span class="string">"hey"</span>);</span>
+</code></pre><p>终端执行 :  </p>
+<pre><code><span class="tag">php</span> <span class="tag">demo</span><span class="class">.php</span>
+</code></pre><hr>
+<h2 id="Web_访问_(Apache)">Web 访问 (Apache)</h2><h3 id="找到_Apache_的_php-ini_文件">找到 Apache 的 php.ini 文件</h3><pre><code>vim <span class="regexp">/etc/</span>php5<span class="regexp">/Apache/</span>php.ini   
+新增 extension=test.so
+</code></pre><h3 id="service_apache2_restart">service apache2 restart</h3><h3 id="浏览器访问相应文件即可,_可与_phpinfo()_里查看扩展是否有开启">浏览器访问相应文件即可, 可与 phpinfo() 里查看扩展是否有开启</h3><hr>
+<h3 id="帮助文档">帮助文档</h3><p><a href="http://wiki.swoole.com/wiki/page/238.html" target="_blank" rel="external">http://wiki.swoole.com/wiki/page/238.html</a><br><a href="http://blog.csdn.net/taft/article/details/596291" target="_blank" rel="external">http://blog.csdn.net/taft/article/details/596291</a></p>
 
 	</div>
 		<footer class="article-footer clearfix">
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/Hello/">Hello</a>
+  <span></span> <a href="/tags/PHP/">PHP</a><a href="/tags/扩展/">扩展</a>
   </div>
 
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/碎碎念/">碎碎念</a>
+  <a class="article-category-link" href="/categories/PHP/">PHP</a>
 </div>
 
 
 
 <div class="article-share" id="share">
 
-  <div data-url="http://evercyan.github.io/2015/05/21/helloWorld/" data-title="Hello World | 在云端" data-tsina="1649089717" class="share clearfix">
+  <div data-url="http://evercyan.github.io/2015/06/07/php_extension/" data-title="PHP 扩展开发笔记 | 在云端" data-tsina="1649089717" class="share clearfix">
   </div>
 
 </div>
@@ -124,14 +185,14 @@ var _hmt = _hmt || [];
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2015/05/24/aboutThisBlog/" title="关于这个 BLOG">
-  <strong>PREVIOUS:</strong><br/>
-  <span>
-  关于这个 BLOG</span>
+
+<div class="next">
+<a href="/2015/06/06/somethingjusthappen/"  title="躲不过的时间">
+ <strong>NEXT:</strong><br/> 
+ <span>躲不过的时间
+</span>
 </a>
 </div>
-
 
 </nav>
 
