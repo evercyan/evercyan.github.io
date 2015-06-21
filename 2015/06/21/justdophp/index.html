@@ -4,12 +4,25 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>躲不过的时间 | 在云端</title>
+    <title>justDoPHP 快速开发 | 在云端</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="严宇川">
     
-    <meta name="description" content="一觉醒来，加内特还在森林狼，托雷斯还在马竞，魔力鸟还在切尔西，詹姆斯也还在骑士，谢霆锋王菲还在幸福的恋爱着……">
+    <meta name="description" content="justDoPHP 简介
+gitHub : https://github.com/everCyan/justDoPHP
+
+
+
+
+这不是一个PHP框架
+这也不会减少你的代码工作量
+这也许反而会增加你的开发时间
+以上  
+
+
+
+先说下我为什么折腾这个东西.平常开发中, 经常会需要写一些小的工具或者小的网">
     
     
     
@@ -76,76 +89,156 @@ var _hmt = _hmt || [];
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/06/06/somethingjusthappen/" title="躲不过的时间" itemprop="url">躲不过的时间</a>
+      <a href="/2015/06/21/justdophp/" title="justDoPHP 快速开发" itemprop="url">justDoPHP 快速开发</a>
   </h1>
   <p class="article-author">By
     
       <a href="http://evercyan.github.io" title="严宇川">严宇川</a>
     </p>
   <p class="article-time">
-    <time datetime="2015-06-06T08:06:30.000Z" itemprop="datePublished">2015-06-06</time>
-    更新日期:<time datetime="2015-06-06T08:06:30.000Z" itemprop="dateModified">2015-06-06</time>
+    <time datetime="2015-06-21T08:57:00.000Z" itemprop="datePublished">2015-06-21</time>
+    更新日期:<time datetime="2015-06-21T08:57:00.000Z" itemprop="dateModified">2015-06-21</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
 		
-		<blockquote>
-<p>一觉醒来，加内特还在森林狼，托雷斯还在马竞，魔力鸟还在切尔西，詹姆斯也还在骑士，谢霆锋王菲还在幸福的恋爱着……<a id="more"></a></p>
+		<h2 id="justDoPHP_简介">justDoPHP 简介</h2><blockquote>
+<p>gitHub : <a href="https://github.com/everCyan/justDoPHP" target="_blank" rel="external">https://github.com/everCyan/justDoPHP</a></p>
 </blockquote>
 <hr>
 <blockquote>
-<p>你发现自己趴在熟悉的课桌上，同桌正朝你呲牙咧嘴，老师让你起立别睡觉，其他同学正在窃窃私语，窗外有树叶滑落。  </p>
+<ul>
+<li>这不是一个PHP框架</li>
+<li>这也不会减少你的代码工作量</li>
+<li>这也许反而会增加你的开发时间</li>
+<li>以上  </li>
+</ul>
 </blockquote>
 <hr>
+<p>先说下我为什么折腾这个东西.<br>平常开发中, 经常会需要写一些小的工具或者小的网站, 但开发方案无非两种.  </p>
+<ul>
+<li>用成熟的PHP框架开发</li>
+<li>原生的PHP写法</li>
+</ul>
+<p>我讨厌用第一种, 非常折腾, 且感觉毫无必要, 一个简单的页面, 也要搞个MVC, 要熟悉框架规则下的模板引擎解析规则…  </p>
+<p>但我也讨厌用第二种, 一堆的 PHP 文件暴露在项目目录下, 无组织无纪律的各种 include, 需要引用的工具包各种乱放, 令人鼻酸. 访问的 URL 是暴露出来的各种 php 结尾的文件地址. </p>
+<h3 id="没有逼格!">没有逼格!</h3><h2 id="没有逼格!!">没有逼格!!</h2><h1 id="没有逼格!!!">没有逼格!!!</h1><hr>
+<p>于是, 折腾了下这个东西出来了.</p>
+<p>简单说下这个项目</p>
 <blockquote>
-<p>阳光点点，你会觉得岁月静好。  </p>
+<ul>
+<li>项目所需要用到的工具, 像路由, DB, LOG, 缓存, 页面错误, 以及种种, 全部依赖于 PHP 的 Composer 包管理.</li>
+<li>项目前端全部使用 Bootstrap 展现, 程序员最讨厌写CSS, 你懂的.</li>
+<li>项目开发中的代码, 全部是原生的 PHP + HTML 各种混排, 只要写的爽, 不管MVC.</li>
+</ul>
+</blockquote>
+<p>当然, 这只是个人的一种解决方案.  </p>
+<p>恩, 就是这样.</p>
+<hr>
+<h2 id="justDoPHP_目录结构">justDoPHP 目录结构</h2><ul>
+<li>config<ul>
+<li>bootstrap.php<br>  //启动文件, 包括所有包的初始化</li>
+<li>config.php<br>  //全局配置文件, 包括所有包的配置文件</li>
+<li>function.php<br>  //全局公共函数文件</li>
+<li>routes.php<br>  //全局路由文件, 所有URL解析在此执行</li>
+</ul>
+</li>
+<li>public<ul>
+<li>bootstrap<br>  //引入 bootstrap 前端框架</li>
+<li>layout<br>  //布局文件</li>
+<li>log<br>  //日志目录</li>
+<li>page<br>  //所有页面存放目录, 通过路由指向引入</li>
+<li>style<br>  //自定义样式, 图片, JS等</li>
+</ul>
+</li>
+<li>vendor<br>  //composer 包目录</li>
+<li>.htaccess  </li>
+<li>composer.json<br>  //composer 包管理文件</li>
+<li>index.php<br>  //入口文件</li>
+<li>readme.md<br>  //关于文档</li>
+</ul>
+<hr>
+<h2 id="关于包的使用">关于包的使用</h2><blockquote>
+<p>鉴于个人目前使用习惯, 只集成了以下几个包.  </p>
+</blockquote>
+<ul>
+<li>路由<br>  composer, “noahbuscher/macaw” : “dev-master”<br>  gitHub, <a href="https://github.com/noahbuscher/Macaw" target="_blank" rel="external">https://github.com/noahbuscher/Macaw</a><br>  demo, 参照代码中的 routes.php 文件  </li>
+<li><p>DB<br>  composer, “illuminate/database”: “*”<br>  gitHub, <a href="https://github.com/illuminate/database" target="_blank" rel="external">https://github.com/illuminate/database</a><br>  demo, 参照该包的文档:</p>
+<pre><code>).select
+    <span class="variable">$results</span> = DB::select(<span class="string">'select * from users where id = ?'</span>, [<span class="number">1</span>]);
+    <span class="variable">$results</span> = DB::select(<span class="string">'select * from users where id = :id'</span>, [<span class="string">'id'</span> =&gt; <span class="number">1</span>]);
+).insert
+    DB::insert(<span class="string">'insert into users (id, name) values (?, ?)'</span>, [<span class="number">1</span>, <span class="string">'Dayle'</span>]);
+).update
+    DB::update(<span class="string">'update users set votes = 100 where name = ?'</span>, [<span class="string">'John'</span>]);
+).delete
+    DB::delete(<span class="string">'delete from users'</span>);
+).一般语法
+    DB::statement(<span class="string">'drop table users'</span>);
+).监听查找事件
+    DB::listen(<span class="function"><span class="keyword">function</span><span class="params">(<span class="variable">$sql</span>, <span class="variable">$bindings</span>, <span class="variable">$time</span>)</span> </span>{
+    });
+
+).数据库事务处理
+    DB::transaction(<span class="function"><span class="keyword">function</span><span class="params">()</span> </span>{
+        DB::table(<span class="string">'users'</span>)-&gt;update([<span class="string">'votes'</span> =&gt; <span class="number">1</span>]);
+        DB::table(<span class="string">'posts'</span>)-&gt;delete();
+    });
+    DB::beginTransaction();
+    DB::rollback();
+    DB::commit();
+
+).使用多个连接
+    <span class="variable">$users</span> = DB::connection(<span class="string">'foo'</span>)-&gt;select(...);
+).取用原始底层的 PDO 实例
+    <span class="variable">$pdo</span> = DB::connection()-&gt;getPdo();
+).重连接
+    DB::reconnect(<span class="string">'foo'</span>);
+).关闭连接
+    DB::disconnect(<span class="string">'foo'</span>);
+</code></pre></li>
+<li><p>错误处理<br>  composer, “filp/whoops” : “*”<br>  gitHub, <a href="https://github.com/filp/whoops" target="_blank" rel="external">https://github.com/filp/whoops</a><br>  demo, 代码文件中任何地方执行 :  </p>
+</li>
+</ul>
+<pre><code><span class="variable">$msgStr</span> = <span class="string">"404 Not Found"</span>;
+<span class="keyword">error</span>(<span class="variable">$msgStr</span>);
+</code></pre><ul>
+<li><p>日志<br>  composer, “monolog/monolog”: “1.2.*”<br>  gitHub, <a href="https://github.com/Seldaek/monolog" target="_blank" rel="external">https://github.com/Seldaek/monolog</a><br>  demo, 在 function.php 中对日志作了简化</p>
+<pre><code><span class="rule"><span class="attribute">Log</span>:<span class="value">:<span class="function">info</span>(<span class="string">"Log Info Begin"</span>)</span></span>;
+<span class="rule"><span class="attribute">Log</span>:<span class="value">:<span class="function">error</span>(<span class="string">"Log Info Begin"</span>)</span></span>;
+<span class="rule"><span class="attribute">Log</span>:<span class="value">:<span class="function">debug</span>(<span class="string">"Log Info Begin"</span>)</span></span>;
+</code></pre></li>
+</ul>
+<blockquote>
+<p>其余的包可通过 <a href="https://packagist.org/" target="_blank" rel="external">https://packagist.org/</a> 查找安装, 扩展 so easy, 老板再也不用担心我重复造轮子了.</p>
 </blockquote>
 <hr>
-<blockquote>
-<p>一切如在十年前 。  </p>
-</blockquote>
+<p>以上</p>
 <hr>
-<blockquote>
-<p>然后。</p>
-</blockquote>
-<hr>
-<blockquote>
-<p>我们都有了长足的默契， 我不来烦你， 你也便不来扰我，彼此静静的躺在某一个分组。</p>
-</blockquote>
-<hr>
-<blockquote>
-<p>当有一天突然想起，或者想不起你的名字， 或者。</p>
-</blockquote>
-<hr>
-<blockquote>
-<p>查无此人。</p>
-</blockquote>
-<hr>
-<blockquote>
-<p>你看， 人生多奇妙。</p>
-</blockquote>
+<p>严宇川 </p>
+<p>2015-06-21</p>
 
 	</div>
 		<footer class="article-footer clearfix">
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/矫情/">矫情</a>
+  <span></span> <a href="/tags/PHP/">PHP</a>
   </div>
 
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/碎碎念/">碎碎念</a>
+  <a class="article-category-link" href="/categories/PHP/">PHP</a>
 </div>
 
 
 
 <div class="article-share" id="share">
 
-  <div data-url="http://evercyan.github.io/2015/06/06/somethingjusthappen/" data-title="躲不过的时间 | 在云端" data-tsina="1649089717" class="share clearfix">
+  <div data-url="http://evercyan.github.io/2015/06/21/justdophp/" data-title="justDoPHP 快速开发 | 在云端" data-tsina="1649089717" class="share clearfix">
   </div>
 
 </div>
@@ -154,19 +247,11 @@ var _hmt = _hmt || [];
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2015/06/07/php_extension/" title="PHP 扩展开发笔记">
-  <strong>PREVIOUS:</strong><br/>
-  <span>
-  PHP 扩展开发笔记</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2015/06/02/php_extended/"  title="关于中文博客技术文章的一些牢骚">
+<a href="/2015/06/07/php_extension/"  title="PHP 扩展开发笔记">
  <strong>NEXT:</strong><br/> 
- <span>关于中文博客技术文章的一些牢骚
+ <span>PHP 扩展开发笔记
 </span>
 </a>
 </div>

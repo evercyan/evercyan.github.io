@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://evercyan.github.io/2015/06/21/justdophp/</loc>
+    <lastmod>2015-06-21T08:57:00.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://evercyan.github.io/2015/06/07/php_extension/</loc>
     <lastmod>2015-06-07T14:13:20.000Z</lastmod>
   </url>
