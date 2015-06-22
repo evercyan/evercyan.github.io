@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Make Some Difference]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://evercyan.github.io/"/>
-  <updated>2015-06-21T08:57:00.000Z</updated>
+  <updated>2015-06-22T14:38:00.000Z</updated>
   <id>http://evercyan.github.io/</id>
   
   <author>
@@ -13,6 +13,293 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[LESS 笔记]]></title>
+    <link href="http://evercyan.github.io/2015/06/22/lessStudyNote/"/>
+    <id>http://evercyan.github.io/2015/06/22/lessStudyNote/</id>
+    <published>2015-06-22T14:38:00.000Z</published>
+    <updated>2015-06-22T14:38:00.000Z</updated>
+    <content type="html"><![CDATA[<h1 id="LESS_笔记">LESS 笔记</h1><blockquote>
+<p>参考文档 : <a href="http://less.bootcss.com" target="_blank" rel="external">http://less.bootcss.com</a></p>
+</blockquote>
+<hr>
+<h2 id="安装">安装</h2><pre><code>npm <span class="keyword">install</span> -g <span class="operator">less</span>
+</code></pre><h2 id="编译">编译</h2><pre><code><span class="comment">//执行  </span>
+lessc styles<span class="class">.less</span>  
+
+<span class="comment">//编译为 CSS 文件  </span>
+lessc styles<span class="class">.less</span> &gt; styles<span class="class">.css</span>  
+    -x    压缩  
+</code></pre><h2 id="开发调试">开发调试</h2><pre><code><span class="tag">&lt;<span class="title">link</span> <span class="attribute">rel</span>=<span class="value">"stylesheet/less"</span> <span class="attribute">type</span>=<span class="value">"text/css"</span> <span class="attribute">href</span>=<span class="value">"styles.less"</span> /&gt;</span>
+<span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"./less/less.js"</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+less.js : https://github.com/less/less.js/archive/master.zip
+</code></pre><h2 id="在线编辑器">在线编辑器</h2><ul>
+<li><a href="http://less2css.org/" target="_blank" rel="external">http://less2css.org/</a></li>
+</ul>
+<hr>
+<h2 id="语法规则">语法规则</h2><h3 id="变量">变量</h3><pre><code><span class="comment">//变量</span>
+<span class="variable">@blue:</span> <span class="hexcolor">#5B83AD</span>;
+
+<span class="comment">//选择器</span>
+<span class="variable">@selector:</span> header;
+
+<span class="comment">//URLs</span>
+<span class="variable">@images:</span> <span class="string">"../img"</span>;
+
+<span class="comment">//属性</span>
+<span class="variable">@property:</span> color;
+
+<span class="comment">//DEMO</span>
+<span class="class">.@{selector}</span>{
+    <span class="attribute">@{property}</span>: <span class="variable">@blue</span>;
+    <span class="tag">background</span>: <span class="tag">url</span>(<span class="string">"@{images}/bg.png"</span>);
+}
+</code></pre><h3 id="运算">运算</h3><pre><code><span class="variable">@base:</span> <span class="number">10%</span>;
+<span class="variable">@filler:</span> <span class="variable">@base</span> * <span class="number">2</span> + <span class="variable">@base</span> /<span class="number">2</span> - <span class="number">5%</span>;
+</code></pre><h3 id="混合">混合</h3><pre><code><span class="comment">//.red(), 作为函数使用的CSS, 不表现在样式表中</span>
+<span class="comment">//.red.inner &lt;=&gt; .red.inner() &lt;=&gt; .red &gt; .inner &lt;=&gt; .red &gt; .inner()</span>
+
+<span class="class">.red</span>() {
+    <span class="attribute">color</span>: red;
+    <span class="class">.inner</span> {
+        <span class="attribute">font-size</span>: <span class="number">12px</span>;
+    }
+}
+<span class="id">#blue-bg</span> {
+    <span class="attribute">background</span>: blue;
+}
+<span class="class">.border-radius</span>(<span class="variable">@radius</span>: <span class="number">5px</span>) {
+    <span class="attribute">-webkit-border-radius</span>: <span class="variable">@radius</span>;
+    <span class="attribute">-moz-border-radius</span>: <span class="variable">@radius</span>;
+    <span class="attribute">border-radius</span>: <span class="variable">@radius</span>;    
+}
+<span class="class">.selector</span> {
+      <span class="class">.red</span>;
+      <span class="id">#blue-bg</span>;
+      <span class="class">.red</span><span class="class">.inner</span>;
+      <span class="class">.border-radius</span>(<span class="number">4px</span>);
+}
+</code></pre><h3 id="引用">引用</h3><pre><code>@<span class="keyword">import</span> <span class="string">"foo"</span>;      <span class="comment">// foo.less is imported</span>
+@<span class="keyword">import</span> <span class="string">"foo.less"</span>; <span class="comment">// foo.less is imported</span>
+@<span class="keyword">import</span> <span class="string">"foo.php"</span>;  <span class="comment">// foo.php imported as a less file</span>
+@<span class="keyword">import</span> <span class="string">"foo.css"</span>;  <span class="comment">// statement left in place, as-is</span>
+</code></pre><h3 id="条件">条件</h3><pre><code><span class="variable">@my-option:</span> false;
+<span class="class">.my-optional-style</span>() <span class="keyword">when</span> (<span class="variable">@my-option</span> = true) {
+  <span class="tag">button</span> {
+    <span class="attribute">color</span>: white;
+  }
+}
+<span class="class">.my-optional-style</span>();
+</code></pre><h3 id="循环">循环</h3><pre><code><span class="class">.generate-columns</span>(<span class="number">4</span>);
+<span class="class">.generate-columns</span>(<span class="variable">@n</span>, <span class="variable">@i</span>: <span class="number">1</span>) <span class="keyword">when</span> (<span class="variable">@i</span> =&lt; <span class="variable">@n</span>) {
+  <span class="class">.column-</span><span class="variable">@{i}</span> {
+    <span class="attribute">width</span>: (<span class="variable">@i</span> * <span class="number">100%</span> / <span class="variable">@n</span>);
+  }
+  <span class="class">.generate-columns</span>(<span class="variable">@n</span>, (<span class="variable">@i</span> + <span class="number">1</span>));
+}
+</code></pre><h3 id="合并">合并</h3><pre><code><span class="class">.mixin</span>() {
+      <span class="attribute">color</span><span class="value">: <span class="hexcolor">#222222</span>;</span>
+}
+<span class="class">.myclass</span> {
+      <span class="class">.mixin</span>();
+      <span class="attribute">color</span>+<span class="value">: <span class="hexcolor">#111111</span>;</span>
+}
+</code></pre><h3 id="父选择符_&amp;">父选择符 &amp;</h3><pre><code><span class="comment">//.button:hover, .button-ok, .header .button</span>
+<span class="class">.button</span>{
+      <span class="attribute">color</span>: blue;
+      <span class="keyword">&amp;</span><span class="pseudo">:hover</span> {
+        <span class="attribute">color</span>: green;
+      }
+      <span class="keyword">&amp;</span><span class="tag">-ok</span> {
+          <span class="attribute">color</span>: red;
+      }
+      <span class="class">.header</span> <span class="keyword">&amp;</span> {
+          <span class="attribute">color</span>: black;
+      }
+}
+</code></pre><hr>
+<h2 id="函数">函数</h2><h3 id="杂项函数">杂项函数</h3><pre><code><span class="comment">//color </span>
+<span class="comment">//解析颜色，将代表颜色的字符串转换为颜色值</span>
+<span class="class">.demo</span> {
+    <span class="attribute">color</span><span class="value">: <span class="function">color</span>(<span class="string">"#aaa"</span>);</span>
+}
+
+<span class="comment">//convert</span>
+<span class="comment">//将数字从一种单位转换到另一种单位。</span>
+
+<span class="comment">//data-uri</span>
+<span class="comment">//将资源内联进样式表</span>
+
+<span class="comment">//DEMO</span>
+<span class="class">.demo</span> {
+    <span class="attribute">background</span><span class="value">: <span class="function">data-uri</span>(<span class="string">'image/jpeg;base64'</span>, <span class="string">'./logo.png'</span>);</span>
+}
+</code></pre><h3 id="字符串函数">字符串函数</h3><pre><code><span class="comment">//escape</span>
+<span class="comment">//对字符串中的特殊字符做 URL-encoding 编码。</span>
+<span class="comment">//这些字符不会被编码：,, /, ?, @, &amp;, +, ', ~, ! and $。</span>
+<span class="comment">//被编码的字符是：\&lt;space\&gt;, #, ^, (, ), {, }, |, :, &gt;, &lt;, ;, ], [ and =。</span>
+<span class="tag">escape</span>(<span class="string">'a=1'</span>)
+
+<span class="comment">//% 格式化</span>
+<span class="comment">//此函数 %(string, arguments ...) 用于格式化字符串。</span>
+<span class="comment">//第一个参数是一个包含占位符的字符串。占位符以百分号 % 开头，后面跟着字母 s、S、d、D、a 或 A。后续的参数用于替换这些占位符。如果你需要输出百分号，可以多用一个百分号来转义 %%。</span>
+<span class="class">.demo</span> {
+    <span class="attribute">format-s</span>: %(<span class="string">"repetitions: %s file: %s"</span>, <span class="number">1</span> + <span class="number">2</span>, <span class="string">"directory/file.less"</span>);
+}
+
+<span class="comment">//replace</span>
+<span class="comment">//用一个字符串替换一段文本。</span>
+<span class="variable">@demo:</span> <span class="function">replace</span>(<span class="string">"Hello, Mars?"</span>, <span class="string">"Mars\?"</span>, <span class="string">"Earth!"</span>);
+</code></pre><h3 id="列表函数">列表函数</h3><pre><code><span class="comment">//length</span>
+<span class="comment">//返回列表中元素的个数。</span>
+<span class="comment">//extract</span>
+<span class="comment">//返回列表中指定位置的元素。</span>
+
+<span class="variable">@list:</span> <span class="string">"banana"</span>, <span class="string">"tomato"</span>, <span class="string">"potato"</span>, <span class="string">"peach"</span>;
+<span class="variable">@length:</span> <span class="function">length</span>(<span class="variable">@list</span>);
+<span class="class">.demo</span> {
+    <span class="attribute">width</span>: <span class="variable">@length</span>;
+    <span class="attribute">height</span>: <span class="function">extract</span>(<span class="variable">@list</span>, <span class="number">3</span>);
+}
+</code></pre><h3 id="数学函数">数学函数</h3><pre><code><span class="comment">//ceil</span>
+<span class="comment">//向上取整。</span>
+
+<span class="comment">//floor</span>
+<span class="comment">//向下取整。</span>
+
+<span class="comment">//percentage</span>
+<span class="comment">//将浮点数转换为百分比字符串。</span>
+
+<span class="comment">//round</span>
+<span class="comment">//四舍五入取整。</span>
+
+<span class="comment">//sqrt</span>
+<span class="comment">//计算一个数的平方根，并原样保持单位。</span>
+
+<span class="comment">//abs</span>
+<span class="comment">//计算数字的绝对值，并原样保持单位。</span>
+
+<span class="comment">//sin</span>
+<span class="comment">//正弦函数。处理时会将没有单位的数字认为是弧度值。</span>
+
+<span class="comment">//asin</span>
+<span class="comment">//反正弦函数。返回以弧度为单位的角度，区间在 -PI/2 到 PI/2之间。</span>
+
+<span class="comment">//cos</span>
+<span class="comment">//余弦函数。</span>
+
+<span class="comment">//acos</span>
+<span class="comment">//反余弦函数。，区间在 0 到 PI之间。</span>
+
+<span class="comment">//tan</span>
+<span class="comment">//正切函数。</span>
+
+<span class="comment">//atan</span>
+<span class="comment">//反正切函数。</span>
+
+<span class="comment">//pi</span>
+<span class="comment">//返回圆周率 π (pi);</span>
+
+<span class="comment">//pow</span>
+<span class="comment">//设第一个参数为A，第二个参数为B，返回A的B次方。</span>
+
+<span class="comment">//mod</span>
+<span class="comment">//返回第一个参数对第二参数取余的结果。</span>
+
+<span class="comment">//min</span>
+<span class="comment">//返回一系列值中最小的那个。</span>
+<span class="comment">//max</span>
+<span class="comment">//返回一系列值中最大的那个。</span>
+
+<span class="variable">@num:</span> <span class="number">2.41</span>;
+<span class="variable">@num2:</span> <span class="number">11</span>;
+<span class="variable">@num3:</span> <span class="number">3</span>;
+
+<span class="class">.demo</span> {
+    <span class="attribute">ceil</span>: <span class="function">ceil</span>(<span class="variable">@num</span>);
+    <span class="attribute">floor</span>: <span class="function">floor</span>(<span class="variable">@num</span>);
+    <span class="attribute">percentage</span>: <span class="function">percentage</span>(<span class="variable">@num</span>);
+    <span class="attribute">rount</span>: <span class="function">round</span>(<span class="variable">@num</span>);
+    <span class="attribute">sqrt</span>: <span class="function">sqrt</span>(<span class="variable">@num</span>);
+    <span class="attribute">abs</span>: <span class="function">abs</span>(<span class="variable">@num</span>);
+    <span class="attribute">pi</span>: <span class="function">pi</span>();
+    <span class="attribute">pow</span>: <span class="function">pow</span>(<span class="variable">@num2</span>, <span class="variable">@num3</span>);
+    <span class="attribute">mod</span>: <span class="function">mod</span>(<span class="variable">@num2</span>, <span class="variable">@num3</span>);
+    <span class="attribute">min</span>: <span class="function">min</span>(<span class="variable">@num2</span>, <span class="variable">@num3</span>);
+    <span class="attribute">max</span>: <span class="function">max</span>(<span class="variable">@num2</span>, <span class="variable">@num3</span>);
+}
+</code></pre><h3 id="类型函数">类型函数</h3><pre><code><span class="comment">//返回 true OR false </span>
+
+<span class="comment">//isnumber</span>
+<span class="comment">//isstring</span>
+<span class="comment">//iscolor</span>
+<span class="comment">//iskeyword</span>
+<span class="comment">//isurl</span>
+<span class="comment">//ispixel</span>
+<span class="comment">//isem</span>
+<span class="comment">//ispercentage</span>
+<span class="comment">//isunit</span>
+
+<span class="class">.demo</span>{
+    <span class="attribute">isnumber</span>: <span class="function">isnumber</span>(<span class="number">2</span>);
+    <span class="attribute">isstring</span>: <span class="function">isstring</span>(<span class="string">"hello"</span>);
+    <span class="attribute">iscolor</span>: <span class="function">iscolor</span>(<span class="hexcolor">#000000</span>);
+    <span class="attribute">iskeyword</span>: <span class="function">iskeyword</span>(keyword);
+    <span class="attribute">isurl</span>: <span class="function">isurl</span>(<span class="function">url</span>(<span class="string">...</span>));
+    <span class="attribute">ispixel</span>: <span class="function">ispixel</span>(<span class="number">56px</span>);
+    <span class="attribute">isem</span>: <span class="function">isem</span>(<span class="number">7.8em</span>);
+    <span class="attribute">ispercentage</span>: <span class="function">ispercentage</span>(<span class="number">7.8%</span>);
+    <span class="attribute">isunit</span>: <span class="function">isunit</span>(<span class="number">11px</span>, px);
+}
+</code></pre><h3 id="颜色定义函数">颜色定义函数</h3><pre><code><span class="comment">//rgb</span>
+<span class="comment">//通过十进制红色、绿色、蓝色三种值 (RGB) 创建不透明的颜色对象。</span>
+
+<span class="comment">//rgba</span>
+<span class="comment">//通过十进制红色、绿色、蓝色，以及 alpha 四种值 (RGBA) 创建带alpha透明的颜色对象。</span>
+
+<span class="comment">//hsl</span>
+<span class="comment">//通过色相 (hue)，饱和度 (saturation)，亮度 (lightness) 三种值 (HSL) 创建不透明的颜色对象。</span>
+<span class="comment">//hsla</span>
+
+<span class="comment">//从颜色对象中提取颜色通道值。</span>
+<span class="comment">//red</span>
+<span class="comment">//green</span>
+<span class="comment">//blue</span>
+
+<span class="class">.demo</span> {
+    rgb<span class="value">: <span class="function">rgb</span>(<span class="number">90</span>, <span class="number">129</span>, <span class="number">32</span>);</span>
+    rgba<span class="value">: <span class="function">rgba</span>(<span class="number">90</span>, <span class="number">129</span>, <span class="number">32</span>, <span class="number">0.5</span>);</span>
+    hsl<span class="value">: <span class="function">hsl</span>(<span class="number">90</span>, <span class="number">100%</span>, <span class="number">50%</span>);</span>
+    hsla<span class="value">: <span class="function">hsla</span>(<span class="number">90</span>, <span class="number">100%</span>, <span class="number">50%</span>, <span class="number">0.5</span>);</span>
+    red<span class="value">: <span class="function">red</span>(<span class="function">rgb</span>(<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>));</span>
+    green<span class="value">: <span class="function">green</span>(<span class="function">rgb</span>(<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>));</span>
+    blue<span class="value">: <span class="function">blue</span>(<span class="function">rgb</span>(<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>));</span>
+
+}
+</code></pre><h3 id="颜色操作函数">颜色操作函数</h3><pre><code><span class="comment">//multiply</span>
+<span class="comment">//分别将两种颜色的红绿蓝 (RGB) 三种值做乘法运算，然后再除以 255，输出结果是更深的颜色。（译注：对应Photoshop中的“变暗/正片叠底”。）</span>
+<span class="comment">//screen</span>
+<span class="comment">//与 multiply 函数效果相反，输出结果是更亮的颜色。（译注：对应Photoshop中的“变亮/滤色”。）</span>
+<span class="comment">//overlay</span>
+<span class="comment">//结合 multiply 与 screen 两个函数的效果，令浅的颜色变得更浅，深的颜色变得更深。（译注：对应 Photoshop 中的“叠加”。）注意：输出结果由第一个颜色参数决定。</span>
+
+
+
+<span class="class">.demo</span> {
+    <span class="attribute">multiply</span>: <span class="function">multiply</span>(<span class="hexcolor">#ff6600</span>, <span class="hexcolor">#000000</span>);
+}
+</code></pre>]]></content>
+    <summary type="html">
+    <![CDATA[<h1 id="LESS_笔记">LESS 笔记</h1><blockquote>
+<p>参考文档 : <a href="http://less.bootcss.com" target="_blank" rel="external">http://less.bootcss.com]]>
+    </summary>
+    
+      <category term="PHP" scheme="http://evercyan.github.io/tags/PHP/"/>
+    
+      <category term="PHP CSS LESS" scheme="http://evercyan.github.io/categories/PHP-CSS-LESS/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[justDoPHP 快速开发]]></title>
