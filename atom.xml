@@ -295,9 +295,11 @@ less.js : https://github.com/less/less.js/archive/master.zip
 <p>参考文档 : <a href="http://less.bootcss.com" target="_blank" rel="external">http://less.bootcss.com]]>
     </summary>
     
+      <category term="CSS" scheme="http://evercyan.github.io/tags/CSS/"/>
+    
       <category term="PHP" scheme="http://evercyan.github.io/tags/PHP/"/>
     
-      <category term="PHP CSS LESS" scheme="http://evercyan.github.io/categories/PHP-CSS-LESS/"/>
+      <category term="PHP" scheme="http://evercyan.github.io/categories/PHP/"/>
     
   </entry>
   
