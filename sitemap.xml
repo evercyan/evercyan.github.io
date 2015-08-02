@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://evercyan.github.io/2015/08/01/php_socket_pack_unpack/</loc>
+    <lastmod>2015-08-01T14:38:00.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://evercyan.github.io/2015/06/22/lessStudyNote/</loc>
     <lastmod>2015-06-22T14:38:00.000Z</lastmod>
   </url>

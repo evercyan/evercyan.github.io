@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Make Some Difference]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://evercyan.github.io/"/>
-  <updated>2015-06-22T14:38:00.000Z</updated>
+  <updated>2015-08-01T14:38:00.000Z</updated>
   <id>http://evercyan.github.io/</id>
   
   <author>
@@ -13,6 +13,394 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[关于 PHP Socket 及位字符串函数 pack & unpack 的示例]]></title>
+    <link href="http://evercyan.github.io/2015/08/01/php_socket_pack_unpack/"/>
+    <id>http://evercyan.github.io/2015/08/01/php_socket_pack_unpack/</id>
+    <published>2015-08-01T14:38:00.000Z</published>
+    <updated>2015-08-01T14:38:00.000Z</updated>
+    <content type="html"><![CDATA[<h1 id="关于_PHP_Socket_及位字符串函数_pack_&amp;_unpack_的示例">关于 PHP Socket 及位字符串函数 pack &amp; unpack 的示例</h1><hr>
+<blockquote>
+<p>严宇川, 2015.08.02</p>
+</blockquote>
+<h2 id="pack_&amp;_unpack_的封装">pack &amp; unpack 的封装</h2><blockquote>
+<p>在用 socket 和服务器交互过程中, 需要使用 pack 来将其他进制的数据压包到位字符串中; 接收到服务器返回的数据, 同样需要使用 unpack 来解析数据. </p>
+<p>pack 的封装主要针对 String 来做的处理, 需要先压包其长度, 再压包其数据</p>
+<p>unpack 的封装主要针对两种常见的返回格式, 一为 N (int)32, 二为 a (string), 其余格式可自行作扩展开发. 主要解决的痛点在于解析 String 时需要先解析其前置位字符长度.</p>
+</blockquote>
+<hr>
+<h4 id="socketCommon-php">socketCommon.php</h4><pre><code><span class="php"><span class="preprocessor">&lt;?php</span>
+<span class="comment">/***
+ * Ryan 2015.08.01
+ * pack &amp; unpack 封装
+***/</span>
+<span class="class"><span class="keyword">class</span> <span class="title">socketCommon</span> </span>{
+    <span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">packStr</span><span class="params">(<span class="variable">$str</span>)</span> </span>{
+        <span class="variable">$retStr</span> = pack(<span class="string">"N"</span>, strlen(<span class="variable">$str</span>) + <span class="number">2</span>);
+        <span class="keyword">if</span> (strlen(<span class="variable">$str</span>) &gt; <span class="number">0</span>) {
+            <span class="variable">$retStr</span> .= pack(<span class="string">"a"</span> . strlen(<span class="variable">$str</span>), <span class="variable">$str</span>);
+        }
+        <span class="variable">$retStr</span> .= pack(<span class="string">"CC"</span>, <span class="string">'\0'</span>, <span class="string">'\0'</span>);
+        <span class="keyword">return</span> <span class="variable">$retStr</span>;
+    }
+    <span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">unPackStr</span><span class="params">(<span class="variable">$parse</span>, <span class="variable">$packStr</span>)</span> </span>{
+        <span class="keyword">try</span> {
+            <span class="variable">$result</span> = <span class="keyword">array</span>();
+
+            <span class="variable">$parseLen</span> = strlen(<span class="variable">$parse</span>);
+
+            <span class="comment">//解析格式位置</span>
+            <span class="variable">$parsePos</span> = <span class="number">0</span>;
+            <span class="comment">//数据源位置</span>
+            <span class="variable">$dataPos</span> = <span class="number">0</span>;
+            <span class="comment">//解析数据</span>
+            <span class="variable">$parseStr</span> = <span class="string">""</span>;
+
+            <span class="keyword">while</span> (<span class="variable">$parsePos</span> &lt; <span class="variable">$parseLen</span>) {
+                <span class="variable">$type</span> = substr(<span class="variable">$parse</span>, <span class="variable">$parsePos</span>++, <span class="number">1</span>);
+                <span class="keyword">switch</span> (<span class="variable">$type</span>) {
+                    <span class="keyword">case</span> <span class="string">"N"</span> :
+                        <span class="variable">$parseStr</span> = <span class="string">"N1"</span>;
+                        <span class="variable">$strLen</span> = <span class="number">4</span>;
+                        <span class="keyword">while</span>(<span class="variable">$parsePos</span> &lt; <span class="variable">$parseLen</span>) {
+                            <span class="variable">$letter</span> = substr(<span class="variable">$parse</span>, <span class="variable">$parsePos</span>, <span class="number">1</span>);
+                            <span class="keyword">if</span> (<span class="variable">$letter</span> == <span class="string">"/"</span>) {
+                                <span class="keyword">break</span>;
+                            }
+                            <span class="variable">$parsePos</span>++;
+                            <span class="variable">$parseStr</span> .= <span class="variable">$letter</span>;
+                        }
+                        <span class="variable">$unPackRet</span> = unpack(<span class="variable">$parseStr</span>, substr(<span class="variable">$packStr</span>, <span class="variable">$dataPos</span>));
+                        <span class="variable">$result</span> = array_merge(<span class="variable">$result</span>, <span class="variable">$unPackRet</span>);
+                        <span class="variable">$dataPos</span> += <span class="variable">$strLen</span>;
+                        <span class="keyword">break</span>;
+                    <span class="keyword">case</span> <span class="string">"a"</span> : 
+                        <span class="comment">//字符串类型, 先解析在此之前的字符串长度</span>
+                        <span class="variable">$parseStr</span> = <span class="string">"N1"</span>;
+                        <span class="variable">$unPackRet</span> = unpack(<span class="variable">$parseStr</span>, substr(<span class="variable">$packStr</span>, <span class="variable">$dataPos</span>));
+                        <span class="variable">$strLen</span> = array_pop(<span class="variable">$unPackRet</span>);
+                        <span class="variable">$dataPos</span> += <span class="number">4</span>;
+
+                        <span class="variable">$parseStr</span> = <span class="string">"a"</span> . <span class="variable">$strLen</span>;
+                        <span class="keyword">while</span>(<span class="variable">$parsePos</span> &lt; <span class="variable">$parseLen</span>) {
+                            <span class="variable">$letter</span> = substr(<span class="variable">$parse</span>, <span class="variable">$parsePos</span>, <span class="number">1</span>);
+                            <span class="keyword">if</span> (<span class="variable">$letter</span> == <span class="string">"/"</span>) {
+                                <span class="keyword">break</span>;
+                            }
+                            <span class="variable">$parsePos</span>++;
+                            <span class="variable">$parseStr</span> .= <span class="variable">$letter</span>;
+                        }    
+                        <span class="variable">$unPackRet</span> = unpack(<span class="variable">$parseStr</span>, substr(<span class="variable">$packStr</span>, <span class="variable">$dataPos</span>));
+                        <span class="variable">$result</span> = array_merge(<span class="variable">$result</span>, <span class="variable">$unPackRet</span>);
+                        <span class="variable">$dataPos</span> += <span class="variable">$strLen</span>;
+                        <span class="keyword">break</span>;
+                }
+            }
+            <span class="keyword">return</span> <span class="variable">$result</span>;
+        } <span class="keyword">catch</span> (<span class="keyword">exception</span> <span class="variable">$e</span>) {
+            <span class="keyword">return</span> <span class="keyword">false</span>;
+        }
+    }
+}</span>
+</code></pre><hr>
+<h4 id="packDemo-php">packDemo.php</h4><pre><code><span class="php"><span class="preprocessor">&lt;?php</span> 
+<span class="keyword">require</span> <span class="string">"./socketCommon.php"</span>;
+
+<span class="comment">//数据压包</span>
+<span class="variable">$transId</span> = time();
+<span class="variable">$msgStr</span> = <span class="string">"What the fuck!"</span>;
+<span class="variable">$lastStr</span> = <span class="string">"The Last Str"</span>;
+<span class="variable">$packBody</span> = <span class="string">""</span>;
+
+<span class="variable">$packBody</span> .= pack(<span class="string">"N1"</span>, <span class="variable">$transId</span>);
+<span class="variable">$packBody</span> .= socketCommon::packStr(iconv(<span class="string">"UTF-8"</span>, <span class="string">"unicodelittle"</span>, <span class="variable">$msgStr</span>));
+<span class="variable">$packBody</span> .= socketCommon::packStr(iconv(<span class="string">"UTF-8"</span>, <span class="string">"unicodelittle"</span>, <span class="variable">$lastStr</span>));
+<span class="variable">$packBody</span> .= socketCommon::packStr(iconv(<span class="string">"UTF-8"</span>, <span class="string">"unicodelittle"</span>, <span class="string">"hello"</span>));
+<span class="variable">$packBody</span> .= socketCommon::packStr(iconv(<span class="string">"UTF-8"</span>, <span class="string">"unicodelittle"</span>, <span class="string">"world"</span>));
+
+<span class="keyword">echo</span> <span class="string">"packBody Length : "</span>  . strlen(<span class="variable">$packBody</span>);
+<span class="keyword">echo</span> <span class="string">'&lt;br /&gt;&lt;br /&gt;'</span>;
+
+<span class="comment">//数据解析</span>
+<span class="variable">$result</span> = socketCommon::unPackStr(<span class="string">'NtransId/astr1/astr2/astr3/astr4'</span>, <span class="variable">$packBody</span>);
+
+<span class="keyword">echo</span> <span class="string">'&lt;pre&gt;'</span>;
+print_r(<span class="variable">$result</span>);
+
+<span class="comment">/*
+Array
+(
+    [transId] =&gt; 1438498919
+    [str1] =&gt; What the fuck!
+    [str2] =&gt; The Last Str
+    [str3] =&gt; hello
+    [str4] =&gt; world
+)
+*/</span></span>
+</code></pre><h2 id="简单的_Socket_交互">简单的 Socket 交互</h2><hr>
+<h4 id="socketServer-php">socketServer.php</h4><pre><code><span class="php"><span class="preprocessor">&lt;?php</span>
+<span class="comment">/***
+ * Ryan 2015.08.01
+ * php socketServer.php
+***/</span>
+set_time_limit(<span class="number">0</span>);   
+date_default_timezone_set(<span class="string">"PRC"</span>); 
+error_reporting(<span class="number">0</span>);
+
+<span class="keyword">require</span> <span class="string">"./socketCommon.php"</span>;
+
+<span class="variable">$socketIp</span> = <span class="string">"127.0.0.1"</span>;
+<span class="variable">$socketPort</span> = <span class="string">"1935"</span>;
+
+<span class="variable">$sock</span> = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
+socket_set_option(<span class="variable">$sock</span>, SOL_SOCKET, SO_REUSEADDR, <span class="number">1</span>) <span class="keyword">or</span> <span class="keyword">die</span>(<span class="string">"socket_set_option fail"</span>);
+socket_bind(<span class="variable">$sock</span>, <span class="variable">$socketIp</span>, <span class="variable">$socketPort</span>) <span class="keyword">or</span> <span class="keyword">die</span>(<span class="string">"socket_bind fail"</span>);
+socket_listen(<span class="variable">$sock</span>, <span class="number">4</span>) <span class="keyword">or</span> <span class="keyword">die</span>(<span class="string">"socket_listen fail"</span>);
+<span class="comment">/*
+接收消息格式 
+包头 : 
+    (int)32 cmdId + (int)32 packLen
+包体 : 
+    (int)32 transId + (string) msgStr + (int)32 userNum + (string) userJsonStr
+
+返回消息格式
+包头 : 
+    (int)32 cmdId + (int)32 packLen
+包体 : 
+    (int)32 transId + (int)32 result + (string) msgStr
+*/</span>
+<span class="keyword">do</span> {
+    <span class="variable">$msgSock</span> = socket_accept(<span class="variable">$sock</span>); 
+    <span class="keyword">if</span> (<span class="variable">$msgSock</span>) {
+        <span class="variable">$receiveBuf</span> = socket_read(<span class="variable">$msgSock</span>, <span class="number">4096</span>);
+
+        <span class="comment">//解消息体</span>
+        <span class="variable">$receiveObj</span> = socketCommon::unPackStr(<span class="string">"NcmdId/NpackLen/NtransId/amsgStr/NuserNum/auserJsonStr"</span>, <span class="variable">$receiveBuf</span>);
+        <span class="keyword">echo</span> <span class="string">"receiveMsg : "</span> . json_encode(<span class="variable">$receiveObj</span>) . <span class="string">"\n"</span>;
+
+
+        <span class="comment">//组返回消息体</span>
+        <span class="variable">$packBody</span> = pack(<span class="string">"N1"</span>, <span class="variable">$receiveObj</span>[<span class="string">"transId"</span>]);
+        <span class="variable">$result</span> = <span class="number">0</span>;
+        <span class="variable">$packBody</span> .= pack(<span class="string">"N1"</span>, <span class="variable">$result</span>);
+        <span class="variable">$msgStr</span> = <span class="string">"It's success at "</span> . date(<span class="string">"Y-m-d H:i:s"</span>) . <span class="string">"!"</span>;
+        <span class="variable">$packBody</span> .= socketCommon::packStr(<span class="variable">$msgStr</span>);
+
+        <span class="variable">$cmdId</span> = <span class="number">1000</span>;
+        <span class="variable">$packLen</span> = <span class="number">20</span> + strlen(<span class="variable">$packBody</span>);
+        <span class="variable">$packHead</span> = pack(<span class="string">"N2"</span>, <span class="variable">$cmdId</span>, <span class="variable">$packLen</span>);
+
+        <span class="variable">$returnMsg</span> = <span class="variable">$packHead</span> . <span class="variable">$packBody</span>;
+
+        <span class="comment">// $returnMsg = "Hello";</span>
+
+        <span class="keyword">echo</span> <span class="string">"Socket Return Start\n"</span>;
+        <span class="keyword">echo</span> <span class="string">"Socket returnMsg Length : "</span> . strlen(<span class="variable">$returnMsg</span>) . <span class="string">"\n"</span>;
+
+        socket_write(<span class="variable">$msgSock</span>, <span class="variable">$returnMsg</span>, strlen(<span class="variable">$returnMsg</span>));
+        socket_close(<span class="variable">$msgsock</span>);
+    }
+} <span class="keyword">while</span> (<span class="keyword">true</span>);
+socket_close(<span class="variable">$sock</span>);</span>
+</code></pre><hr>
+<h4 id="socketClient-php">socketClient.php</h4><pre><code><span class="php"><span class="preprocessor">&lt;?php</span>
+<span class="comment">/***
+ * Ryan 2015.08.01
+ * php socketClient.php
+***/</span>
+<span class="keyword">require</span> <span class="string">"./socketCommon.php"</span>;
+
+error_reporting(<span class="number">0</span>);
+<span class="variable">$socketIp</span> = <span class="string">"127.0.0.1"</span>;
+<span class="variable">$socketPort</span> = <span class="string">"1935"</span>;
+
+<span class="variable">$sock</span> = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
+<span class="variable">$result</span> = socket_connect(<span class="variable">$sock</span>, <span class="variable">$socketIp</span>, <span class="variable">$socketPort</span>);
+
+
+<span class="comment">/*
+接收消息格式 
+包头 : 
+    (int)32 cmdId + (int)32 packLen
+包体 : 
+    (int)32 transId + (string) msgStr + (int)32 userNum + (string) userJsonStr
+
+返回消息格式
+包头 : 
+    (int)32 cmdId + (int)32 packLen
+包体 : 
+    (int)32 transId + (int)32 result + (string) msgStr
+*/</span>
+
+<span class="variable">$transId</span> = time();
+<span class="variable">$msgStr</span> = <span class="string">"This is a message!"</span>;
+<span class="variable">$userObj</span> = <span class="keyword">array</span>(
+    <span class="string">"ryan"</span>, <span class="string">"cyan"</span>
+);
+
+<span class="variable">$packBody</span> = pack(<span class="string">"N1"</span>, <span class="variable">$transId</span>);
+<span class="variable">$packBody</span> .= socketCommon::packStr(<span class="variable">$msgStr</span>);
+<span class="variable">$packBody</span> .= pack(<span class="string">"N1"</span>, count(<span class="variable">$userObj</span>));
+<span class="variable">$packBody</span> .= socketCommon::packStr(json_encode(<span class="variable">$userObj</span>));
+
+<span class="variable">$cmdId</span> = <span class="number">1000</span>;
+<span class="variable">$packLen</span> = <span class="number">20</span> + strlen(<span class="variable">$packBody</span>);
+<span class="variable">$packHead</span> = pack(<span class="string">"N2"</span>, <span class="variable">$cmdId</span>, <span class="variable">$packLen</span>);
+
+<span class="variable">$sendMsg</span> = <span class="variable">$packHead</span> . <span class="variable">$packBody</span>;
+
+<span class="comment">// $sendMsg = "Hello";</span>
+
+<span class="keyword">echo</span> <span class="string">"Socket Start\n"</span>;
+<span class="keyword">echo</span> <span class="string">"Socket sendMsg Length : "</span> . strlen(<span class="variable">$sendMsg</span>) . <span class="string">"\n"</span>;
+
+socket_write(<span class="variable">$sock</span>, <span class="variable">$sendMsg</span>, strlen(<span class="variable">$sendMsg</span>));
+
+<span class="variable">$i</span> = <span class="number">0</span>;
+<span class="keyword">do</span> {
+    <span class="variable">$receiveMsg</span> = socket_read(<span class="variable">$sock</span>, <span class="number">4096</span>);
+    <span class="variable">$i</span>++;
+} <span class="keyword">while</span> (!<span class="variable">$receiveMsg</span> &amp;&amp; <span class="variable">$i</span> &lt; <span class="number">3</span>);
+
+<span class="comment">//解消息体</span>
+<span class="variable">$receiveObj</span> = socketCommon::unPackStr(<span class="string">"NcmdId/NpackLen/NtransId/Nresult/amsgStr"</span>, <span class="variable">$receiveMsg</span>);
+<span class="keyword">echo</span> <span class="string">"receiveMsg : "</span> . json_encode(<span class="variable">$receiveObj</span>) . <span class="string">"\n"</span>;
+socket_close(<span class="variable">$sock</span>);</span>
+</code></pre><hr>
+<h4 id="效果截图">效果截图</h4><hr>
+<p><img src="/img/source/php_socket_pack_unpack/1.png" alt=""></p>
+<p><img src="/img/source/php_socket_pack_unpack/2.png" alt=""></p>
+<hr>
+<h2 id="Socket_聊天程序">Socket 聊天程序</h2><pre><code><span class="php"><span class="preprocessor">&lt;?php</span>
+<span class="comment">/***
+ * Ryan 2015.08.01
+ * php socketChat.php
+ * telnet 127.0.0.1 1935
+***/</span>
+header(<span class="string">"Content-type:text/html; charset=utf-8"</span>);
+date_default_timezone_set(<span class="string">"PRC"</span>);
+set_time_limit(<span class="number">0</span>);    
+
+<span class="keyword">if</span>(!extension_loaded(<span class="string">"sockets"</span>)){    
+    <span class="comment">//提示开启PHP的SOCKET扩展</span>
+    <span class="keyword">die</span>(<span class="string">"please loaded php_sockets.dll"</span>);
+}
+
+<span class="variable">$socketIp</span> = <span class="string">"127.0.0.1"</span>;
+<span class="variable">$socketPort</span> = <span class="string">"1935"</span>;
+
+<span class="keyword">if</span>((<span class="variable">$sock</span> = socket_create(AF_INET, SOCK_STREAM, SOL_TCP)) === <span class="keyword">false</span>){    
+    <span class="comment">//创建SOCKET</span>
+    <span class="keyword">echo</span> <span class="string">"socket_create() failed; reason : "</span> . socket_strerror(socket_last_error(<span class="variable">$sock</span>)) . <span class="string">"\r\n"</span>;
+    <span class="keyword">exit</span>;
+}
+<span class="keyword">if</span> (!socket_set_option(<span class="variable">$sock</span>, SOL_SOCKET, SO_REUSEADDR, <span class="number">1</span>)) {
+    <span class="comment">//设置端口重用</span>
+    <span class="keyword">echo</span> <span class="string">'socket_set_option() failed; reason : '</span>. socket_strerror(socket_last_error(<span class="variable">$sock</span>)) . <span class="string">"\r\n"</span>;
+    <span class="keyword">exit</span>;
+}
+<span class="keyword">if</span>(socket_bind(<span class="variable">$sock</span>, <span class="variable">$socketIp</span>, <span class="variable">$socketPort</span>) === <span class="keyword">false</span>){    
+    <span class="comment">//绑定地址和端口</span>
+    <span class="keyword">echo</span> <span class="string">"socket_bind() failed; reason : "</span> . socket_strerror(socket_last_error(<span class="variable">$sock</span>)) . <span class="string">"\r\n"</span>;
+    <span class="keyword">exit</span>;
+}
+<span class="keyword">if</span>(socket_listen(<span class="variable">$sock</span>, <span class="number">15</span>) === <span class="keyword">false</span>){    
+    <span class="comment">//开启监听</span>
+    <span class="keyword">echo</span> <span class="string">"socket_listen() failed; reason : "</span> . socket_strerror(socket_last_error(<span class="variable">$sock</span>)) . <span class="string">"\r\n"</span>;
+    <span class="keyword">exit</span>;
+}
+
+<span class="comment">//设置非阻塞模式</span>
+socket_set_nonblock(<span class="variable">$sock</span>) <span class="keyword">or</span> <span class="keyword">die</span>(<span class="string">"not set nonblock"</span>);
+
+
+<span class="comment">//设置输入字符串长度  </span>
+<span class="variable">$msgLen</span> = <span class="number">1024</span>;  
+<span class="comment">//信息结束标记.   </span>
+<span class="variable">$msgEof</span> = <span class="string">"\n"</span>;  
+<span class="variable">$connections</span> = <span class="keyword">array</span>();
+<span class="keyword">do</span>{
+    <span class="comment">//等待来自客户端的连接请求</span>
+    @<span class="variable">$connection</span> = socket_accept(<span class="variable">$sock</span>);    
+    <span class="keyword">if</span>(<span class="keyword">isset</span>(<span class="variable">$connection</span>) &amp;&amp; <span class="variable">$connection</span>) {
+        <span class="keyword">echo</span> <span class="string">"Connect Success!\r\n"</span>;
+        <span class="variable">$connections</span>[] = <span class="keyword">array</span>(
+            <span class="string">"connect"</span> =&gt; <span class="variable">$connection</span>, 
+            <span class="string">"bufs"</span> =&gt; <span class="string">""</span>
+        );
+        <span class="comment">//返回初始化欢迎信息</span>
+        <span class="variable">$welcomeMsg</span> = <span class="string">"Hello, Welcome! There are "</span> . count(<span class="variable">$connections</span>) . <span class="string">" Client connect success!\r\n"</span>;
+        <span class="variable">$welcomeMsg</span> .= <span class="string">"Type 'quit' to quit!\r\n"</span>;
+        <span class="variable">$welcomeMsg</span> .= <span class="string">"Please type something as your nickname!\r\n\r\n"</span>;        
+        socket_write(<span class="variable">$connection</span>, <span class="variable">$welcomeMsg</span>, strlen(<span class="variable">$welcomeMsg</span>));    
+    }
+    <span class="variable">$talkBufs</span> = <span class="string">""</span>;
+    <span class="keyword">foreach</span>(<span class="variable">$connections</span> <span class="keyword">as</span> <span class="variable">$xid</span> =&gt; &amp;<span class="variable">$client</span>) {
+        <span class="keyword">unset</span>(<span class="variable">$bufs</span>);
+        <span class="keyword">unset</span>(<span class="variable">$connection</span>);
+        <span class="variable">$connection</span> = <span class="variable">$client</span>[<span class="string">"connect"</span>];
+        <span class="variable">$bufs</span> = &amp;<span class="variable">$client</span>[<span class="string">"bufs"</span>];
+
+        <span class="keyword">if</span>(<span class="keyword">false</span> === socket_write(<span class="variable">$connection</span>, <span class="variable">$talkBack</span>, strlen(<span class="variable">$talkBack</span>))) {
+            <span class="keyword">echo</span> <span class="string">"socket_write() failed: reason: "</span> . socket_strerror(socket_last_error(<span class="variable">$connection</span>)) . <span class="string">"\r\n"</span>;
+            socket_close(<span class="variable">$connection</span>);
+            <span class="keyword">unset</span>(<span class="variable">$connections</span>[<span class="variable">$xid</span>]);
+            <span class="keyword">continue</span>;
+        }
+        <span class="keyword">if</span> (<span class="keyword">false</span> === (<span class="variable">$buf</span> = socket_read(<span class="variable">$connection</span>, <span class="variable">$msgLen</span>))) {
+            <span class="keyword">continue</span>;
+        }
+        <span class="variable">$bufs</span> .= <span class="variable">$buf</span>;
+        <span class="keyword">if</span>(<span class="keyword">false</span> === strpos(<span class="variable">$bufs</span>, <span class="variable">$msgEof</span>)) {
+            <span class="keyword">continue</span>;
+        }
+        <span class="comment">//取得$bufs中结束标记符前的内容</span>
+        <span class="variable">$buf</span> = substr(<span class="variable">$bufs</span>, <span class="number">0</span>, strrpos(<span class="variable">$bufs</span>, <span class="variable">$msgEof</span>));    
+        <span class="variable">$bufs</span> = substr(strrchr(<span class="variable">$bufs</span>, <span class="variable">$msgEof</span>), <span class="number">1</span>);
+        <span class="keyword">if</span> (!<span class="variable">$buf</span> = trim(<span class="variable">$buf</span>)) {
+            <span class="keyword">continue</span>;
+        }
+        <span class="keyword">if</span>(strrpos(<span class="variable">$buf</span>, <span class="variable">$msgEof</span>) || (strlen(<span class="variable">$buf</span>) &gt; <span class="variable">$msgLen</span>)) {
+            <span class="variable">$buf</span> = <span class="string">"quit"</span>;
+        }
+        <span class="comment">//退出连接</span>
+        <span class="keyword">if</span> (<span class="variable">$buf</span> == <span class="string">"quit"</span>) {
+            socket_close(<span class="variable">$connection</span>);
+            <span class="keyword">unset</span>(<span class="variable">$connections</span>[<span class="variable">$xid</span>]);
+            <span class="keyword">continue</span>;
+        }
+        <span class="comment">//处理聊天成员的昵称显示</span>
+        <span class="keyword">if</span>(!<span class="keyword">isset</span>(<span class="variable">$userName</span>[<span class="variable">$xid</span>])){
+            <span class="variable">$userName</span>[<span class="variable">$xid</span>] = <span class="variable">$buf</span>;
+            <span class="variable">$talkBufs</span> .= <span class="string">"Someone named "</span> . <span class="variable">$userName</span>[<span class="variable">$xid</span>] . <span class="string">" is in!\r\n\r\n"</span>;
+        } <span class="keyword">else</span> {
+            <span class="variable">$talkBufs</span> .= <span class="variable">$userName</span>[<span class="variable">$xid</span>] . <span class="string">" "</span> . date(<span class="string">"H:i:s"</span>) . <span class="string">" : \r\n$buf\r\n\r\n"</span>;
+        }
+    }
+    <span class="comment">//组包返回内容</span>
+    <span class="variable">$talkBack</span> = <span class="variable">$talkBufs</span>;
+    <span class="keyword">echo</span> <span class="variable">$talkBack</span>;
+} <span class="keyword">while</span> (<span class="keyword">true</span>);
+socket_close(<span class="variable">$sock</span>);</span>
+</code></pre><h4 id="效果截图-1">效果截图</h4><hr>
+<p><img src="/img/source/php_socket_pack_unpack/3.png" alt=""></p>
+<hr>
+<p>以上</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h1 id="关于_PHP_Socket_及位字符串函数_pack_&amp;_unpack_的示例">关于 PHP Socket 及位字符串函数 pack &amp; unpack 的示例</h1><hr>
+<blockquote>
+<p>严宇川, 2015.08.02</p]]>
+    </summary>
+    
+      <category term="PHP" scheme="http://evercyan.github.io/tags/PHP/"/>
+    
+      <category term="Socket" scheme="http://evercyan.github.io/tags/Socket/"/>
+    
+      <category term="PHP" scheme="http://evercyan.github.io/categories/PHP/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[LESS 笔记]]></title>
