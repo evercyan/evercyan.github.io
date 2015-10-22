@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://evercyan.github.io/2015/09/10/article/</loc>
+    <lastmod>2015-09-10T11:30:33.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://evercyan.github.io/2015/08/01/php_socket_pack_unpack/</loc>
     <lastmod>2015-08-01T14:38:00.000Z</lastmod>
   </url>
@@ -64,6 +69,11 @@
   <url>
     <loc>http://evercyan.github.io/2015/05/21/helloWorld/</loc>
     <lastmod>2015-05-21T12:10:33.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://evercyan.github.io/2015/10/20/note/</loc>
+    <lastmod>2001-10-20T11:30:33.000Z</lastmod>
   </url>
   
 </urlset>
