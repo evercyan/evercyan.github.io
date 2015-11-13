@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Make Some Difference]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://evercyan.github.io/"/>
-  <updated>2001-10-20T11:30:33.000Z</updated>
+  <updated>2015-11-13T05:00:00.000Z</updated>
   <id>http://evercyan.github.io/</id>
   
   <author>
@@ -15,6 +15,472 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title><![CDATA[Mongo 的 PHP 类封装]]></title>
+    <link href="http://evercyan.github.io/2015/11/13/php_mongo/"/>
+    <id>http://evercyan.github.io/2015/11/13/php_mongo/</id>
+    <published>2015-11-13T05:00:00.000Z</published>
+    <updated>2015-11-13T05:00:00.000Z</updated>
+    <content type="html"><![CDATA[<h1 id="Mongo_的_PHP_类封装">Mongo 的 PHP 类封装</h1><hr>
+<blockquote>
+<p>严宇川, 2015.11.13<a id="more"></a></p>
+<p>之前有需求使用 PHP 对 Mongo 进行一些操作, 遂简单的进行了一下封装<br>包括 CURD, 对表模型的字段补全 &amp; 字段检查<br>不包括索引处理 (必要性不大)</p>
+</blockquote>
+<hr>
+<h2 id="Mongo-php">Mongo.php</h2><pre><code><span class="php"><span class="preprocessor">&lt;?php</span>
+<span class="comment">/**
+ * Mongo PHP 类封装
+ * Ryan 2015.11.13
+ */</span>
+<span class="class"><span class="keyword">class</span> <span class="title">LibMongo</span> </span>{   
+    <span class="keyword">protected</span> <span class="variable">$mongo</span>;
+    <span class="keyword">protected</span> <span class="variable">$activeDb</span>;     
+    <span class="keyword">protected</span> <span class="variable">$error</span>;  
+    <span class="keyword">protected</span> <span class="keyword">static</span> <span class="variable">$_instance</span>;
+
+    <span class="keyword">protected</span> <span class="keyword">static</span> <span class="variable">$mongoConf</span> = <span class="keyword">array</span>(
+        <span class="string">'w'</span> =&gt; <span class="number">1</span>,
+            <span class="comment">// 安全模式, 返回详细结果</span>
+        <span class="string">'multiple'</span> =&gt; <span class="number">1</span>,
+            <span class="comment">// 批量更新</span>
+        <span class="string">'upsert'</span> =&gt; <span class="number">1</span>,
+            <span class="comment">// 更新或插入</span>
+        <span class="string">'justOne'</span> =&gt; <span class="number">0</span>,
+            <span class="comment">// 只删除一条</span>
+    );
+    <span class="comment">// DB 配置</span>
+    <span class="keyword">protected</span> <span class="variable">$mongoDbConf</span> = <span class="keyword">array</span>(
+        <span class="string">'local'</span> =&gt; <span class="keyword">array</span>(
+            <span class="keyword">array</span>(
+                <span class="string">'hostnames'</span> =&gt; <span class="string">'127.0.0.1:27017'</span>,
+                <span class="string">'database'</span> =&gt; <span class="string">'admin'</span>,
+                <span class="string">'username'</span> =&gt; <span class="string">'admin'</span>,
+                <span class="string">'password'</span> =&gt; <span class="string">'admin'</span>
+            ),
+        ),
+    );
+
+    <span class="comment">// Table 模型</span>
+    <span class="keyword">public</span> <span class="keyword">static</span> <span class="variable">$tableModel</span> = <span class="keyword">array</span>(
+        <span class="string">'demo'</span> =&gt; <span class="keyword">array</span>(
+            <span class="string">'uid'</span> =&gt; <span class="keyword">array</span>(
+                <span class="string">'type'</span> =&gt; <span class="string">'integer'</span>,
+                <span class="string">'default'</span> =&gt; <span class="string">'0'</span>,
+                <span class="string">'desc'</span> =&gt; <span class="string">'UID'</span>,
+            ),
+            <span class="string">'name'</span> =&gt; <span class="keyword">array</span>(
+                <span class="string">'type'</span> =&gt; <span class="string">'string'</span>,
+                <span class="string">'default'</span> =&gt; <span class="string">''</span>,
+                <span class="string">'desc'</span> =&gt; <span class="string">'名称'</span>,
+            ),
+            <span class="string">'tmCreate'</span> =&gt; <span class="keyword">array</span>(
+                <span class="string">'type'</span> =&gt; <span class="string">'integer'</span>,
+                <span class="string">'default'</span> =&gt; <span class="number">0</span>,
+                <span class="string">'desc'</span> =&gt; <span class="string">'纪录生成时间'</span>,
+            ),
+        )
+    );
+    <span class="comment">/**
+     * 构造函数
+     * <span class="doctag">@param</span> [type]  $mongoServer [数组或字符串]
+     * <span class="doctag">@param</span> boolean $connect     [初始化mongo对象时是否连接, 默认连接]
+     * <span class="doctag">@param</span> boolean $autoBalance [是否自动做负载均衡, 默认是]
+     */</span>
+    <span class="keyword">private</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">(<span class="variable">$dbConf</span>, <span class="variable">$connect</span> = true, <span class="variable">$autoBalance</span> = true)</span> </span>{     
+        <span class="keyword">try</span> {           
+            <span class="keyword">if</span> (<span class="keyword">isset</span>(<span class="variable">$this</span>-&gt;mongoDbConf[<span class="variable">$dbConf</span>])) {
+                <span class="variable">$mongoServer</span> = <span class="variable">$this</span>-&gt;mongoDbConf[<span class="variable">$dbConf</span>];
+            } <span class="keyword">else</span> {
+                <span class="keyword">return</span> <span class="keyword">false</span>;
+            }
+            <span class="variable">$hostnames</span> = <span class="keyword">array</span>(); 
+            <span class="keyword">if</span> (count(<span class="variable">$mongoServer</span>) &gt; <span class="number">1</span> &amp;&amp; <span class="variable">$autoBalance</span>) {     
+                shuffle(<span class="variable">$mongoServer</span>);  
+            }
+            <span class="keyword">foreach</span> (<span class="variable">$mongoServer</span> <span class="keyword">as</span> <span class="variable">$v</span>) {
+                <span class="variable">$hostnames</span>[] = <span class="variable">$v</span>[<span class="string">'hostnames'</span>];
+            }
+            <span class="variable">$username</span> = <span class="variable">$mongoServer</span>[<span class="number">0</span>][<span class="string">'username'</span>];  
+            <span class="variable">$password</span> = <span class="variable">$mongoServer</span>[<span class="number">0</span>][<span class="string">'password'</span>];
+            <span class="variable">$database</span> = <span class="variable">$mongoServer</span>[<span class="number">0</span>][<span class="string">'database'</span>];
+            <span class="variable">$mongoServerStr</span> = <span class="string">'mongodb://'</span> . <span class="variable">$username</span> . <span class="string">':'</span> . <span class="variable">$password</span> . <span class="string">'@'</span> . implode(<span class="string">','</span>, <span class="variable">$hostnames</span>) . <span class="string">'/'</span> . <span class="variable">$database</span>; 
+
+            <span class="variable">$this</span>-&gt;activeDb = <span class="variable">$database</span>;
+            <span class="comment">// 如果使用命名空间, 需要对实例化类作顶级命名空间转义</span>
+            <span class="variable">$this</span>-&gt;mongo = <span class="keyword">new</span> MongoClient(<span class="variable">$mongoServerStr</span>, <span class="keyword">array</span>(<span class="string">'connect'</span> =&gt; <span class="variable">$connect</span>));
+        } <span class="keyword">catch</span> (MongoConnectionException <span class="variable">$e</span>) {     
+            <span class="variable">$this</span>-&gt;error = <span class="variable">$e</span>-&gt;getMessage();     
+            <span class="keyword">return</span> <span class="variable">$this</span>-&gt;error();   
+        }     
+    }
+    <span class="comment">/**
+     * 单例模式
+     */</span>
+    <span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">getInstance</span><span class="params">(<span class="variable">$dbConf</span>)</span> </span>{
+        <span class="keyword">if</span>(!<span class="keyword">isset</span>(<span class="keyword">self</span>::<span class="variable">$_instance</span>)) {
+            <span class="keyword">self</span>::<span class="variable">$_instance</span> = <span class="keyword">new</span> <span class="keyword">self</span>(<span class="variable">$dbConf</span>);
+        }
+        <span class="keyword">return</span> <span class="keyword">self</span>::<span class="variable">$_instance</span>;
+    }    
+    <span class="comment">/**
+     * 简单的模型检查
+     * 提供字段补全, String &amp; Int 转换
+     */</span>
+    <span class="keyword">protected</span> <span class="function"><span class="keyword">function</span> <span class="title">modelCheck</span><span class="params">(<span class="variable">$table</span>, <span class="variable">$param</span>, <span class="variable">$type</span> = <span class="string">'insert'</span>)</span> </span>{
+        <span class="comment">// 如果有表模型定义</span>
+        <span class="keyword">if</span> (<span class="keyword">isset</span>(<span class="variable">$this</span>-&gt;tableModel[<span class="variable">$table</span>])) {
+            <span class="variable">$tModel</span> = <span class="variable">$this</span>-&gt;tableModel[<span class="variable">$table</span>];
+
+            <span class="keyword">if</span> (<span class="variable">$type</span> == <span class="string">'insert'</span>) {
+                <span class="comment">// 插入数据时作字段补充</span>
+                <span class="keyword">foreach</span> (<span class="variable">$tModel</span> <span class="keyword">as</span> <span class="variable">$k</span> =&gt; <span class="variable">$v</span>) {
+                    <span class="comment">// 如果有字段未定义, 且模型中有默认值</span>
+                    <span class="keyword">if</span> (!<span class="keyword">isset</span>(<span class="variable">$param</span>[<span class="variable">$k</span>]) &amp;&amp; <span class="keyword">isset</span>(<span class="variable">$v</span>[<span class="string">'default'</span>])) {
+                        <span class="variable">$param</span>[<span class="variable">$k</span>] = <span class="variable">$v</span>[<span class="string">'default'</span>];
+                    }
+                }
+            }
+            <span class="comment">// 字段检查</span>
+            <span class="keyword">foreach</span> (<span class="variable">$param</span> <span class="keyword">as</span> <span class="variable">$k</span> =&gt; <span class="variable">$v</span>) {
+                <span class="keyword">if</span> (<span class="keyword">isset</span>(<span class="variable">$tModel</span>[<span class="variable">$k</span>])) {
+                    <span class="keyword">if</span> (!<span class="variable">$v</span> &amp;&amp; <span class="keyword">isset</span>(<span class="variable">$tModel</span>[<span class="variable">$k</span>][<span class="string">'default'</span>])) {
+                        <span class="variable">$v</span> = <span class="variable">$tModel</span>[<span class="variable">$k</span>][<span class="string">'default'</span>];
+                    }
+                    <span class="keyword">switch</span> (<span class="variable">$tModel</span>[<span class="variable">$k</span>][<span class="string">'type'</span>]) {
+                        <span class="keyword">case</span> <span class="string">'integer'</span> :
+                            <span class="variable">$param</span>[<span class="variable">$k</span>] = intval(<span class="variable">$v</span>);
+                            <span class="keyword">break</span>;
+                        <span class="keyword">case</span> <span class="string">'string'</span> :
+                            <span class="variable">$param</span>[<span class="variable">$k</span>] = strval(<span class="variable">$v</span>);
+                            <span class="keyword">break</span>;
+                        <span class="keyword">default</span> :
+                            <span class="keyword">break</span>;
+                    }
+                } <span class="keyword">else</span> {
+                    <span class="keyword">unset</span>(<span class="variable">$param</span>[<span class="variable">$k</span>]);
+                }
+            }
+        }
+        <span class="keyword">return</span> <span class="variable">$param</span>;
+    }
+
+    <span class="comment">/**
+     * 选择数据库
+     */</span>
+    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">selectDb</span><span class="params">(<span class="variable">$dbname</span>)</span> </span>{     
+        <span class="variable">$this</span>-&gt;activeDb = <span class="variable">$dbname</span>;
+        <span class="keyword">return</span> <span class="keyword">true</span>;     
+    }
+
+    <span class="comment">/**
+     * 集合查询
+     * <span class="doctag">@param</span>  [type] $table   [集合名称]
+     * <span class="doctag">@param</span>  array  $queryC  [查询条件]
+     * <span class="doctag">@param</span>  array  $resultC [过滤条件]
+     * <span class="doctag">@param</span>  array  $fieldsC [查询字段]
+     * <span class="doctag">@return</span> [type]          [查询结果]
+     */</span>
+    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">find</span><span class="params">(<span class="variable">$table</span>, <span class="variable">$queryC</span> = array<span class="params">()</span>, <span class="variable">$fieldsC</span> = array<span class="params">()</span>, <span class="variable">$resultC</span> = array<span class="params">()</span>)</span> </span>{
+        <span class="keyword">try</span> {     
+            <span class="variable">$result</span> = <span class="keyword">array</span>();
+
+            <span class="variable">$dbname</span> = <span class="variable">$this</span>-&gt;activeDb;     
+            <span class="variable">$cursor</span> = <span class="variable">$this</span>-&gt;mongo-&gt;<span class="variable">$dbname</span>-&gt;<span class="variable">$table</span>-&gt;find(<span class="variable">$queryC</span>);  
+            <span class="keyword">if</span> (<span class="variable">$fieldsC</span>) {
+                <span class="variable">$cursor</span>-&gt;fields(<span class="variable">$fieldsC</span>);
+            }   
+            <span class="keyword">if</span> (<span class="keyword">isset</span>(<span class="variable">$resultC</span>[<span class="string">'start'</span>])) {     
+                <span class="variable">$cursor</span>-&gt;skip(<span class="variable">$resultC</span>[<span class="string">'start'</span>]);     
+            }     
+            <span class="keyword">if</span> (<span class="keyword">isset</span>(<span class="variable">$resultC</span>[<span class="string">'limit'</span>])) {     
+                <span class="variable">$cursor</span>-&gt;limit(<span class="variable">$resultC</span>[<span class="string">'limit'</span>]);     
+            }     
+            <span class="keyword">if</span> (<span class="keyword">isset</span>(<span class="variable">$resultC</span>[<span class="string">'sort'</span>])) {     
+                <span class="variable">$cursor</span>-&gt;sort(<span class="variable">$resultC</span>[<span class="string">'sort'</span>]);     
+            } 
+            <span class="keyword">while</span> (<span class="variable">$cursor</span>-&gt;hasNext()) {     
+                <span class="variable">$result</span>[] = <span class="variable">$cursor</span>-&gt;getNext();     
+            }     
+            <span class="keyword">return</span> <span class="variable">$result</span>;
+        } <span class="keyword">catch</span> (MongoConnectionException <span class="variable">$e</span>) {     
+            <span class="variable">$this</span>-&gt;error = <span class="variable">$e</span>-&gt;getMessage();     
+            <span class="keyword">return</span> <span class="variable">$this</span>-&gt;error();   
+        } <span class="keyword">catch</span> (MongoCursorTimeoutException <span class="variable">$e</span>) {     
+            <span class="variable">$this</span>-&gt;error = <span class="variable">$e</span>-&gt;getMessage();     
+            <span class="keyword">return</span> <span class="variable">$this</span>-&gt;error();      
+        }          
+    } 
+    <span class="comment">/**
+     * 集合查询, 只查询一条纪录
+     * <span class="doctag">@param</span>  [type] $table     [集合名称]
+     * <span class="doctag">@param</span>  [type] $queryC    [查询条件]
+     * <span class="doctag">@param</span>  array  $fieldsC   [查询字段]
+     * <span class="doctag">@return</span> [type]            [查询结果]
+     */</span>
+    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">findOne</span><span class="params">(<span class="variable">$table</span>, <span class="variable">$queryC</span> = array<span class="params">()</span>, <span class="variable">$fieldsC</span> = array<span class="params">()</span>)</span> </span>{   
+        <span class="keyword">try</span>{    
+            <span class="variable">$dbname</span> = <span class="variable">$this</span>-&gt;activeDb;   
+            <span class="keyword">return</span> <span class="variable">$this</span>-&gt;mongo-&gt;<span class="variable">$dbname</span>-&gt;<span class="variable">$table</span>-&gt;findOne(<span class="variable">$queryC</span>, <span class="variable">$fieldsC</span>); 
+        } <span class="keyword">catch</span> (MongoCursorException <span class="variable">$e</span>) {     
+            <span class="variable">$this</span>-&gt;error = <span class="variable">$e</span>-&gt;getMessage();     
+            <span class="keyword">return</span> <span class="variable">$this</span>-&gt;error();     
+        }  
+    }  
+
+    <span class="comment">/**
+     * 查询集合的纪录数
+     * <span class="doctag">@param</span>  [type] $table [集合名称]
+     * <span class="doctag">@return</span> [type]        [纪录总数]
+     */</span>
+    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">count</span><span class="params">(<span class="variable">$table</span>)</span> </span>{ 
+        <span class="keyword">try</span>{
+            <span class="variable">$dbname</span> = <span class="variable">$this</span>-&gt;activeDb; 
+            <span class="keyword">return</span> <span class="variable">$this</span>-&gt;mongo-&gt;<span class="variable">$dbname</span>-&gt;<span class="variable">$table</span>-&gt;count();  
+        } <span class="keyword">catch</span> (MongoCursorException <span class="variable">$e</span>) {     
+            <span class="variable">$this</span>-&gt;error = <span class="variable">$e</span>-&gt;getMessage();     
+            <span class="keyword">return</span> <span class="variable">$this</span>-&gt;error();     
+        }  
+    }
+
+    <span class="comment">/**
+     * 插入记录
+     * <span class="doctag">@param</span>  [type] $table  [集合名称]
+     * <span class="doctag">@param</span>  [type] $record [插入数据]
+     * <span class="doctag">@return</span> [type]         [插入结果]
+     */</span>
+    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">insert</span><span class="params">(<span class="variable">$table</span>, <span class="variable">$param</span>)</span> </span>{
+        <span class="variable">$dbname</span> = <span class="variable">$this</span>-&gt;activeDb;     
+        <span class="keyword">try</span> {     
+            <span class="comment">// 模型检查</span>
+            <span class="variable">$param</span> = <span class="variable">$this</span>-&gt;modelCheck(<span class="variable">$table</span>, <span class="variable">$param</span>, <span class="string">'insert'</span>);
+
+            <span class="variable">$result</span> = <span class="variable">$this</span>-&gt;mongo-&gt;<span class="variable">$dbname</span>-&gt;<span class="variable">$table</span>-&gt;insert(<span class="variable">$param</span>, <span class="keyword">array</span>(<span class="string">'w'</span> =&gt; <span class="keyword">self</span>::<span class="variable">$mongoConf</span>[<span class="string">'w'</span>]));
+            <span class="keyword">if</span> (<span class="variable">$result</span>[<span class="string">'ok'</span>]) {
+                <span class="keyword">return</span> <span class="variable">$param</span>[<span class="string">'_id'</span>];
+            } <span class="keyword">else</span> {
+                <span class="keyword">return</span> <span class="keyword">false</span>;  
+            }   
+        } <span class="keyword">catch</span> (MongoCursorException <span class="variable">$e</span>) {     
+            <span class="variable">$this</span>-&gt;error = <span class="variable">$e</span>-&gt;getMessage();     
+            <span class="keyword">return</span> <span class="variable">$this</span>-&gt;error();     
+        }     
+    }        
+
+    <span class="comment">/**
+     * 更新纪录
+     * <span class="doctag">@param</span>  [type] $table   [集合名称]
+     * <span class="doctag">@param</span>  [type] $queryC  [更新条件]
+     * <span class="doctag">@param</span>  [type] $param   [更新数据]
+     * <span class="doctag">@param</span>  array  $options [更新选项]
+     * <span class="doctag">@return</span> [type]          [更新结果]
+     */</span>
+    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">update</span><span class="params">(<span class="variable">$table</span>, <span class="variable">$queryC</span>, <span class="variable">$param</span>, <span class="variable">$options</span> = array<span class="params">()</span>)</span> </span>{     
+        <span class="variable">$dbname</span> = <span class="variable">$this</span>-&gt;activeDb;     
+
+        <span class="comment">// 安全模式</span>
+        <span class="variable">$options</span>[<span class="string">'w'</span>] = <span class="keyword">isset</span>(<span class="variable">$options</span>[<span class="string">'w'</span>]) ? <span class="variable">$options</span>[<span class="string">'w'</span>] : <span class="keyword">self</span>::<span class="variable">$mongoConf</span>[<span class="string">'w'</span>]; 
+
+        <span class="comment">// 批量更新</span>
+        <span class="variable">$options</span>[<span class="string">'multiple'</span>] = <span class="keyword">isset</span>(<span class="variable">$options</span>[<span class="string">'multiple'</span>]) ? <span class="variable">$options</span>[<span class="string">'multiple'</span>] : <span class="keyword">self</span>::<span class="variable">$mongoConf</span>[<span class="string">'multiple'</span>];
+
+        <span class="comment">// 更新或插入  </span>
+        <span class="variable">$options</span>[<span class="string">'upsert'</span>] = <span class="keyword">isset</span>(<span class="variable">$options</span>[<span class="string">'upsert'</span>]) ? <span class="variable">$options</span>[<span class="string">'upsert'</span>] : <span class="keyword">self</span>::<span class="variable">$mongoConf</span>[<span class="string">'upsert'</span>];  
+
+        <span class="keyword">if</span> (<span class="keyword">isset</span>(<span class="variable">$options</span>[<span class="string">'multiple'</span>]) &amp;&amp; <span class="variable">$options</span>[<span class="string">'multiple'</span>] == <span class="number">0</span>) {     
+            <span class="variable">$options</span>[<span class="string">'multiple'</span>] = <span class="number">0</span>;          
+        }     
+        <span class="keyword">try</span> {     
+            <span class="comment">// 模型检查</span>
+            <span class="variable">$param</span> = <span class="variable">$this</span>-&gt;modelCheck(<span class="variable">$table</span>, <span class="variable">$param</span>, <span class="string">'update'</span>);
+
+            <span class="variable">$updateObj</span> = <span class="keyword">array</span>(
+                <span class="string">'$set'</span> =&gt; <span class="variable">$param</span>
+            );
+            <span class="variable">$result</span> = <span class="variable">$this</span>-&gt;mongo-&gt;<span class="variable">$dbname</span>-&gt;<span class="variable">$table</span>-&gt;update(<span class="variable">$queryC</span>, <span class="variable">$updateObj</span>, <span class="variable">$options</span>);
+            <span class="keyword">if</span> (<span class="variable">$result</span>[<span class="string">'ok'</span>]) {
+                <span class="keyword">return</span> <span class="keyword">true</span>;
+            } <span class="keyword">else</span> {
+                <span class="keyword">return</span> <span class="keyword">false</span>;  
+            }   
+        } <span class="keyword">catch</span> (MongoCursorException <span class="variable">$e</span>) {     
+            <span class="variable">$this</span>-&gt;error = <span class="variable">$e</span>-&gt;getMessage();     
+            <span class="keyword">return</span> <span class="variable">$this</span>-&gt;error();    
+        }
+    }     
+
+    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">delete</span><span class="params">(<span class="variable">$table</span>, <span class="variable">$queryC</span>, <span class="variable">$options</span> = array<span class="params">()</span>)</span></span>{     
+        <span class="variable">$dbname</span> = <span class="variable">$this</span>-&gt;activeDb;
+        <span class="comment">// 安全模式</span>
+        <span class="variable">$options</span>[<span class="string">'w'</span>] = <span class="keyword">isset</span>(<span class="variable">$options</span>[<span class="string">'w'</span>]) ? <span class="variable">$options</span>[<span class="string">'w'</span>] : <span class="keyword">self</span>::<span class="variable">$mongoConf</span>[<span class="string">'w'</span>];     
+        <span class="comment">// 删除单条模式</span>
+        <span class="variable">$options</span>[<span class="string">'justOne'</span>] = <span class="keyword">isset</span>(<span class="variable">$options</span>[<span class="string">'justOne'</span>]) ? <span class="variable">$options</span>[<span class="string">'justOne'</span>] : <span class="keyword">self</span>::<span class="variable">$mongoConf</span>[<span class="string">'justOne'</span>];   
+        <span class="keyword">try</span> {     
+            <span class="variable">$result</span> = <span class="variable">$this</span>-&gt;mongo-&gt;<span class="variable">$dbname</span>-&gt;<span class="variable">$table</span>-&gt;remove(<span class="variable">$queryC</span>, <span class="variable">$options</span>);  
+            <span class="keyword">if</span> (<span class="variable">$result</span>[<span class="string">'ok'</span>]) {
+                <span class="keyword">return</span> <span class="keyword">true</span>;
+            } <span class="keyword">else</span> {
+                <span class="keyword">return</span> <span class="keyword">false</span>;  
+            }   
+        } <span class="keyword">catch</span> (MongoCursorException <span class="variable">$e</span>) {     
+            <span class="variable">$this</span>-&gt;error = <span class="variable">$e</span>-&gt;getMessage();     
+            <span class="keyword">return</span> <span class="variable">$this</span>-&gt;error();      
+        }          
+    }    
+
+    <span class="comment">/**
+     * 获取当前错误信息
+     */</span>
+    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">getError</span><span class="params">()</span> </span>{     
+        <span class="keyword">return</span> <span class="variable">$this</span>-&gt;error;     
+    }     
+
+    <span class="comment">/**
+     * 错误封装返回
+     */</span>
+    <span class="keyword">private</span> <span class="function"><span class="keyword">function</span> <span class="title">error</span><span class="params">()</span> </span>{
+        <span class="keyword">return</span> <span class="keyword">false</span>;
+        <span class="comment">// 是否返回错误</span>
+        <span class="comment">// return array(</span>
+        <span class="comment">//     'result' =&gt; false,</span>
+        <span class="comment">//     'error' =&gt; $this-&gt;error,</span>
+        <span class="comment">// );</span>
+    }
+}
+
+
+
+<span class="comment">/**
+ * Demo
+ */</span>
+
+error_reporting(E_ALL);
+header(<span class="string">"content-type:text/html; charset=utf-8"</span>);
+defined(<span class="string">'DB_MONGO'</span>) <span class="keyword">or</span> define(<span class="string">'DB_MONGO'</span>, <span class="string">'local'</span>);
+<span class="keyword">echo</span> <span class="string">'&lt;pre&gt;'</span>;
+<span class="variable">$M</span> = LibMongo::getInstance(DB_MONGO);  
+
+
+
+<span class="variable">$table</span> = <span class="string">'demo'</span>;
+
+<span class="variable">$t</span> = <span class="keyword">isset</span>(<span class="variable">$_REQUEST</span>[<span class="string">'t'</span>]) ? <span class="variable">$_REQUEST</span>[<span class="string">'t'</span>] : <span class="string">'1'</span>;
+<span class="keyword">switch</span> (<span class="variable">$t</span>) {
+    <span class="keyword">case</span> <span class="string">'1'</span> :
+        <span class="comment">/**
+         * 查询纪录
+         */</span>
+
+        <span class="comment">// 查询条件</span>
+        <span class="variable">$queryC</span> = <span class="keyword">array</span>(
+            <span class="comment">// 'name' =&gt; new MongoRegex('/.*ryan_.*/i'),</span>
+                <span class="comment">// name like '%ryan_%'</span>
+            <span class="string">'uid'</span> =&gt; <span class="keyword">array</span>(
+                <span class="string">'$gte'</span> =&gt; <span class="number">0</span>
+            ),
+                <span class="comment">// age &gt;= 20 &amp;&amp; age &lt;= 30</span>
+        );
+
+        <span class="comment">// 聚合过滤</span>
+        <span class="variable">$resultC</span> = <span class="keyword">array</span>(
+            <span class="comment">// 'start' =&gt; '0',</span>
+                <span class="comment">// 聚合偏移</span>
+            <span class="comment">// 'limit' =&gt; '5',</span>
+                <span class="comment">// 聚合数量</span>
+            <span class="string">'sort'</span> =&gt; <span class="keyword">array</span>(
+                <span class="string">'uid'</span> =&gt; -<span class="number">1</span>
+            ),
+                <span class="comment">// 聚合排序; 1, 升序; -1, 降序;</span>
+        );
+
+        <span class="comment">// 字段过滤; true 为只取该字段; false 为只不取该字段; </span>
+        <span class="comment">// true &amp; false 不可并存</span>
+        <span class="variable">$fieldsC</span> = <span class="keyword">array</span>(
+            <span class="comment">// 'uid' =&gt; true,</span>
+            <span class="comment">// 'name' =&gt; true</span>
+        );
+
+        <span class="variable">$result</span> = <span class="variable">$M</span>-&gt;find(<span class="variable">$table</span>, <span class="variable">$queryC</span>, <span class="variable">$fieldsC</span>, <span class="variable">$resultC</span>); 
+
+        <span class="comment">// 只查询一条</span>
+        <span class="comment">// $result = $M-&gt;findOne($table, $queryC, $fieldsC); </span>
+
+
+        <span class="comment">// 查询集合纪录</span>
+        <span class="comment">// $result = $M-&gt;count($table);</span>
+        print_r(<span class="variable">$result</span>);
+        <span class="keyword">break</span>;
+    <span class="keyword">case</span> <span class="string">'2'</span> :
+        <span class="comment">/**
+         * 插入纪录
+         */</span>
+        <span class="variable">$param</span> = <span class="keyword">array</span>(
+            <span class="string">'uid'</span> =&gt; <span class="string">'100001'</span>,
+        );
+        <span class="variable">$result</span> = <span class="variable">$M</span>-&gt;insert(<span class="variable">$table</span>, <span class="variable">$param</span>);
+        print_r(<span class="variable">$result</span>);
+        <span class="keyword">break</span>;
+    <span class="keyword">case</span> <span class="string">'3'</span> :
+        <span class="comment">/**
+         * 更新纪录
+         */</span>
+        <span class="comment">/*
+        $id = isset($_REQUEST['id']) ? $_REQUEST['id'] : '56362f9bbb315fce5c734dfc';
+        $data = $M-&gt;findOne($table);
+        $queryC = array(
+            '_id' =&gt; new MongoId($id),
+            // 'name' =&gt; 'ryan_1111',
+        );
+        $param = array(
+            'name' =&gt; 'ryan_' . time(),
+            'time' =&gt; time(),
+        );
+        $result = $M-&gt;update($table, $queryC, $param);
+        print_r($result);
+        */</span>
+        <span class="variable">$queryC</span> = <span class="keyword">array</span>(
+            <span class="comment">// '_id' =&gt; new MongoId('5644a5ccbb315f8b53350e7d'),</span>
+            <span class="string">'name'</span> =&gt; <span class="string">'ryan'</span>,
+        );
+        <span class="variable">$param</span> = <span class="keyword">array</span>(
+            <span class="string">'uid'</span> =&gt; <span class="string">'100002'</span>
+        );
+        <span class="variable">$result</span> = <span class="variable">$M</span>-&gt;update(<span class="variable">$table</span>, <span class="variable">$queryC</span>, <span class="variable">$param</span>);
+        print_r(<span class="variable">$result</span>);
+        <span class="keyword">break</span>;
+    <span class="keyword">case</span> <span class="string">'4'</span> :
+        <span class="comment">/**
+         * 删除纪录
+         */</span>
+        <span class="variable">$id</span> = <span class="keyword">isset</span>(<span class="variable">$_REQUEST</span>[<span class="string">'id'</span>]) ? <span class="variable">$_REQUEST</span>[<span class="string">'id'</span>] : <span class="string">'56362f9bbb315fce5c734dfc'</span>;
+        <span class="variable">$queryC</span> = <span class="keyword">array</span>(
+            <span class="string">'_id'</span> =&gt; <span class="keyword">new</span> MongoId(<span class="variable">$id</span>),
+            <span class="comment">// 'name' =&gt; 'ryan_1111',</span>
+        );
+        <span class="variable">$result</span> = <span class="variable">$M</span>-&gt;delete(<span class="variable">$table</span>, <span class="variable">$queryC</span>);
+        print_r(<span class="variable">$result</span>);
+        <span class="keyword">break</span>;
+    <span class="keyword">default</span> :
+        <span class="keyword">echo</span> <span class="string">'Hello Mongo'</span>;
+        <span class="keyword">break</span>;
+}</span>
+</code></pre><hr>
+<p>以上</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h1 id="Mongo_的_PHP_类封装">Mongo 的 PHP 类封装</h1><hr>
+<blockquote>
+<p>严宇川, 2015.11.13]]>
+    
+    </summary>
+    
+      <category term="Mongo" scheme="http://evercyan.github.io/tags/Mongo/"/>
+    
+      <category term="PHP" scheme="http://evercyan.github.io/tags/PHP/"/>
+    
+      <category term="PHP" scheme="http://evercyan.github.io/categories/PHP/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[涂鸦小记]]></title>
     <link href="http://evercyan.github.io/2015/10/20/note/"/>
     <id>http://evercyan.github.io/2015/10/20/note/</id>
@@ -22,7 +488,7 @@
     <updated>2001-10-20T11:30:33.000Z</updated>
     <content type="html"><![CDATA[<h1 id="涂鸦小记">涂鸦小记</h1><hr>
 <blockquote>
-<p>严宇川 涂鸦小记</p>
+<p>严宇川 涂鸦小记<a id="more"></a></p>
 </blockquote>
 <hr>
 <h3 id="雨霖铃">雨霖铃</h3><blockquote>
@@ -141,12 +607,8 @@
     <summary type="html">
     <![CDATA[<h1 id="涂鸦小记">涂鸦小记</h1><hr>
 <blockquote>
-<p>严宇川 涂鸦小记</p>
-</blockquote>
-<hr>
-<h3 id="雨霖铃">雨霖铃</h3><blockquote>
-<p>2012.06.04 毕业之际</p>
-</block]]>
+<p>严宇川 涂鸦小记]]>
+    
     </summary>
     
       <category term="文章" scheme="http://evercyan.github.io/tags/%E6%96%87%E7%AB%A0/"/>
@@ -161,7 +623,11 @@
     <id>http://evercyan.github.io/2015/09/10/article/</id>
     <published>2015-09-10T11:30:33.000Z</published>
     <updated>2015-09-10T11:30:33.000Z</updated>
-    <content type="html"><![CDATA[<h2 id="滕王阁序">滕王阁序</h2><blockquote>
+    <content type="html"><![CDATA[<h1 id="古文">古文</h1><blockquote>
+<p>古文<a id="more"></a></p>
+</blockquote>
+<hr>
+<h2 id="滕王阁序">滕王阁序</h2><blockquote>
 <p>唐代 王勃</p>
 </blockquote>
 <p>　　豫章故郡，洪都新府。星分翼轸，地接衡庐。襟三江而带五湖，控蛮荆而引瓯越。物华天宝，龙光射牛斗之墟；人杰地灵，徐孺下陈蕃之榻。雄州雾列，俊采星驰。台隍枕夷夏之交，宾主尽东南之美。都督阎公之雅望，棨戟遥临；宇文新州之懿范，襜帷暂驻。十旬休假，胜友如云；千里逢迎，高朋满座。腾蛟起凤，孟学士之词宗；紫电青霜，王将军之武库。家君作宰，路出名区；童子何知，躬逢胜饯。(豫章故郡 一作：南昌故郡)</p>
@@ -213,10 +679,9 @@
 <p>　　庭有枇杷树，吾妻死之年所手植也，今已亭亭如盖矣。</p>
 ]]></content>
     <summary type="html">
-    <![CDATA[<h2 id="滕王阁序">滕王阁序</h2><blockquote>
-<p>唐代 王勃</p>
-</blockquote>
-<p>　　豫章故郡，洪都新府。星分翼轸，地接衡庐。襟三江而带五湖，控蛮荆而引瓯越。物华天宝，龙光射牛斗之墟；人杰地灵，徐孺下陈蕃之榻。雄州雾列，俊采星驰。]]>
+    <![CDATA[<h1 id="古文">古文</h1><blockquote>
+<p>古文]]>
+    
     </summary>
     
       <category term="文章" scheme="http://evercyan.github.io/tags/%E6%96%87%E7%AB%A0/"/>
@@ -234,7 +699,9 @@
     <content type="html"><![CDATA[<h1 id="关于_PHP_Socket_及位字符串函数_pack_&amp;_unpack_的示例">关于 PHP Socket 及位字符串函数 pack &amp; unpack 的示例</h1><hr>
 <blockquote>
 <p>严宇川, 2015.08.02</p>
+<p>关于 PHP Socket 及位字符串函数 pack &amp; unpack 的示例.<a id="more"></a></p>
 </blockquote>
+<hr>
 <h2 id="pack_&amp;_unpack_的封装">pack &amp; unpack 的封装</h2><blockquote>
 <p>在用 socket 和服务器交互过程中, 需要使用 pack 来将其他进制的数据压包到位字符串中; 接收到服务器返回的数据, 同样需要使用 unpack 来解析数据. </p>
 <p>pack 的封装主要针对 String 来做的处理, 需要先压包其长度, 再压包其数据</p>
@@ -602,7 +1069,9 @@ socket_close(<span class="variable">$sock</span>);</span>
     <summary type="html">
     <![CDATA[<h1 id="关于_PHP_Socket_及位字符串函数_pack_&amp;_unpack_的示例">关于 PHP Socket 及位字符串函数 pack &amp; unpack 的示例</h1><hr>
 <blockquote>
-<p>严宇川, 2015.08.02</p]]>
+<p>严宇川, 2015.08.02</p>
+<p>关于 PHP Socket 及位字符串函数 pack &amp; unpack 的示例.]]>
+    
     </summary>
     
       <category term="PHP" scheme="http://evercyan.github.io/tags/PHP/"/>
@@ -620,7 +1089,7 @@ socket_close(<span class="variable">$sock</span>);</span>
     <published>2015-06-22T14:38:00.000Z</published>
     <updated>2015-06-22T14:38:00.000Z</updated>
     <content type="html"><![CDATA[<h1 id="LESS_笔记">LESS 笔记</h1><blockquote>
-<p>参考文档 : <a href="http://less.bootcss.com" target="_blank" rel="external">http://less.bootcss.com</a></p>
+<p>参考文档 : <a href="http://less.bootcss.com" target="_blank" rel="external">http://less.bootcss.com</a><a id="more"></a></p>
 </blockquote>
 <hr>
 <h2 id="安装">安装</h2><pre><code>npm <span class="keyword">install</span> -g <span class="operator">less</span>
@@ -891,7 +1360,8 @@ less.js : https://github.com/less/less.js/archive/master.zip
 </code></pre>]]></content>
     <summary type="html">
     <![CDATA[<h1 id="LESS_笔记">LESS 笔记</h1><blockquote>
-<p>参考文档 : <a href="http://less.bootcss.com" target="_blank" rel="external">http://less.bootcss.com]]>
+<p>参考文档 : <a href="http://less.bootcss.com">http://less.bootcss.com</a>]]>
+    
     </summary>
     
       <category term="CSS" scheme="http://evercyan.github.io/tags/CSS/"/>
@@ -908,8 +1378,9 @@ less.js : https://github.com/less/less.js/archive/master.zip
     <id>http://evercyan.github.io/2015/06/21/justdophp/</id>
     <published>2015-06-21T08:57:00.000Z</published>
     <updated>2015-06-21T08:57:00.000Z</updated>
-    <content type="html"><![CDATA[<h2 id="justDoPHP_简介">justDoPHP 简介</h2><blockquote>
-<p>gitHub : <a href="https://github.com/everCyan/justDoPHP" target="_blank" rel="external">https://github.com/everCyan/justDoPHP</a></p>
+    <content type="html"><![CDATA[<h2 id="justDoPHP_简介">justDoPHP 简介</h2><hr>
+<blockquote>
+<p>gitHub : <a href="https://github.com/everCyan/justDoPHP" target="_blank" rel="external">https://github.com/everCyan/justDoPHP</a>.<a id="more"></a></p>
 </blockquote>
 <hr>
 <blockquote>
@@ -1025,8 +1496,10 @@ less.js : https://github.com/less/less.js/archive/master.zip
 <p>2015-06-21</p>
 ]]></content>
     <summary type="html">
-    <![CDATA[<h2 id="justDoPHP_简介">justDoPHP 简介</h2><blockquote>
-<p>gitHub : <a href="https://github.com/everCyan/justDoPHP" target="_blank" rel="externa]]>
+    <![CDATA[<h2 id="justDoPHP_简介">justDoPHP 简介</h2><hr>
+<blockquote>
+<p>gitHub : <a href="https://github.com/everCyan/justDoPHP">https://github.com/everCyan/justDoPHP</a>.]]>
+    
     </summary>
     
       <category term="PHP" scheme="http://evercyan.github.io/tags/PHP/"/>
