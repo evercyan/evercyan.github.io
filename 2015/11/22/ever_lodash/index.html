@@ -4,12 +4,12 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>关于这个 BLOG | 在云端</title>
+    <title>EverLodash - Lodash for PHP | 在云端</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="严宇川">
     
-    <meta name="description" content="我要说一个故事, 这个故事是这样子的.">
+    <meta name="description" content="&quot;&gt;EverLodash - Lodash for PHP">
     
     
     
@@ -76,82 +76,78 @@ var _hmt = _hmt || [];
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/05/24/aboutThisBlog/" title="关于这个 BLOG" itemprop="url">关于这个 BLOG</a>
+      <a href="/2015/11/22/ever_lodash/" title="EverLodash - Lodash for PHP" itemprop="url">EverLodash - Lodash for PHP</a>
   </h1>
   <p class="article-author">By
     
       <a href="http://evercyan.github.io" title="严宇川">严宇川</a>
     </p>
   <p class="article-time">
-    <time datetime="2015-05-24T11:30:33.000Z" itemprop="datePublished">2015-05-24</time>
-    更新日期:<time datetime="2015-05-24T11:30:33.000Z" itemprop="dateModified">2015-05-24</time>
+    <time datetime="2015-11-22T12:42:33.000Z" itemprop="datePublished">2015-11-22</time>
+    更新日期:<time datetime="2015-11-22T12:42:33.000Z" itemprop="dateModified">2015-11-22</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
 		
-		<blockquote>
-<p>我要说一个故事, 这个故事是这样子的.<a id="more"></a></p>
+		<h1 id="EverLodash_-_Lodash_for_PHP_<!-more->">EverLodash - Lodash for PHP <a id="more"></a></h1><blockquote>
+<p>Ryan 2015.11.22<br>GitHub : <a href="https://github.com/everCyan/EverLodash" target="_blank" rel="external">https://github.com/everCyan/EverLodash</a><br>Composer : <a href="https://packagist.org/packages/ever/lodash" target="_blank" rel="external">https://packagist.org/packages/ever/lodash</a>   </p>
 </blockquote>
 <hr>
-<p>身为一个悲催的程序猿, 常在河边走, 总也会遇到一些不常见的坑坑洼洼让你摔个大跤.<br>所以不免从百度到谷歌, 千辛万苦找到了救命良方, 遂存之书签.<br>但日积月累, 书签越来越多, 然后出现了这样一个过程 :</p>
 <ul>
-<li>踩过的坑又踩</li>
-<li>搜过的东本又搜</li>
-<li>存之书签</li>
-<li>踩过坑又踩</li>
-<li>……</li>
+<li>). 如果有在使用 Composer 包管理的话</li>
 </ul>
-<p>于是想着弄个博客吧.</p>
-<p>然后…</p>
+<pre><code>    {
+        <span class="string">"require"</span>: {
+            <span class="string">"ever/lodash"</span>: <span class="string">"*<span class="variable">@dev</span>"</span>
+        }
+    }
+
+
+然后 
+
+    composer update
+</code></pre><ul>
+<li>). 如果直接 Github 下载源码, 引入使用</li>
+</ul>
+<ul>
+<li>). 使用示例</li>
+</ul>
+<pre><code><span class="keyword">use</span> Ever\Lodash as <span class="number">_</span>;
+var_dump(<span class="number">_</span>::uni<span class="string">q(array(1, 2, 1)</span>));
+</code></pre><hr>
+<p>以前在写 NodeJS 时用过一个很好用的工具 <a href="https://lodash.com" target="_blank" rel="external">lodash</a>, 封装了一套对于 (数组|集合|字典|JSON对象) 的操作.</p>
+<p>后来回到写 PHP, 发现蛮多类似的需求官方却没有技术支持.</p>
+<p>举个例子, 二维数组去重, 在 lodash 中, 直接 _.uniq(obj, ‘id’) 就可以搞定的事, PHP 中却只有简单的一维数组去重函数 array_uniq().</p>
+<p>再比如拿到二维数组某个字段组成一维数组集合时, lodash 中直接 _.pluck(obj, ‘name’). 而 PHP 官方的函数库直到 (PHP 5 &gt;= 5.5.0, PHP 7)时, 才出了一个 array_column().</p>
+<p>而此时, 很多线上的PHP版本还停留在 5.3(就像我们公司的PHP版本), 就直接跪了.</p>
+<h3 id="然后">然后</h3><p>想着直接把一些 lodash 中好用的函数去 PHP 重写一套吧.</p>
+<h3 id="于是乎">于是乎</h3><p>包里有个 test 文件, 把一些我觉得有必要示例的函数作了个 DEMO, 其余一些函数建议自己去读源码吧~</p>
+<p>就这样吧.</p>
 <hr>
-<p>为什么放着那么多国内博客不用, 要用 <a href="https://github.com/" title="Github" target="_blank" rel="external">Github</a> 呢?</p>
-<ul>
-<li>有逼格</li>
-<li>有逼格</li>
-<li>有逼格</li>
-</ul>
-<p>听说重要的事要说三遍!!!</p>
-<blockquote>
-<p>好吧, 事情是这样子的.</p>
-</blockquote>
-<p>之前用 Github 仅限于搜一些好的开源代码, 然后你懂的.</p>
-<p>后来发现用 Github 写博客于我而言有以下好处 :</p>
-<ol>
-<li>免费</li>
-<li>接触新东西, 像之前有逼格的 Markdown 根本很少用, 然后一用发现像吃了炫迈一样完全停不下来啊</li>
-<li>经常用更有助于加深对 Github 的熟悉度, 之前用 SVN 的说</li>
-</ol>
-<p>发现有强迫症, 不满三点要凑足三点.</p>
-<ul>
-<li>我不是处女座</li>
-<li>我不是处女座</li>
-<li>我不是处女座</li>
-</ul>
+<p>以上</p>
 <hr>
-<p>写在后面, 记住一定要经常更新, 因为是写给自己看的.</p>
-<p>恩, 就是这样, 待会就是西甲最后一轮巴萨 VS 拉科鲁尼亚了, 感谢哈维, 加油巴萨.</p>
-<h1 id="三冠王我们来了!!!">三冠王我们来了!!!</h1>
+
 	</div>
 		<footer class="article-footer clearfix">
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/博客/">博客</a>
+  <span></span> <a href="/tags/Lodash/">Lodash</a>
   </div>
 
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/碎碎念/">碎碎念</a>
+  <a class="article-category-link" href="/categories/PHP/">PHP</a>
 </div>
 
 
 
 <div class="article-share" id="share">
 
-  <div data-url="http://evercyan.github.io/2015/05/24/aboutThisBlog/" data-title="关于这个 BLOG | 在云端" data-tsina="1649089717" class="share clearfix">
+  <div data-url="http://evercyan.github.io/2015/11/22/ever_lodash/" data-title="EverLodash - Lodash for PHP | 在云端" data-tsina="1649089717" class="share clearfix">
   </div>
 
 </div>
@@ -160,19 +156,11 @@ var _hmt = _hmt || [];
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2015/05/29/gta5/" title="GTA5 攻略">
-  <strong>PREVIOUS:</strong><br/>
-  <span>
-  GTA5 攻略</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2015/05/21/helloWorld/"  title="Hello World">
+<a href="/2015/11/13/php_mongo/"  title="Mongo 的 PHP 类封装">
  <strong>NEXT:</strong><br/> 
- <span>Hello World
+ <span>Mongo 的 PHP 类封装
 </span>
 </a>
 </div>
