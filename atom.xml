@@ -20,10 +20,9 @@
     <id>http://evercyan.github.io/2015/11/22/ever_lodash/</id>
     <published>2015-11-22T12:42:33.000Z</published>
     <updated>2015-11-22T12:42:33.000Z</updated>
-    <content type="html"><![CDATA[<h1 id="EverLodash_-_Lodash_for_PHP_<!-more->">EverLodash - Lodash for PHP <a id="more"></a></h1><blockquote>
-<p>Ryan 2015.11.22<br>GitHub : <a href="https://github.com/everCyan/EverLodash" target="_blank" rel="external">https://github.com/everCyan/EverLodash</a><br>Composer : <a href="https://packagist.org/packages/ever/lodash" target="_blank" rel="external">https://packagist.org/packages/ever/lodash</a>   </p>
-</blockquote>
-<hr>
+    <content type="html"><![CDATA[<h1 id="EverLodash_-_Lodash_for_PHP">EverLodash - Lodash for PHP</h1><blockquote>
+<p>Ryan 2015.11.22 <a id="more"></a><br>GitHub : <a href="https://github.com/everCyan/EverLodash" target="_blank" rel="external">https://github.com/everCyan/EverLodash</a>   </p>
+<h2 id="Composer_:_https://packagist-org/packages/ever/lodash">Composer : <a href="https://packagist.org/packages/ever/lodash" target="_blank" rel="external">https://packagist.org/packages/ever/lodash</a>   </h2></blockquote>
 <ul>
 <li>). 如果有在使用 Composer 包管理的话</li>
 </ul>
@@ -59,7 +58,8 @@ var_dump(<span class="number">_</span>::uni<span class="string">q(array(1, 2, 1)
 <hr>
 ]]></content>
     <summary type="html">
-    <![CDATA[<h1 id="EverLodash_-_Lodash_for_PHP_<!-more->">EverLodash - Lodash for PHP]]>
+    <![CDATA[<h1 id="EverLodash_-_Lodash_for_PHP">EverLodash - Lodash for PHP</h1><blockquote>
+<p>Ryan 2015.11.22]]>
     
     </summary>
     
