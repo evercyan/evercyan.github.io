@@ -1,698 +1,738 @@
-
- <!DOCTYPE HTML>
-<html lang="zh-CN">
+<!DOCTYPE html>
+<html lang="h-Hans">
 <head>
-  <meta charset="UTF-8">
-  
-    <title>LESS 笔记 | 在云端</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
-    
-    <meta name="author" content="严宇川">
-    
-    <meta name="description" content="LESS 笔记
-简单记录一下LESS 笔记!http://less.bootcss.com">
-    
-    
-    
-    
-    <link rel="alternate" href="/atom.xml" title="在云端" type="application/atom+xml">
-    
-    
-    <link rel="icon" href="/img/favicon.ico">
-    
-    
-    <link rel="apple-touch-icon" href="/img/logo.png">
-    <link rel="apple-touch-icon-precomposed" href="/img/logo.png">
-    
-    <link rel="stylesheet" href="/css/style.css" type="text/css">
 
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="在云端" />
+
+
+
+<meta name="description" content="LESS 笔记
+简单记录一下LESS 笔记!http://less.bootcss.com">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LESS 笔记">
+<meta property="og:url" content="http://evercyan.xyz/2016/03/01/Note_Less/index.html">
+<meta property="og:site_name" content="在云端">
+<meta property="og:description" content="LESS 笔记
+简单记录一下LESS 笔记!http://less.bootcss.com">
+<meta property="og:updated_time" content="2016-02-29T16:00:00.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="LESS 笔记">
+<meta name="twitter:description" content="LESS 笔记
+简单记录一下LESS 笔记!http://less.bootcss.com">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="在云端" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/favicon.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>LESS 笔记 | 在云端</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
 
 <script>
-//百度统计
-var _hmt = _hmt || [];
-(function() {
-  var hm = document.createElement("script");
-  hm.src = "//hm.baidu.com/hm.js?4f843ce521f21ec6fef20cc81a7d527c";
-  var s = document.getElementsByTagName("script")[0];
-  s.parentNode.insertBefore(hm, s);
-})();
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: undefined
+    }
 </script>
 
 
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
 </head>
 
-  <body>
-    <header>
-      <div>
-		
-			<div id="imglogo">
-				<a href="/"><img src="/img/logo.png" alt="在云端" title="在云端"/></a>
-			</div>
-			
-			<div id="textlogo">
-				<h1 class="site-name"><a href="/" title="在云端">在云端</a></h1>
-				<h2 class="blog-motto">Make Some Difference</h2>
-			</div>
-			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
-			</a></div>
-			<nav class="animated">
-				<ul>
-					
-						<li><a href="/">首页</a></li>
-					
-						<li><a href="/archives">所有文章</a></li>
-					
-						<li><a href="/about">关于</a></li>
-					
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">在云端</a></h1>
+        </hgroup>
 
-					
-				</ul>
-			</nav>
+        
+
+        
+
+
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">文章</a></li>
+                        
+                            <li><a href="/tags/">标签云</a></li>
+                        
+                            <li><a href="/about/">关于</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" href="mailto:evercyan@qq.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" href="https://github.com/everCyan" title="GitHub"></a>
+                            
+                                <a class="fa RSS" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://moxfive.xyz/">MOxFIVE</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+            </div>
+        </div>
+    </header>                
 </div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">在云端</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">在云端</a></h1>
+            </hgroup>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">文章</a></li>
+                
+                    <li><a href="/tags/">标签云</a></li>
+                
+                    <li><a href="/about/">关于</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="mailto:evercyan@qq.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/everCyan" title="GitHub"></a>
+                            
+                                <a class="fa RSS" target="_blank" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-Note_Less" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/03/01/Note_Less/" class="article-date">
+      <time datetime="2016-02-29T16:00:00.000Z" itemprop="datePublished">2016-03-01</time>
+</a>
 
-    </header>
-    <div id="container">
-      <div id="main" class="post" itemscope itemprop="blogPost">
-	<article itemprop="articleBody">
-		<header class="article-info clearfix">
-  <h1 itemprop="name">
+
+    </div>
+  
+  <div class="article-inner">
     
-      <a href="/2016/03/01/Note_Less/" title="LESS 笔记" itemprop="url">LESS 笔记</a>
-  </h1>
-  <p class="article-author">By
+      <input type="hidden" class="isFancy" />
     
-      <a href="http://evercyan.github.io" title="严宇川">严宇川</a>
-    </p>
-  <p class="article-time">
-    <time datetime="2016-02-29T16:00:00.000Z" itemprop="datePublished">2016-03-01</time>
-    更新日期:<time datetime="2016-02-29T16:00:00.000Z" itemprop="dateModified">2016-03-01</time>
     
-  </p>
-</header>
-	<div class="article-content">
-		
-		
-		<h1 id="LESS_笔记">LESS 笔记</h1><blockquote>
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      LESS 笔记
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/笔记/">笔记</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Less/">Less</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h1 id="LESS-笔记"><a href="#LESS-笔记" class="headerlink" title="LESS 笔记"></a>LESS 笔记</h1><blockquote>
 <p>简单记录一下LESS 笔记!<a href="http://less.bootcss.com" target="_blank" rel="external">http://less.bootcss.com</a><a id="more"></a></p>
 </blockquote>
 <hr>
-<h2 id="安装">安装</h2><pre><code>npm <span class="keyword">install</span> -g <span class="operator">less</span>
-</code></pre><h2 id="编译">编译</h2><pre><code><span class="comment">//执行 </span>
-lessc styles<span class="class">.less</span>  
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><pre><code>npm install -g less
+</code></pre><h2 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h2><pre><code>//执行 
+lessc styles.less  
 
-<span class="comment">//编译为 CSS 文件  </span>
-lessc styles<span class="class">.less</span> &gt; styles<span class="class">.css</span>  
+//编译为 CSS 文件  
+lessc styles.less &gt; styles.css  
     -x    压缩  
-</code></pre><h2 id="开发调试">开发调试</h2><pre><code><span class="tag">&lt;<span class="title">link</span> <span class="attribute">rel</span>=<span class="value">"stylesheet/less"</span> <span class="attribute">type</span>=<span class="value">"text/css"</span> <span class="attribute">href</span>=<span class="value">"styles.less"</span> /&gt;</span>
-<span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"./less/less.js"</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+</code></pre><h2 id="开发调试"><a href="#开发调试" class="headerlink" title="开发调试"></a>开发调试</h2><pre><code>&lt;link rel=&quot;stylesheet/less&quot; type=&quot;text/css&quot; href=&quot;styles.less&quot; /&gt;
+&lt;script src=&quot;./less/less.js&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;
 less.js : https://github.com/less/less.js/archive/master.zip
-</code></pre><h2 id="在线编辑器">在线编辑器</h2><ul>
+</code></pre><h2 id="在线编辑器"><a href="#在线编辑器" class="headerlink" title="在线编辑器"></a>在线编辑器</h2><ul>
 <li><a href="http://less2css.org/" target="_blank" rel="external">http://less2css.org/</a></li>
 </ul>
 <hr>
-<h2 id="语法规则">语法规则</h2><h3 id="变量">变量</h3><pre><code><span class="comment">//变量</span>
-<span class="variable">@blue:</span> <span class="hexcolor">#5B83AD</span>;
+<h2 id="语法规则"><a href="#语法规则" class="headerlink" title="语法规则"></a>语法规则</h2><h3 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h3><pre><code>//变量
+@blue: #5B83AD;
 
-<span class="comment">//选择器</span>
-<span class="variable">@selector:</span> header;
+//选择器
+@selector: header;
 
-<span class="comment">//URLs</span>
-<span class="variable">@images:</span> <span class="string">"../img"</span>;
+//URLs
+@images: &quot;../img&quot;;
 
-<span class="comment">//属性</span>
-<span class="variable">@property:</span> color;
+//属性
+@property: color;
 
-<span class="comment">//DEMO</span>
-<span class="class">.@{selector}</span>{
-    <span class="attribute">@{property}</span>: <span class="variable">@blue</span>;
-    <span class="tag">background</span>: <span class="tag">url</span>(<span class="string">"@{images}/bg.png"</span>);
+//DEMO
+.@{selector}{
+    @{property}: @blue;
+    background: url(&quot;@{images}/bg.png&quot;);
 }
-</code></pre><h3 id="运算">运算</h3><pre><code><span class="variable">@base:</span> <span class="number">10%</span>;
-<span class="variable">@filler:</span> <span class="variable">@base</span> * <span class="number">2</span> + <span class="variable">@base</span> /<span class="number">2</span> - <span class="number">5%</span>;
-</code></pre><h3 id="混合">混合</h3><pre><code><span class="comment">//.red(), 作为函数使用的CSS, 不表现在样式表中</span>
-<span class="comment">//.red.inner &lt;=&gt; .red.inner() &lt;=&gt; .red &gt; .inner &lt;=&gt; .red &gt; .inner()</span>
+</code></pre><h3 id="运算"><a href="#运算" class="headerlink" title="运算"></a>运算</h3><pre><code>@base: 10%;
+@filler: @base * 2 + @base /2 - 5%;
+</code></pre><h3 id="混合"><a href="#混合" class="headerlink" title="混合"></a>混合</h3><pre><code>//.red(), 作为函数使用的CSS, 不表现在样式表中
+//.red.inner &lt;=&gt; .red.inner() &lt;=&gt; .red &gt; .inner &lt;=&gt; .red &gt; .inner()
 
-<span class="class">.red</span>() {
-    <span class="attribute">color</span>: red;
-    <span class="class">.inner</span> {
-        <span class="attribute">font-size</span>: <span class="number">12px</span>;
+.red() {
+    color: red;
+    .inner {
+        font-size: 12px;
     }
 }
-<span class="id">#blue-bg</span> {
-    <span class="attribute">background</span>: blue;
+#blue-bg {
+    background: blue;
 }
-<span class="class">.border-radius</span>(<span class="variable">@radius</span>: <span class="number">5px</span>) {
-    <span class="attribute">-webkit-border-radius</span>: <span class="variable">@radius</span>;
-    <span class="attribute">-moz-border-radius</span>: <span class="variable">@radius</span>;
-    <span class="attribute">border-radius</span>: <span class="variable">@radius</span>;    
+.border-radius(@radius: 5px) {
+    -webkit-border-radius: @radius;
+    -moz-border-radius: @radius;
+    border-radius: @radius;    
 }
-<span class="class">.selector</span> {
-      <span class="class">.red</span>;
-      <span class="id">#blue-bg</span>;
-      <span class="class">.red</span><span class="class">.inner</span>;
-      <span class="class">.border-radius</span>(<span class="number">4px</span>);
+.selector {
+      .red;
+      #blue-bg;
+      .red.inner;
+      .border-radius(4px);
 }
-</code></pre><h3 id="引用">引用</h3><pre><code>@<span class="keyword">import</span> <span class="string">"foo"</span>;      <span class="comment">// foo.less is imported</span>
-@<span class="keyword">import</span> <span class="string">"foo.less"</span>; <span class="comment">// foo.less is imported</span>
-@<span class="keyword">import</span> <span class="string">"foo.php"</span>;  <span class="comment">// foo.php imported as a less file</span>
-@<span class="keyword">import</span> <span class="string">"foo.css"</span>;  <span class="comment">// statement left in place, as-is</span>
-</code></pre><h3 id="条件">条件</h3><pre><code><span class="variable">@my-option:</span> false;
-<span class="class">.my-optional-style</span>() <span class="keyword">when</span> (<span class="variable">@my-option</span> = true) {
-  <span class="tag">button</span> {
-    <span class="attribute">color</span>: white;
+</code></pre><h3 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h3><pre><code>@import &quot;foo&quot;;      // foo.less is imported
+@import &quot;foo.less&quot;; // foo.less is imported
+@import &quot;foo.php&quot;;  // foo.php imported as a less file
+@import &quot;foo.css&quot;;  // statement left in place, as-is
+</code></pre><h3 id="条件"><a href="#条件" class="headerlink" title="条件"></a>条件</h3><pre><code>@my-option: false;
+.my-optional-style() when (@my-option = true) {
+  button {
+    color: white;
   }
 }
-<span class="class">.my-optional-style</span>();
-</code></pre><h3 id="循环">循环</h3><pre><code><span class="class">.generate-columns</span>(<span class="number">4</span>);
-<span class="class">.generate-columns</span>(<span class="variable">@n</span>, <span class="variable">@i</span>: <span class="number">1</span>) <span class="keyword">when</span> (<span class="variable">@i</span> =&lt; <span class="variable">@n</span>) {
-  <span class="class">.column-</span><span class="variable">@{i}</span> {
-    <span class="attribute">width</span>: (<span class="variable">@i</span> * <span class="number">100%</span> / <span class="variable">@n</span>);
+.my-optional-style();
+</code></pre><h3 id="循环"><a href="#循环" class="headerlink" title="循环"></a>循环</h3><pre><code>.generate-columns(4);
+.generate-columns(@n, @i: 1) when (@i =&lt; @n) {
+  .column-@{i} {
+    width: (@i * 100% / @n);
   }
-  <span class="class">.generate-columns</span>(<span class="variable">@n</span>, (<span class="variable">@i</span> + <span class="number">1</span>));
+  .generate-columns(@n, (@i + 1));
 }
-</code></pre><h3 id="合并">合并</h3><pre><code><span class="class">.mixin</span>() {
-      <span class="attribute">color</span><span class="value">: <span class="hexcolor">#222222</span>;</span>
+</code></pre><h3 id="合并"><a href="#合并" class="headerlink" title="合并"></a>合并</h3><pre><code>.mixin() {
+      color: #222222;
 }
-<span class="class">.myclass</span> {
-      <span class="class">.mixin</span>();
-      <span class="attribute">color</span>+<span class="value">: <span class="hexcolor">#111111</span>;</span>
+.myclass {
+      .mixin();
+      color+: #111111;
 }
-</code></pre><h3 id="父选择符_&amp;">父选择符 &amp;</h3><pre><code><span class="comment">//.button:hover, .button-ok, .header .button</span>
-<span class="class">.button</span>{
-      <span class="attribute">color</span>: blue;
-      <span class="keyword">&amp;</span><span class="pseudo">:hover</span> {
-        <span class="attribute">color</span>: green;
+</code></pre><h3 id="父选择符-amp"><a href="#父选择符-amp" class="headerlink" title="父选择符 &amp;"></a>父选择符 &amp;</h3><pre><code>//.button:hover, .button-ok, .header .button
+.button{
+      color: blue;
+      &amp;:hover {
+        color: green;
       }
-      <span class="keyword">&amp;</span><span class="tag">-ok</span> {
-          <span class="attribute">color</span>: red;
+      &amp;-ok {
+          color: red;
       }
-      <span class="class">.header</span> <span class="keyword">&amp;</span> {
-          <span class="attribute">color</span>: black;
+      .header &amp; {
+          color: black;
       }
 }
 </code></pre><hr>
-<h2 id="函数">函数</h2><h3 id="杂项函数">杂项函数</h3><pre><code><span class="comment">//color </span>
-<span class="comment">//解析颜色，将代表颜色的字符串转换为颜色值</span>
-<span class="class">.demo</span> {
-    <span class="attribute">color</span><span class="value">: <span class="function">color</span>(<span class="string">"#aaa"</span>);</span>
+<h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><h3 id="杂项函数"><a href="#杂项函数" class="headerlink" title="杂项函数"></a>杂项函数</h3><pre><code>//color 
+//解析颜色，将代表颜色的字符串转换为颜色值
+.demo {
+    color: color(&quot;#aaa&quot;);
 }
 
-<span class="comment">//convert</span>
-<span class="comment">//将数字从一种单位转换到另一种单位。</span>
+//convert
+//将数字从一种单位转换到另一种单位。
 
-<span class="comment">//data-uri</span>
-<span class="comment">//将资源内联进样式表</span>
+//data-uri
+//将资源内联进样式表
 
-<span class="comment">//DEMO</span>
-<span class="class">.demo</span> {
-    <span class="attribute">background</span><span class="value">: <span class="function">data-uri</span>(<span class="string">'image/jpeg;base64'</span>, <span class="string">'./logo.png'</span>);</span>
+//DEMO
+.demo {
+    background: data-uri(&apos;image/jpeg;base64&apos;, &apos;./logo.png&apos;);
 }
-</code></pre><h3 id="字符串函数">字符串函数</h3><pre><code><span class="comment">//escape</span>
-<span class="comment">//对字符串中的特殊字符做 URL-encoding 编码。</span>
-<span class="comment">//这些字符不会被编码：,, /, ?, @, &amp;, +, ', ~, ! and $。</span>
-<span class="comment">//被编码的字符是：\&lt;space\&gt;, #, ^, (, ), {, }, |, :, &gt;, &lt;, ;, ], [ and =。</span>
-<span class="tag">escape</span>(<span class="string">'a=1'</span>)
+</code></pre><h3 id="字符串函数"><a href="#字符串函数" class="headerlink" title="字符串函数"></a>字符串函数</h3><pre><code>//escape
+//对字符串中的特殊字符做 URL-encoding 编码。
+//这些字符不会被编码：,, /, ?, @, &amp;, +, &apos;, ~, ! and $。
+//被编码的字符是：\&lt;space\&gt;, #, ^, (, ), {, }, |, :, &gt;, &lt;, ;, ], [ and =。
+escape(&apos;a=1&apos;)
 
-<span class="comment">//% 格式化</span>
-<span class="comment">//此函数 %(string, arguments ...) 用于格式化字符串。</span>
-<span class="comment">//第一个参数是一个包含占位符的字符串。占位符以百分号 % 开头，后面跟着字母 s、S、d、D、a 或 A。后续的参数用于替换这些占位符。如果你需要输出百分号，可以多用一个百分号来转义 %%。</span>
-<span class="class">.demo</span> {
-    <span class="attribute">format-s</span>: %(<span class="string">"repetitions: %s file: %s"</span>, <span class="number">1</span> + <span class="number">2</span>, <span class="string">"directory/file.less"</span>);
+//% 格式化
+//此函数 %(string, arguments ...) 用于格式化字符串。
+//第一个参数是一个包含占位符的字符串。占位符以百分号 % 开头，后面跟着字母 s、S、d、D、a 或 A。后续的参数用于替换这些占位符。如果你需要输出百分号，可以多用一个百分号来转义 %%。
+.demo {
+    format-s: %(&quot;repetitions: %s file: %s&quot;, 1 + 2, &quot;directory/file.less&quot;);
 }
 
-<span class="comment">//replace</span>
-<span class="comment">//用一个字符串替换一段文本。</span>
-<span class="variable">@demo:</span> <span class="function">replace</span>(<span class="string">"Hello, Mars?"</span>, <span class="string">"Mars\?"</span>, <span class="string">"Earth!"</span>);
-</code></pre><h3 id="列表函数">列表函数</h3><pre><code><span class="comment">//length</span>
-<span class="comment">//返回列表中元素的个数。</span>
-<span class="comment">//extract</span>
-<span class="comment">//返回列表中指定位置的元素。</span>
+//replace
+//用一个字符串替换一段文本。
+@demo: replace(&quot;Hello, Mars?&quot;, &quot;Mars\?&quot;, &quot;Earth!&quot;);
+</code></pre><h3 id="列表函数"><a href="#列表函数" class="headerlink" title="列表函数"></a>列表函数</h3><pre><code>//length
+//返回列表中元素的个数。
+//extract
+//返回列表中指定位置的元素。
 
-<span class="variable">@list:</span> <span class="string">"banana"</span>, <span class="string">"tomato"</span>, <span class="string">"potato"</span>, <span class="string">"peach"</span>;
-<span class="variable">@length:</span> <span class="function">length</span>(<span class="variable">@list</span>);
-<span class="class">.demo</span> {
-    <span class="attribute">width</span>: <span class="variable">@length</span>;
-    <span class="attribute">height</span>: <span class="function">extract</span>(<span class="variable">@list</span>, <span class="number">3</span>);
+@list: &quot;banana&quot;, &quot;tomato&quot;, &quot;potato&quot;, &quot;peach&quot;;
+@length: length(@list);
+.demo {
+    width: @length;
+    height: extract(@list, 3);
 }
-</code></pre><h3 id="数学函数">数学函数</h3><pre><code><span class="comment">//ceil</span>
-<span class="comment">//向上取整。</span>
+</code></pre><h3 id="数学函数"><a href="#数学函数" class="headerlink" title="数学函数"></a>数学函数</h3><pre><code>//ceil
+//向上取整。
 
-<span class="comment">//floor</span>
-<span class="comment">//向下取整。</span>
+//floor
+//向下取整。
 
-<span class="comment">//percentage</span>
-<span class="comment">//将浮点数转换为百分比字符串。</span>
+//percentage
+//将浮点数转换为百分比字符串。
 
-<span class="comment">//round</span>
-<span class="comment">//四舍五入取整。</span>
+//round
+//四舍五入取整。
 
-<span class="comment">//sqrt</span>
-<span class="comment">//计算一个数的平方根，并原样保持单位。</span>
+//sqrt
+//计算一个数的平方根，并原样保持单位。
 
-<span class="comment">//abs</span>
-<span class="comment">//计算数字的绝对值，并原样保持单位。</span>
+//abs
+//计算数字的绝对值，并原样保持单位。
 
-<span class="comment">//sin</span>
-<span class="comment">//正弦函数。处理时会将没有单位的数字认为是弧度值。</span>
+//sin
+//正弦函数。处理时会将没有单位的数字认为是弧度值。
 
-<span class="comment">//asin</span>
-<span class="comment">//反正弦函数。返回以弧度为单位的角度，区间在 -PI/2 到 PI/2之间。</span>
+//asin
+//反正弦函数。返回以弧度为单位的角度，区间在 -PI/2 到 PI/2之间。
 
-<span class="comment">//cos</span>
-<span class="comment">//余弦函数。</span>
+//cos
+//余弦函数。
 
-<span class="comment">//acos</span>
-<span class="comment">//反余弦函数。，区间在 0 到 PI之间。</span>
+//acos
+//反余弦函数。，区间在 0 到 PI之间。
 
-<span class="comment">//tan</span>
-<span class="comment">//正切函数。</span>
+//tan
+//正切函数。
 
-<span class="comment">//atan</span>
-<span class="comment">//反正切函数。</span>
+//atan
+//反正切函数。
 
-<span class="comment">//pi</span>
-<span class="comment">//返回圆周率 π (pi);</span>
+//pi
+//返回圆周率 π (pi);
 
-<span class="comment">//pow</span>
-<span class="comment">//设第一个参数为A，第二个参数为B，返回A的B次方。</span>
+//pow
+//设第一个参数为A，第二个参数为B，返回A的B次方。
 
-<span class="comment">//mod</span>
-<span class="comment">//返回第一个参数对第二参数取余的结果。</span>
+//mod
+//返回第一个参数对第二参数取余的结果。
 
-<span class="comment">//min</span>
-<span class="comment">//返回一系列值中最小的那个。</span>
-<span class="comment">//max</span>
-<span class="comment">//返回一系列值中最大的那个。</span>
+//min
+//返回一系列值中最小的那个。
+//max
+//返回一系列值中最大的那个。
 
-<span class="variable">@num:</span> <span class="number">2.41</span>;
-<span class="variable">@num2:</span> <span class="number">11</span>;
-<span class="variable">@num3:</span> <span class="number">3</span>;
+@num: 2.41;
+@num2: 11;
+@num3: 3;
 
-<span class="class">.demo</span> {
-    <span class="attribute">ceil</span>: <span class="function">ceil</span>(<span class="variable">@num</span>);
-    <span class="attribute">floor</span>: <span class="function">floor</span>(<span class="variable">@num</span>);
-    <span class="attribute">percentage</span>: <span class="function">percentage</span>(<span class="variable">@num</span>);
-    <span class="attribute">rount</span>: <span class="function">round</span>(<span class="variable">@num</span>);
-    <span class="attribute">sqrt</span>: <span class="function">sqrt</span>(<span class="variable">@num</span>);
-    <span class="attribute">abs</span>: <span class="function">abs</span>(<span class="variable">@num</span>);
-    <span class="attribute">pi</span>: <span class="function">pi</span>();
-    <span class="attribute">pow</span>: <span class="function">pow</span>(<span class="variable">@num2</span>, <span class="variable">@num3</span>);
-    <span class="attribute">mod</span>: <span class="function">mod</span>(<span class="variable">@num2</span>, <span class="variable">@num3</span>);
-    <span class="attribute">min</span>: <span class="function">min</span>(<span class="variable">@num2</span>, <span class="variable">@num3</span>);
-    <span class="attribute">max</span>: <span class="function">max</span>(<span class="variable">@num2</span>, <span class="variable">@num3</span>);
+.demo {
+    ceil: ceil(@num);
+    floor: floor(@num);
+    percentage: percentage(@num);
+    rount: round(@num);
+    sqrt: sqrt(@num);
+    abs: abs(@num);
+    pi: pi();
+    pow: pow(@num2, @num3);
+    mod: mod(@num2, @num3);
+    min: min(@num2, @num3);
+    max: max(@num2, @num3);
 }
-</code></pre><h3 id="类型函数">类型函数</h3><pre><code><span class="comment">//返回 true OR false </span>
+</code></pre><h3 id="类型函数"><a href="#类型函数" class="headerlink" title="类型函数"></a>类型函数</h3><pre><code>//返回 true OR false 
 
-<span class="comment">//isnumber</span>
-<span class="comment">//isstring</span>
-<span class="comment">//iscolor</span>
-<span class="comment">//iskeyword</span>
-<span class="comment">//isurl</span>
-<span class="comment">//ispixel</span>
-<span class="comment">//isem</span>
-<span class="comment">//ispercentage</span>
-<span class="comment">//isunit</span>
+//isnumber
+//isstring
+//iscolor
+//iskeyword
+//isurl
+//ispixel
+//isem
+//ispercentage
+//isunit
 
-<span class="class">.demo</span>{
-    <span class="attribute">isnumber</span>: <span class="function">isnumber</span>(<span class="number">2</span>);
-    <span class="attribute">isstring</span>: <span class="function">isstring</span>(<span class="string">"hello"</span>);
-    <span class="attribute">iscolor</span>: <span class="function">iscolor</span>(<span class="hexcolor">#000000</span>);
-    <span class="attribute">iskeyword</span>: <span class="function">iskeyword</span>(keyword);
-    <span class="attribute">isurl</span>: <span class="function">isurl</span>(<span class="function">url</span>(<span class="string">...</span>));
-    <span class="attribute">ispixel</span>: <span class="function">ispixel</span>(<span class="number">56px</span>);
-    <span class="attribute">isem</span>: <span class="function">isem</span>(<span class="number">7.8em</span>);
-    <span class="attribute">ispercentage</span>: <span class="function">ispercentage</span>(<span class="number">7.8%</span>);
-    <span class="attribute">isunit</span>: <span class="function">isunit</span>(<span class="number">11px</span>, px);
+.demo{
+    isnumber: isnumber(2);
+    isstring: isstring(&quot;hello&quot;);
+    iscolor: iscolor(#000000);
+    iskeyword: iskeyword(keyword);
+    isurl: isurl(url(...));
+    ispixel: ispixel(56px);
+    isem: isem(7.8em);
+    ispercentage: ispercentage(7.8%);
+    isunit: isunit(11px, px);
 }
-</code></pre><h3 id="颜色定义函数">颜色定义函数</h3><pre><code><span class="comment">//rgb</span>
-<span class="comment">//通过十进制红色、绿色、蓝色三种值 (RGB) 创建不透明的颜色对象。</span>
+</code></pre><h3 id="颜色定义函数"><a href="#颜色定义函数" class="headerlink" title="颜色定义函数"></a>颜色定义函数</h3><pre><code>//rgb
+//通过十进制红色、绿色、蓝色三种值 (RGB) 创建不透明的颜色对象。
 
-<span class="comment">//rgba</span>
-<span class="comment">//通过十进制红色、绿色、蓝色，以及 alpha 四种值 (RGBA) 创建带alpha透明的颜色对象。</span>
+//rgba
+//通过十进制红色、绿色、蓝色，以及 alpha 四种值 (RGBA) 创建带alpha透明的颜色对象。
 
-<span class="comment">//hsl</span>
-<span class="comment">//通过色相 (hue)，饱和度 (saturation)，亮度 (lightness) 三种值 (HSL) 创建不透明的颜色对象。</span>
-<span class="comment">//hsla</span>
+//hsl
+//通过色相 (hue)，饱和度 (saturation)，亮度 (lightness) 三种值 (HSL) 创建不透明的颜色对象。
+//hsla
 
-<span class="comment">//从颜色对象中提取颜色通道值。</span>
-<span class="comment">//red</span>
-<span class="comment">//green</span>
-<span class="comment">//blue</span>
+//从颜色对象中提取颜色通道值。
+//red
+//green
+//blue
 
-<span class="class">.demo</span> {
-    rgb<span class="value">: <span class="function">rgb</span>(<span class="number">90</span>, <span class="number">129</span>, <span class="number">32</span>);</span>
-    rgba<span class="value">: <span class="function">rgba</span>(<span class="number">90</span>, <span class="number">129</span>, <span class="number">32</span>, <span class="number">0.5</span>);</span>
-    hsl<span class="value">: <span class="function">hsl</span>(<span class="number">90</span>, <span class="number">100%</span>, <span class="number">50%</span>);</span>
-    hsla<span class="value">: <span class="function">hsla</span>(<span class="number">90</span>, <span class="number">100%</span>, <span class="number">50%</span>, <span class="number">0.5</span>);</span>
-    red<span class="value">: <span class="function">red</span>(<span class="function">rgb</span>(<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>));</span>
-    green<span class="value">: <span class="function">green</span>(<span class="function">rgb</span>(<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>));</span>
-    blue<span class="value">: <span class="function">blue</span>(<span class="function">rgb</span>(<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>));</span>
+.demo {
+    rgb: rgb(90, 129, 32);
+    rgba: rgba(90, 129, 32, 0.5);
+    hsl: hsl(90, 100%, 50%);
+    hsla: hsla(90, 100%, 50%, 0.5);
+    red: red(rgb(10, 20, 30));
+    green: green(rgb(10, 20, 30));
+    blue: blue(rgb(10, 20, 30));
 
 }
-</code></pre><h3 id="颜色操作函数">颜色操作函数</h3><pre><code><span class="comment">//multiply</span>
-<span class="comment">//分别将两种颜色的红绿蓝 (RGB) 三种值做乘法运算，然后再除以 255，输出结果是更深的颜色。（译注：对应Photoshop中的“变暗/正片叠底”。）</span>
-<span class="comment">//screen</span>
-<span class="comment">//与 multiply 函数效果相反，输出结果是更亮的颜色。（译注：对应Photoshop中的“变亮/滤色”。）</span>
-<span class="comment">//overlay</span>
-<span class="comment">//结合 multiply 与 screen 两个函数的效果，令浅的颜色变得更浅，深的颜色变得更深。（译注：对应 Photoshop 中的“叠加”。）注意：输出结果由第一个颜色参数决定。</span>
+</code></pre><h3 id="颜色操作函数"><a href="#颜色操作函数" class="headerlink" title="颜色操作函数"></a>颜色操作函数</h3><pre><code>//multiply
+//分别将两种颜色的红绿蓝 (RGB) 三种值做乘法运算，然后再除以 255，输出结果是更深的颜色。（译注：对应Photoshop中的“变暗/正片叠底”。）
+//screen
+//与 multiply 函数效果相反，输出结果是更亮的颜色。（译注：对应Photoshop中的“变亮/滤色”。）
+//overlay
+//结合 multiply 与 screen 两个函数的效果，令浅的颜色变得更浅，深的颜色变得更深。（译注：对应 Photoshop 中的“叠加”。）注意：输出结果由第一个颜色参数决定。
 
 
 
-<span class="class">.demo</span> {
-    <span class="attribute">multiply</span>: <span class="function">multiply</span>(<span class="hexcolor">#ff6600</span>, <span class="hexcolor">#000000</span>);
+.demo {
+    multiply: multiply(#ff6600, #000000);
 }
 </code></pre><hr>
 <p>以上</p>
 
-	</div>
-		<footer class="article-footer clearfix">
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/Less/">Less</a>
-  </div>
-
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/笔记/">笔记</a>
-</div>
-
-
-
-<div class="article-share" id="share">
-
-  <div data-url="http://evercyan.github.io/2016/03/01/Note_Less/" data-title="LESS 笔记 | 在云端" data-tsina="1649089717" class="share clearfix">
-  </div>
-
-</div>
-</footer>
-	</article>
-	
-<nav class="article-nav clearfix">
- 
- <div class="prev" >
- <a href="/2016/03/08/PHP_SocketNote/" title="关于 PHP Socket 及位字符串函数 pack &amp; unpack 的示例">
-  <strong>PREVIOUS:</strong><br/>
-  <span>
-  关于 PHP Socket 及位字符串函数 pack &amp; unpack 的示例</span>
-</a>
-</div>
-
-
-<div class="next">
-<a href="/2016/03/01/Article_SomethingJustHappened/"  title="躲不过的时间">
- <strong>NEXT:</strong><br/> 
- <span>躲不过的时间
-</span>
-</a>
-</div>
-
-</nav>
-
-	
-<section class="comment">
-	<div class="ds-thread"></div>
-</section>
-
-</div>
-
-      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
-
-<div id="asidepart">
-<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
-<aside class="clearfix">
-
-  
-<div class="categorieslist">
-	<p class="asidetitle">分类</p>
-		<ul>
-		
-			<li><a href="/categories/文章/" title="文章">文章<sup>2</sup></a></li>
-		
-			<li><a href="/categories/碎碎念/" title="碎碎念">碎碎念<sup>3</sup></a></li>
-		
-			<li><a href="/categories/笔记/" title="笔记">笔记<sup>5</sup></a></li>
-		
-		</ul>
-</div>
-
-
-  
-<div class="tagslist">
-	<p class="asidetitle">标签</p>
-		<ul class="clearfix">
-		
-			<li><a href="/tags/GTA5/" title="GTA5">GTA5<sup>1</sup></a></li>
-		
-			<li><a href="/tags/Gitbook/" title="Gitbook">Gitbook<sup>1</sup></a></li>
-		
-			<li><a href="/tags/Less/" title="Less">Less<sup>1</sup></a></li>
-		
-			<li><a href="/tags/PHP/" title="PHP">PHP<sup>4</sup></a></li>
-		
-			<li><a href="/tags/Socket/" title="Socket">Socket<sup>1</sup></a></li>
-		
-			<li><a href="/tags/扩展/" title="扩展">扩展<sup>1</sup></a></li>
-		
-		</ul>
-</div>
-
-
-  <div class="linkslist">
-  <p class="asidetitle">友情链接</p>
-    <ul>
-        
-          <li>
-            
-            	<a href="http://hexo.io" target="_blank" title="Hexo">Hexo</a>
-            
-          </li>
-        
-          <li>
-            
-            	<a href="https://github.com/A-limon/pacman" target="_blank" title="Pacman is a flat and responsive design theme for Hexo">Pacman</a>
-            
-          </li>
-        
-    </ul>
-</div>
-
-
-  <div class="weiboshow">
-  <p class="asidetitle">新浪微博</p>
-   <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=0&speed=0&skin=5&isTitle=1&noborder=1&isWeibo=1&isFans=1&uid=1649089717&verifier=743a2fc7&dpc=1"></iframe>
-</div>
-
-
-  <div class="rsspart">
-	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
-</div>
-
-</aside>
-</div>
-    </div>
-    <footer><div id="footer" >
-	
-
-	
-	<div class="line">
-		<span></span>
-		<div class="author"></div>
-	</div>
-	
-	
-	<section class="info">
-		<p> 踩中地雷后, 小明灵机一动, 在原地过了一辈子! <br/>
-			  </p>
-	</section>
-	 
-	<div class="social-font clearfix">
-		
-		<a href="http://weibo.com/aronleeyant" target="_blank" title="weibo"></a>
-		
-		
-		
-		<a href="https://github.com/everCyan" target="_blank" title="github"></a>
-		
-		
-		
-	</div>
-		<p class="copyright">由 <a href="http://hexo.io" target="_blank" title="Hexo">Hexo</a> 强力驱动  © 2016
-		
-		<a href="http://evercyan.github.io" target="_blank" title="严宇川">严宇川</a>
-		
-		</p>
-	
-</div>
-
-</footer>
-    <script src="/js/jquery-2.1.0.min.js"></script>
-<script type="text/javascript">
-$(document).ready(function(){
-  $('.navbar').click(function(){
-    $('header nav').toggleClass('shownav');
-  });
-  var myWidth = 0;
-  function getSize(){
-    if( typeof( window.innerWidth ) == 'number' ) {
-      myWidth = window.innerWidth;
-    } else if( document.documentElement && document.documentElement.clientWidth) {
-      myWidth = document.documentElement.clientWidth;
-    };
-  };
-  var m = $('#main'),
-      a = $('#asidepart'),
-      c = $('.closeaside'),
-      o = $('.openaside');
-  $(window).resize(function(){
-    getSize();
-    if (myWidth >= 1024) {
-      $('header nav').removeClass('shownav');
-    }else
-    {
-      m.removeClass('moveMain');
-      a.css('display', 'block').removeClass('fadeOut');
-      o.css('display', 'none');
       
-    }
-  });
-  c.click(function(){
-    a.addClass('fadeOut').css('display', 'none');
-    o.css('display', 'block').addClass('fadeIn');
-    m.addClass('moveMain');
-  });
-  o.click(function(){
-    o.css('display', 'none').removeClass('beforeFadeIn');
-    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');
-    m.removeClass('moveMain');
-  });
-  $(window).scroll(function(){
-    o.css("top",Math.max(80,260-$(this).scrollTop()));
-  });
-});
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2016/03/01/Note_Less/">LESS 笔记</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">在云端</a></p>
+        <p><span>发布时间:</span>2016-03-01, 00:00:00</p>
+        <p><span>最后更新:</span>2016-03-01, 00:00:00</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2016/03/01/Note_Less/" title="LESS 笔记">http://evercyan.xyz/2016/03/01/Note_Less/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://evercyan.xyz/2016/03/01/Note_Less/　　作者: 在云端" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2016/03/01/Article_SomethingJustHappened/">
+                    躲不过的时间
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2016/02/14/Tech_HighConcurrency/">
+                    关于高并发的解决方案及其相关概念的初步认识
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#LESS-笔记"><span class="toc-number">1.</span> <span class="toc-text">LESS 笔记</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#安装"><span class="toc-number">1.1.</span> <span class="toc-text">安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#编译"><span class="toc-number">1.2.</span> <span class="toc-text">编译</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#开发调试"><span class="toc-number">1.3.</span> <span class="toc-text">开发调试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#在线编辑器"><span class="toc-number">1.4.</span> <span class="toc-text">在线编辑器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#语法规则"><span class="toc-number">1.5.</span> <span class="toc-text">语法规则</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#变量"><span class="toc-number">1.5.1.</span> <span class="toc-text">变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#运算"><span class="toc-number">1.5.2.</span> <span class="toc-text">运算</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#混合"><span class="toc-number">1.5.3.</span> <span class="toc-text">混合</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#引用"><span class="toc-number">1.5.4.</span> <span class="toc-text">引用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#条件"><span class="toc-number">1.5.5.</span> <span class="toc-text">条件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#循环"><span class="toc-number">1.5.6.</span> <span class="toc-text">循环</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#合并"><span class="toc-number">1.5.7.</span> <span class="toc-text">合并</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#父选择符-amp"><span class="toc-number">1.5.8.</span> <span class="toc-text">父选择符 &</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#函数"><span class="toc-number">1.6.</span> <span class="toc-text">函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#杂项函数"><span class="toc-number">1.6.1.</span> <span class="toc-text">杂项函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#字符串函数"><span class="toc-number">1.6.2.</span> <span class="toc-text">字符串函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#列表函数"><span class="toc-number">1.6.3.</span> <span class="toc-text">列表函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数学函数"><span class="toc-number">1.6.4.</span> <span class="toc-text">数学函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#类型函数"><span class="toc-number">1.6.5.</span> <span class="toc-text">类型函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#颜色定义函数"><span class="toc-number">1.6.6.</span> <span class="toc-text">颜色定义函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#颜色操作函数"><span class="toc-number">1.6.7.</span> <span class="toc-text">颜色操作函数</span></a></li></ol></li></ol></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+
+
+    
+      <div class="duoshuo" id="comments">
+    <div id="comment-box" ></div>
+    <div class="ds-thread" id="ds-thread" data-thread-key="2016/03/01/Note_Less/" data-title="LESS 笔记" data-url="http://evercyan.xyz/2016/03/01/Note_Less/"></div>
+    <script>
+        var duoshuoQuery = {short_name:"evercyan"};
+        var loadComment = function(){
+            var d = document, s = d.createElement('script');
+            s.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+            s.async = true; s.charset = 'UTF-8';
+            (d.head || d.body).appendChild(s);
+        }
+
+        
+    </script>
+    
+    <script> loadComment(); </script>
+
+</div>
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2016/03/01/Article_SomethingJustHappened/" title="上一篇: 躲不过的时间">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2016/02/14/Tech_HighConcurrency/" title="下一篇: 关于高并发的解决方案及其相关概念的初步认识">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016/06/04/Note_Gitbook/">Gitbook 笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/01/Tech_WhatHappened/">当时发生了什么？</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/01/PHP_ScrapyGta5/">GTA5 攻略</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/01/PHP_Extension/">PHP 扩展开发笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/08/PHP_SocketNote/">关于 PHP Socket 及位字符串函数 pack & unpack 的示例</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/01/Article_SomethingJustHappened/">躲不过的时间</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/01/Note_Less/">LESS 笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/14/Tech_HighConcurrency/">关于高并发的解决方案及其相关概念的初步认识</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/01/Article_Like/">古文</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/01/Article_Poetry/">涂鸦小记</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/01/helloWorld/">Hello World</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/01/About/">关于这个 BLOG</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2016 在云端
+            </div>
+            <div class="footer-right">
+                由 <a href="http://hexo.io" target="_blank" title="Hexo">Hexo</a> 强力驱动 <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_pv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_site_uv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+
+    </div>
+    
+    <script src="/js/GithubRepoWidget.js"></script>
+
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+             github: ".github-widget a", 
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
 </script>
 
-<script type="text/javascript">
-$(document).ready(function(){
-  var ai = $('.article-content>iframe'),
-      ae = $('.article-content>embed'),
-      t  = $('#toc'),
-      h  = $('article h2')
-      ah = $('article h2'),
-      ah1 = $('article h1'),
-      ta = $('#toc.toc-aside'),
-      o  = $('.openaside'),
-      c  = $('.closeaside');
-  if(ai.length>0){
-    ai.wrap('<div class="video-container" />');
-  };
-  if(ae.length>0){
-   ae.wrap('<div class="video-container" />');
-  };
-  if(ah.length==0 && ah1.length == 0){
-    t.css('display','none');
-  }else{
-    c.click(function(){
-      ta.css('display', 'block').addClass('fadeIn');
-    });
-    o.click(function(){
-      ta.css('display', 'none');
-    });
-    $(window).scroll(function(){
-      ta.css("top",Math.max(140,320-$(this).scrollTop()));
-    });
-  };
-});
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
 </script>
-
-
-<script type="text/javascript">
-$(document).ready(function(){
-  var $this = $('.share'),
-      url = $this.attr('data-url'),
-      encodedUrl = encodeURIComponent(url),
-      title = $this.attr('data-title'),
-      tsina = $this.attr('data-tsina');
-  /*
-  var html = [
-  '<a href="#" class="overlay" id="qrcode"></a>',
-  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#share"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
-  '<a href="#textlogo" class="article-back-to-top" title="Top"></a>',
-  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
-  '<a href="#qrcode" class="article-share-qrcode" title="QRcode"></a>',
-  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
-  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="Weibo"></a>',
-  '<span title="Share to"></span>'
-  ].join('');
-  */
-  var html = [
-  '<a href="#" class="overlay" id="qrcode"></a>',
-  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#share"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
-  '<a href="#textlogo" class="article-back-to-top" title="Top"></a>',
-  '<a href="#qrcode" class="article-share-qrcode" title="QRcode"></a>',
-  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="Weibo"></a>',
-  '<span title="Share to"></span>'
-  ].join('');
-
-  $this.append(html);
-  $('.article-share-qrcode').click(function(){
-    var imgSrc = $('#qrcode-pic').attr('data-src');
-    $('#qrcode-pic').attr('src', imgSrc);
-    $('#qrcode-pic').load(function(){
-        $('.qrcode strong').text(' ');
-    });
-  });
-});
-</script>
-
-
-<script type="text/javascript">
-  var duoshuoQuery = {short_name:"evercyan"};
-  (function() {
-    var ds = document.createElement('script');
-    ds.type = 'text/javascript';ds.async = true;
-    ds.src = '//static.duoshuo.com/embed.js';
-    ds.charset = 'UTF-8';
-    (document.getElementsByTagName('head')[0]
-    || document.getElementsByTagName('body')[0]).appendChild(ds);
-  })();
-</script>
-
-
-
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
-<script src="/fancybox/jquery.fancybox.pack.js"></script>
-<script type="text/javascript">
-$(document).ready(function(){
-  $('.article-content').each(function(i){
-    $(this).find('img').each(function(){
-      if ($(this).parent().hasClass('fancybox')) return;
-      var alt = this.alt;
-      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
-      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
-    });
-    $(this).find('.fancybox').each(function(){
-      $(this).attr('rel', 'article' + i);
-    });
-  });
-  if($.fancybox){
-    $('.fancybox').fancybox();
-  }
-});
-</script>
-
-<!-- Totop Begin -->
-
-	<div id="totop">
-	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
-	</div>
-	<script src="/js/totop.js"></script>
-
-
-<!-- Totop End -->
-
-
-  </body>
+  </div>
+</body>
 </html>
-

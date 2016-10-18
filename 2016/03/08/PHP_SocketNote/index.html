@@ -1,210 +1,384 @@
-
- <!DOCTYPE HTML>
-<html lang="zh-CN">
+<!DOCTYPE html>
+<html lang="h-Hans">
 <head>
-  <meta charset="UTF-8">
-  
-    <title>关于 PHP Socket 及位字符串函数 pack &amp; unpack 的示例 | 在云端</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
-    
-    <meta name="author" content="严宇川">
-    
-    <meta name="description" content="关于 PHP Socket 及位字符串函数 pack &amp;amp; unpack 的示例
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="在云端" />
+
+
+
+<meta name="description" content="#关于 PHP Socket 及位字符串函数 pack &amp;amp; unpack 的示例
+
 
 严宇川, 2015.08.02
 关于 PHP Socket 及位字符串函数 pack &amp;amp; unpack 的示例.">
-    
-    
-    
-    
-    <link rel="alternate" href="/atom.xml" title="在云端" type="application/atom+xml">
-    
-    
-    <link rel="icon" href="/img/favicon.ico">
-    
-    
-    <link rel="apple-touch-icon" href="/img/logo.png">
-    <link rel="apple-touch-icon-precomposed" href="/img/logo.png">
-    
-    <link rel="stylesheet" href="/css/style.css" type="text/css">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关于 PHP Socket 及位字符串函数 pack & unpack 的示例">
+<meta property="og:url" content="http://evercyan.xyz/2016/03/08/PHP_SocketNote/index.html">
+<meta property="og:site_name" content="在云端">
+<meta property="og:description" content="#关于 PHP Socket 及位字符串函数 pack &amp;amp; unpack 的示例
 
+
+严宇川, 2015.08.02
+关于 PHP Socket 及位字符串函数 pack &amp;amp; unpack 的示例.">
+<meta property="og:image" content="http://evercyan.xyz/img/source/php_socket_pack_unpack/1.png">
+<meta property="og:image" content="http://evercyan.xyz/img/source/php_socket_pack_unpack/2.png">
+<meta property="og:image" content="http://evercyan.xyz/img/source/php_socket_pack_unpack/3.png">
+<meta property="og:updated_time" content="2016-03-07T16:00:00.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="关于 PHP Socket 及位字符串函数 pack & unpack 的示例">
+<meta name="twitter:description" content="#关于 PHP Socket 及位字符串函数 pack &amp;amp; unpack 的示例
+
+
+严宇川, 2015.08.02
+关于 PHP Socket 及位字符串函数 pack &amp;amp; unpack 的示例.">
+<meta name="twitter:image" content="http://evercyan.xyz/img/source/php_socket_pack_unpack/1.png">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="在云端" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/favicon.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>关于 PHP Socket 及位字符串函数 pack &amp; unpack 的示例 | 在云端</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
 
 <script>
-//百度统计
-var _hmt = _hmt || [];
-(function() {
-  var hm = document.createElement("script");
-  hm.src = "//hm.baidu.com/hm.js?4f843ce521f21ec6fef20cc81a7d527c";
-  var s = document.getElementsByTagName("script")[0];
-  s.parentNode.insertBefore(hm, s);
-})();
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: undefined
+    }
 </script>
 
 
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
 </head>
 
-  <body>
-    <header>
-      <div>
-		
-			<div id="imglogo">
-				<a href="/"><img src="/img/logo.png" alt="在云端" title="在云端"/></a>
-			</div>
-			
-			<div id="textlogo">
-				<h1 class="site-name"><a href="/" title="在云端">在云端</a></h1>
-				<h2 class="blog-motto">Make Some Difference</h2>
-			</div>
-			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
-			</a></div>
-			<nav class="animated">
-				<ul>
-					
-						<li><a href="/">首页</a></li>
-					
-						<li><a href="/archives">所有文章</a></li>
-					
-						<li><a href="/about">关于</a></li>
-					
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">在云端</a></h1>
+        </hgroup>
 
-					
-				</ul>
-			</nav>
+        
+
+        
+
+
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">文章</a></li>
+                        
+                            <li><a href="/tags/">标签云</a></li>
+                        
+                            <li><a href="/about/">关于</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" href="mailto:evercyan@qq.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" href="https://github.com/everCyan" title="GitHub"></a>
+                            
+                                <a class="fa RSS" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://moxfive.xyz/">MOxFIVE</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+            </div>
+        </div>
+    </header>                
 </div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">在云端</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">在云端</a></h1>
+            </hgroup>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">文章</a></li>
+                
+                    <li><a href="/tags/">标签云</a></li>
+                
+                    <li><a href="/about/">关于</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="mailto:evercyan@qq.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/everCyan" title="GitHub"></a>
+                            
+                                <a class="fa RSS" target="_blank" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-PHP_SocketNote" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/03/08/PHP_SocketNote/" class="article-date">
+      <time datetime="2016-03-07T16:00:00.000Z" itemprop="datePublished">2016-03-08</time>
+</a>
 
-    </header>
-    <div id="container">
-      <div id="main" class="post" itemscope itemprop="blogPost">
-	<article itemprop="articleBody">
-		<header class="article-info clearfix">
-  <h1 itemprop="name">
+
+    </div>
+  
+  <div class="article-inner">
     
-      <a href="/2016/03/08/PHP_SocketNote/" title="关于 PHP Socket 及位字符串函数 pack &amp; unpack 的示例" itemprop="url">关于 PHP Socket 及位字符串函数 pack &amp; unpack 的示例</a>
-  </h1>
-  <p class="article-author">By
+      <input type="hidden" class="isFancy" />
     
-      <a href="http://evercyan.github.io" title="严宇川">严宇川</a>
-    </p>
-  <p class="article-time">
-    <time datetime="2016-03-07T16:00:00.000Z" itemprop="datePublished">2016-03-08</time>
-    更新日期:<time datetime="2016-03-07T16:00:00.000Z" itemprop="dateModified">2016-03-08</time>
     
-  </p>
-</header>
-	<div class="article-content">
-		
-		
-		<h1 id="关于_PHP_Socket_及位字符串函数_pack_&amp;_unpack_的示例">关于 PHP Socket 及位字符串函数 pack &amp; unpack 的示例</h1><hr>
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      关于 PHP Socket 及位字符串函数 pack &amp; unpack 的示例
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/笔记/">笔记</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PHP/">PHP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Socket/">Socket</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>#关于 PHP Socket 及位字符串函数 pack &amp; unpack 的示例</p>
+<hr>
 <blockquote>
 <p>严宇川, 2015.08.02</p>
 <p>关于 PHP Socket 及位字符串函数 pack &amp; unpack 的示例.<a id="more"></a></p>
 </blockquote>
 <hr>
-<h2 id="pack_&amp;_unpack_的封装">pack &amp; unpack 的封装</h2><blockquote>
+<h2 id="pack-amp-unpack-的封装"><a href="#pack-amp-unpack-的封装" class="headerlink" title="pack &amp; unpack 的封装"></a>pack &amp; unpack 的封装</h2><blockquote>
 <p>在用 socket 和服务器交互过程中, 需要使用 pack 来将其他进制的数据压包到位字符串中; 接收到服务器返回的数据, 同样需要使用 unpack 来解析数据. </p>
 <p>pack 的封装主要针对 String 来做的处理, 需要先压包其长度, 再压包其数据</p>
 <p>unpack 的封装主要针对两种常见的返回格式, 一为 N (int)32, 二为 a (string), 其余格式可自行作扩展开发. 主要解决的痛点在于解析 String 时需要先解析其前置位字符长度.</p>
 </blockquote>
 <hr>
-<h4 id="socketCommon-php">socketCommon.php</h4><pre><code><span class="php"><span class="preprocessor">&lt;?php</span>
-<span class="comment">/***
+<h4 id="socketCommon-php"><a href="#socketCommon-php" class="headerlink" title="socketCommon.php"></a>socketCommon.php</h4><pre><code>&lt;?php
+/***
  * Ryan 2015.08.01
  * pack &amp; unpack 封装
-***/</span>
-<span class="class"><span class="keyword">class</span> <span class="title">socketCommon</span> </span>{
-    <span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">packStr</span><span class="params">(<span class="variable">$str</span>)</span> </span>{
-        <span class="variable">$retStr</span> = pack(<span class="string">"N"</span>, strlen(<span class="variable">$str</span>) + <span class="number">2</span>);
-        <span class="keyword">if</span> (strlen(<span class="variable">$str</span>) &gt; <span class="number">0</span>) {
-            <span class="variable">$retStr</span> .= pack(<span class="string">"a"</span> . strlen(<span class="variable">$str</span>), <span class="variable">$str</span>);
+***/
+class socketCommon {
+    public static function packStr($str) {
+        $retStr = pack(&quot;N&quot;, strlen($str) + 2);
+        if (strlen($str) &gt; 0) {
+            $retStr .= pack(&quot;a&quot; . strlen($str), $str);
         }
-        <span class="variable">$retStr</span> .= pack(<span class="string">"CC"</span>, <span class="string">'\0'</span>, <span class="string">'\0'</span>);
-        <span class="keyword">return</span> <span class="variable">$retStr</span>;
+        $retStr .= pack(&quot;CC&quot;, &apos;\0&apos;, &apos;\0&apos;);
+        return $retStr;
     }
-    <span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">unPackStr</span><span class="params">(<span class="variable">$parse</span>, <span class="variable">$packStr</span>)</span> </span>{
-        <span class="keyword">try</span> {
-            <span class="variable">$result</span> = <span class="keyword">array</span>();
+    public static function unPackStr($parse, $packStr) {
+        try {
+            $result = array();
 
-            <span class="variable">$parseLen</span> = strlen(<span class="variable">$parse</span>);
+            $parseLen = strlen($parse);
 
-            <span class="comment">//解析格式位置</span>
-            <span class="variable">$parsePos</span> = <span class="number">0</span>;
-            <span class="comment">//数据源位置</span>
-            <span class="variable">$dataPos</span> = <span class="number">0</span>;
-            <span class="comment">//解析数据</span>
-            <span class="variable">$parseStr</span> = <span class="string">""</span>;
+            //解析格式位置
+            $parsePos = 0;
+            //数据源位置
+            $dataPos = 0;
+            //解析数据
+            $parseStr = &quot;&quot;;
 
-            <span class="keyword">while</span> (<span class="variable">$parsePos</span> &lt; <span class="variable">$parseLen</span>) {
-                <span class="variable">$type</span> = substr(<span class="variable">$parse</span>, <span class="variable">$parsePos</span>++, <span class="number">1</span>);
-                <span class="keyword">switch</span> (<span class="variable">$type</span>) {
-                    <span class="keyword">case</span> <span class="string">"N"</span> :
-                        <span class="variable">$parseStr</span> = <span class="string">"N1"</span>;
-                        <span class="variable">$strLen</span> = <span class="number">4</span>;
-                        <span class="keyword">while</span>(<span class="variable">$parsePos</span> &lt; <span class="variable">$parseLen</span>) {
-                            <span class="variable">$letter</span> = substr(<span class="variable">$parse</span>, <span class="variable">$parsePos</span>, <span class="number">1</span>);
-                            <span class="keyword">if</span> (<span class="variable">$letter</span> == <span class="string">"/"</span>) {
-                                <span class="keyword">break</span>;
+            while ($parsePos &lt; $parseLen) {
+                $type = substr($parse, $parsePos++, 1);
+                switch ($type) {
+                    case &quot;N&quot; :
+                        $parseStr = &quot;N1&quot;;
+                        $strLen = 4;
+                        while($parsePos &lt; $parseLen) {
+                            $letter = substr($parse, $parsePos, 1);
+                            if ($letter == &quot;/&quot;) {
+                                break;
                             }
-                            <span class="variable">$parsePos</span>++;
-                            <span class="variable">$parseStr</span> .= <span class="variable">$letter</span>;
+                            $parsePos++;
+                            $parseStr .= $letter;
                         }
-                        <span class="variable">$unPackRet</span> = unpack(<span class="variable">$parseStr</span>, substr(<span class="variable">$packStr</span>, <span class="variable">$dataPos</span>));
-                        <span class="variable">$result</span> = array_merge(<span class="variable">$result</span>, <span class="variable">$unPackRet</span>);
-                        <span class="variable">$dataPos</span> += <span class="variable">$strLen</span>;
-                        <span class="keyword">break</span>;
-                    <span class="keyword">case</span> <span class="string">"a"</span> : 
-                        <span class="comment">//字符串类型, 先解析在此之前的字符串长度</span>
-                        <span class="variable">$parseStr</span> = <span class="string">"N1"</span>;
-                        <span class="variable">$unPackRet</span> = unpack(<span class="variable">$parseStr</span>, substr(<span class="variable">$packStr</span>, <span class="variable">$dataPos</span>));
-                        <span class="variable">$strLen</span> = array_pop(<span class="variable">$unPackRet</span>);
-                        <span class="variable">$dataPos</span> += <span class="number">4</span>;
+                        $unPackRet = unpack($parseStr, substr($packStr, $dataPos));
+                        $result = array_merge($result, $unPackRet);
+                        $dataPos += $strLen;
+                        break;
+                    case &quot;a&quot; : 
+                        //字符串类型, 先解析在此之前的字符串长度
+                        $parseStr = &quot;N1&quot;;
+                        $unPackRet = unpack($parseStr, substr($packStr, $dataPos));
+                        $strLen = array_pop($unPackRet);
+                        $dataPos += 4;
 
-                        <span class="variable">$parseStr</span> = <span class="string">"a"</span> . <span class="variable">$strLen</span>;
-                        <span class="keyword">while</span>(<span class="variable">$parsePos</span> &lt; <span class="variable">$parseLen</span>) {
-                            <span class="variable">$letter</span> = substr(<span class="variable">$parse</span>, <span class="variable">$parsePos</span>, <span class="number">1</span>);
-                            <span class="keyword">if</span> (<span class="variable">$letter</span> == <span class="string">"/"</span>) {
-                                <span class="keyword">break</span>;
+                        $parseStr = &quot;a&quot; . $strLen;
+                        while($parsePos &lt; $parseLen) {
+                            $letter = substr($parse, $parsePos, 1);
+                            if ($letter == &quot;/&quot;) {
+                                break;
                             }
-                            <span class="variable">$parsePos</span>++;
-                            <span class="variable">$parseStr</span> .= <span class="variable">$letter</span>;
+                            $parsePos++;
+                            $parseStr .= $letter;
                         }    
-                        <span class="variable">$unPackRet</span> = unpack(<span class="variable">$parseStr</span>, substr(<span class="variable">$packStr</span>, <span class="variable">$dataPos</span>));
-                        <span class="variable">$result</span> = array_merge(<span class="variable">$result</span>, <span class="variable">$unPackRet</span>);
-                        <span class="variable">$dataPos</span> += <span class="variable">$strLen</span>;
-                        <span class="keyword">break</span>;
+                        $unPackRet = unpack($parseStr, substr($packStr, $dataPos));
+                        $result = array_merge($result, $unPackRet);
+                        $dataPos += $strLen;
+                        break;
                 }
             }
-            <span class="keyword">return</span> <span class="variable">$result</span>;
-        } <span class="keyword">catch</span> (<span class="keyword">exception</span> <span class="variable">$e</span>) {
-            <span class="keyword">return</span> <span class="keyword">false</span>;
+            return $result;
+        } catch (exception $e) {
+            return false;
         }
     }
-}</span>
+}
 </code></pre><hr>
-<h4 id="packDemo-php">packDemo.php</h4><pre><code><span class="php"><span class="preprocessor">&lt;?php</span> 
-<span class="keyword">require</span> <span class="string">"./socketCommon.php"</span>;
+<h4 id="packDemo-php"><a href="#packDemo-php" class="headerlink" title="packDemo.php"></a>packDemo.php</h4><pre><code>&lt;?php 
+require &quot;./socketCommon.php&quot;;
 
-<span class="comment">//数据压包</span>
-<span class="variable">$transId</span> = time();
-<span class="variable">$msgStr</span> = <span class="string">"What the fuck!"</span>;
-<span class="variable">$lastStr</span> = <span class="string">"The Last Str"</span>;
-<span class="variable">$packBody</span> = <span class="string">""</span>;
+//数据压包
+$transId = time();
+$msgStr = &quot;What the fuck!&quot;;
+$lastStr = &quot;The Last Str&quot;;
+$packBody = &quot;&quot;;
 
-<span class="variable">$packBody</span> .= pack(<span class="string">"N1"</span>, <span class="variable">$transId</span>);
-<span class="variable">$packBody</span> .= socketCommon::packStr(iconv(<span class="string">"UTF-8"</span>, <span class="string">"unicodelittle"</span>, <span class="variable">$msgStr</span>));
-<span class="variable">$packBody</span> .= socketCommon::packStr(iconv(<span class="string">"UTF-8"</span>, <span class="string">"unicodelittle"</span>, <span class="variable">$lastStr</span>));
-<span class="variable">$packBody</span> .= socketCommon::packStr(iconv(<span class="string">"UTF-8"</span>, <span class="string">"unicodelittle"</span>, <span class="string">"hello"</span>));
-<span class="variable">$packBody</span> .= socketCommon::packStr(iconv(<span class="string">"UTF-8"</span>, <span class="string">"unicodelittle"</span>, <span class="string">"world"</span>));
+$packBody .= pack(&quot;N1&quot;, $transId);
+$packBody .= socketCommon::packStr(iconv(&quot;UTF-8&quot;, &quot;unicodelittle&quot;, $msgStr));
+$packBody .= socketCommon::packStr(iconv(&quot;UTF-8&quot;, &quot;unicodelittle&quot;, $lastStr));
+$packBody .= socketCommon::packStr(iconv(&quot;UTF-8&quot;, &quot;unicodelittle&quot;, &quot;hello&quot;));
+$packBody .= socketCommon::packStr(iconv(&quot;UTF-8&quot;, &quot;unicodelittle&quot;, &quot;world&quot;));
 
-<span class="keyword">echo</span> <span class="string">"packBody Length : "</span>  . strlen(<span class="variable">$packBody</span>);
-<span class="keyword">echo</span> <span class="string">'&lt;br /&gt;&lt;br /&gt;'</span>;
+echo &quot;packBody Length : &quot;  . strlen($packBody);
+echo &apos;&lt;br /&gt;&lt;br /&gt;&apos;;
 
-<span class="comment">//数据解析</span>
-<span class="variable">$result</span> = socketCommon::unPackStr(<span class="string">'NtransId/astr1/astr2/astr3/astr4'</span>, <span class="variable">$packBody</span>);
+//数据解析
+$result = socketCommon::unPackStr(&apos;NtransId/astr1/astr2/astr3/astr4&apos;, $packBody);
 
-<span class="keyword">echo</span> <span class="string">'&lt;pre&gt;'</span>;
-print_r(<span class="variable">$result</span>);
+echo &apos;&lt;pre&gt;&apos;;
+print_r($result);
 
-<span class="comment">/*
+/*
 Array
 (
     [transId] =&gt; 1438498919
@@ -213,27 +387,27 @@ Array
     [str3] =&gt; hello
     [str4] =&gt; world
 )
-*/</span></span>
-</code></pre><h2 id="简单的_Socket_交互">简单的 Socket 交互</h2><hr>
-<h4 id="socketServer-php">socketServer.php</h4><pre><code><span class="php"><span class="preprocessor">&lt;?php</span>
-<span class="comment">/***
+*/
+</code></pre><h2 id="简单的-Socket-交互"><a href="#简单的-Socket-交互" class="headerlink" title="简单的 Socket 交互"></a>简单的 Socket 交互</h2><hr>
+<h4 id="socketServer-php"><a href="#socketServer-php" class="headerlink" title="socketServer.php"></a>socketServer.php</h4><pre><code>&lt;?php
+/***
  * Ryan 2015.08.01
  * php socketServer.php
-***/</span>
-set_time_limit(<span class="number">0</span>);   
-date_default_timezone_set(<span class="string">"PRC"</span>); 
-error_reporting(<span class="number">0</span>);
+***/
+set_time_limit(0);   
+date_default_timezone_set(&quot;PRC&quot;); 
+error_reporting(0);
 
-<span class="keyword">require</span> <span class="string">"./socketCommon.php"</span>;
+require &quot;./socketCommon.php&quot;;
 
-<span class="variable">$socketIp</span> = <span class="string">"127.0.0.1"</span>;
-<span class="variable">$socketPort</span> = <span class="string">"1935"</span>;
+$socketIp = &quot;127.0.0.1&quot;;
+$socketPort = &quot;1935&quot;;
 
-<span class="variable">$sock</span> = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
-socket_set_option(<span class="variable">$sock</span>, SOL_SOCKET, SO_REUSEADDR, <span class="number">1</span>) <span class="keyword">or</span> <span class="keyword">die</span>(<span class="string">"socket_set_option fail"</span>);
-socket_bind(<span class="variable">$sock</span>, <span class="variable">$socketIp</span>, <span class="variable">$socketPort</span>) <span class="keyword">or</span> <span class="keyword">die</span>(<span class="string">"socket_bind fail"</span>);
-socket_listen(<span class="variable">$sock</span>, <span class="number">4</span>) <span class="keyword">or</span> <span class="keyword">die</span>(<span class="string">"socket_listen fail"</span>);
-<span class="comment">/*
+$sock = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
+socket_set_option($sock, SOL_SOCKET, SO_REUSEADDR, 1) or die(&quot;socket_set_option fail&quot;);
+socket_bind($sock, $socketIp, $socketPort) or die(&quot;socket_bind fail&quot;);
+socket_listen($sock, 4) or die(&quot;socket_listen fail&quot;);
+/*
 接收消息格式 
 包头 : 
     (int)32 cmdId + (int)32 packLen
@@ -245,57 +419,57 @@ socket_listen(<span class="variable">$sock</span>, <span class="number">4</span>
     (int)32 cmdId + (int)32 packLen
 包体 : 
     (int)32 transId + (int)32 result + (string) msgStr
-*/</span>
-<span class="keyword">do</span> {
-    <span class="variable">$msgSock</span> = socket_accept(<span class="variable">$sock</span>); 
-    <span class="keyword">if</span> (<span class="variable">$msgSock</span>) {
-        <span class="variable">$receiveBuf</span> = socket_read(<span class="variable">$msgSock</span>, <span class="number">4096</span>);
+*/
+do {
+    $msgSock = socket_accept($sock); 
+    if ($msgSock) {
+        $receiveBuf = socket_read($msgSock, 4096);
 
-        <span class="comment">//解消息体</span>
-        <span class="variable">$receiveObj</span> = socketCommon::unPackStr(<span class="string">"NcmdId/NpackLen/NtransId/amsgStr/NuserNum/auserJsonStr"</span>, <span class="variable">$receiveBuf</span>);
-        <span class="keyword">echo</span> <span class="string">"receiveMsg : "</span> . json_encode(<span class="variable">$receiveObj</span>) . <span class="string">"\n"</span>;
+        //解消息体
+        $receiveObj = socketCommon::unPackStr(&quot;NcmdId/NpackLen/NtransId/amsgStr/NuserNum/auserJsonStr&quot;, $receiveBuf);
+        echo &quot;receiveMsg : &quot; . json_encode($receiveObj) . &quot;\n&quot;;
 
 
-        <span class="comment">//组返回消息体</span>
-        <span class="variable">$packBody</span> = pack(<span class="string">"N1"</span>, <span class="variable">$receiveObj</span>[<span class="string">"transId"</span>]);
-        <span class="variable">$result</span> = <span class="number">0</span>;
-        <span class="variable">$packBody</span> .= pack(<span class="string">"N1"</span>, <span class="variable">$result</span>);
-        <span class="variable">$msgStr</span> = <span class="string">"It's success at "</span> . date(<span class="string">"Y-m-d H:i:s"</span>) . <span class="string">"!"</span>;
-        <span class="variable">$packBody</span> .= socketCommon::packStr(<span class="variable">$msgStr</span>);
+        //组返回消息体
+        $packBody = pack(&quot;N1&quot;, $receiveObj[&quot;transId&quot;]);
+        $result = 0;
+        $packBody .= pack(&quot;N1&quot;, $result);
+        $msgStr = &quot;It&apos;s success at &quot; . date(&quot;Y-m-d H:i:s&quot;) . &quot;!&quot;;
+        $packBody .= socketCommon::packStr($msgStr);
 
-        <span class="variable">$cmdId</span> = <span class="number">1000</span>;
-        <span class="variable">$packLen</span> = <span class="number">20</span> + strlen(<span class="variable">$packBody</span>);
-        <span class="variable">$packHead</span> = pack(<span class="string">"N2"</span>, <span class="variable">$cmdId</span>, <span class="variable">$packLen</span>);
+        $cmdId = 1000;
+        $packLen = 20 + strlen($packBody);
+        $packHead = pack(&quot;N2&quot;, $cmdId, $packLen);
 
-        <span class="variable">$returnMsg</span> = <span class="variable">$packHead</span> . <span class="variable">$packBody</span>;
+        $returnMsg = $packHead . $packBody;
 
-        <span class="comment">// $returnMsg = "Hello";</span>
+        // $returnMsg = &quot;Hello&quot;;
 
-        <span class="keyword">echo</span> <span class="string">"Socket Return Start\n"</span>;
-        <span class="keyword">echo</span> <span class="string">"Socket returnMsg Length : "</span> . strlen(<span class="variable">$returnMsg</span>) . <span class="string">"\n"</span>;
+        echo &quot;Socket Return Start\n&quot;;
+        echo &quot;Socket returnMsg Length : &quot; . strlen($returnMsg) . &quot;\n&quot;;
 
-        socket_write(<span class="variable">$msgSock</span>, <span class="variable">$returnMsg</span>, strlen(<span class="variable">$returnMsg</span>));
-        socket_close(<span class="variable">$msgsock</span>);
+        socket_write($msgSock, $returnMsg, strlen($returnMsg));
+        socket_close($msgsock);
     }
-} <span class="keyword">while</span> (<span class="keyword">true</span>);
-socket_close(<span class="variable">$sock</span>);</span>
+} while (true);
+socket_close($sock);
 </code></pre><hr>
-<h4 id="socketClient-php">socketClient.php</h4><pre><code><span class="php"><span class="preprocessor">&lt;?php</span>
-<span class="comment">/***
+<h4 id="socketClient-php"><a href="#socketClient-php" class="headerlink" title="socketClient.php"></a>socketClient.php</h4><pre><code>&lt;?php
+/***
  * Ryan 2015.08.01
  * php socketClient.php
-***/</span>
-<span class="keyword">require</span> <span class="string">"./socketCommon.php"</span>;
+***/
+require &quot;./socketCommon.php&quot;;
 
-error_reporting(<span class="number">0</span>);
-<span class="variable">$socketIp</span> = <span class="string">"127.0.0.1"</span>;
-<span class="variable">$socketPort</span> = <span class="string">"1935"</span>;
+error_reporting(0);
+$socketIp = &quot;127.0.0.1&quot;;
+$socketPort = &quot;1935&quot;;
 
-<span class="variable">$sock</span> = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
-<span class="variable">$result</span> = socket_connect(<span class="variable">$sock</span>, <span class="variable">$socketIp</span>, <span class="variable">$socketPort</span>);
+$sock = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
+$result = socket_connect($sock, $socketIp, $socketPort);
 
 
-<span class="comment">/*
+/*
 接收消息格式 
 包头 : 
     (int)32 cmdId + (int)32 packLen
@@ -307,492 +481,370 @@ error_reporting(<span class="number">0</span>);
     (int)32 cmdId + (int)32 packLen
 包体 : 
     (int)32 transId + (int)32 result + (string) msgStr
-*/</span>
+*/
 
-<span class="variable">$transId</span> = time();
-<span class="variable">$msgStr</span> = <span class="string">"This is a message!"</span>;
-<span class="variable">$userObj</span> = <span class="keyword">array</span>(
-    <span class="string">"ryan"</span>, <span class="string">"cyan"</span>
+$transId = time();
+$msgStr = &quot;This is a message!&quot;;
+$userObj = array(
+    &quot;ryan&quot;, &quot;cyan&quot;
 );
 
-<span class="variable">$packBody</span> = pack(<span class="string">"N1"</span>, <span class="variable">$transId</span>);
-<span class="variable">$packBody</span> .= socketCommon::packStr(<span class="variable">$msgStr</span>);
-<span class="variable">$packBody</span> .= pack(<span class="string">"N1"</span>, count(<span class="variable">$userObj</span>));
-<span class="variable">$packBody</span> .= socketCommon::packStr(json_encode(<span class="variable">$userObj</span>));
+$packBody = pack(&quot;N1&quot;, $transId);
+$packBody .= socketCommon::packStr($msgStr);
+$packBody .= pack(&quot;N1&quot;, count($userObj));
+$packBody .= socketCommon::packStr(json_encode($userObj));
 
-<span class="variable">$cmdId</span> = <span class="number">1000</span>;
-<span class="variable">$packLen</span> = <span class="number">20</span> + strlen(<span class="variable">$packBody</span>);
-<span class="variable">$packHead</span> = pack(<span class="string">"N2"</span>, <span class="variable">$cmdId</span>, <span class="variable">$packLen</span>);
+$cmdId = 1000;
+$packLen = 20 + strlen($packBody);
+$packHead = pack(&quot;N2&quot;, $cmdId, $packLen);
 
-<span class="variable">$sendMsg</span> = <span class="variable">$packHead</span> . <span class="variable">$packBody</span>;
+$sendMsg = $packHead . $packBody;
 
-<span class="comment">// $sendMsg = "Hello";</span>
+// $sendMsg = &quot;Hello&quot;;
 
-<span class="keyword">echo</span> <span class="string">"Socket Start\n"</span>;
-<span class="keyword">echo</span> <span class="string">"Socket sendMsg Length : "</span> . strlen(<span class="variable">$sendMsg</span>) . <span class="string">"\n"</span>;
+echo &quot;Socket Start\n&quot;;
+echo &quot;Socket sendMsg Length : &quot; . strlen($sendMsg) . &quot;\n&quot;;
 
-socket_write(<span class="variable">$sock</span>, <span class="variable">$sendMsg</span>, strlen(<span class="variable">$sendMsg</span>));
+socket_write($sock, $sendMsg, strlen($sendMsg));
 
-<span class="variable">$i</span> = <span class="number">0</span>;
-<span class="keyword">do</span> {
-    <span class="variable">$receiveMsg</span> = socket_read(<span class="variable">$sock</span>, <span class="number">4096</span>);
-    <span class="variable">$i</span>++;
-} <span class="keyword">while</span> (!<span class="variable">$receiveMsg</span> &amp;&amp; <span class="variable">$i</span> &lt; <span class="number">3</span>);
+$i = 0;
+do {
+    $receiveMsg = socket_read($sock, 4096);
+    $i++;
+} while (!$receiveMsg &amp;&amp; $i &lt; 3);
 
-<span class="comment">//解消息体</span>
-<span class="variable">$receiveObj</span> = socketCommon::unPackStr(<span class="string">"NcmdId/NpackLen/NtransId/Nresult/amsgStr"</span>, <span class="variable">$receiveMsg</span>);
-<span class="keyword">echo</span> <span class="string">"receiveMsg : "</span> . json_encode(<span class="variable">$receiveObj</span>) . <span class="string">"\n"</span>;
-socket_close(<span class="variable">$sock</span>);</span>
+//解消息体
+$receiveObj = socketCommon::unPackStr(&quot;NcmdId/NpackLen/NtransId/Nresult/amsgStr&quot;, $receiveMsg);
+echo &quot;receiveMsg : &quot; . json_encode($receiveObj) . &quot;\n&quot;;
+socket_close($sock);
 </code></pre><hr>
-<h4 id="效果截图">效果截图</h4><hr>
+<h4 id="效果截图"><a href="#效果截图" class="headerlink" title="效果截图"></a>效果截图</h4><hr>
 <p><img src="/img/source/php_socket_pack_unpack/1.png" alt=""></p>
 <p><img src="/img/source/php_socket_pack_unpack/2.png" alt=""></p>
 <hr>
-<h2 id="Socket_聊天程序">Socket 聊天程序</h2><pre><code><span class="php"><span class="preprocessor">&lt;?php</span>
-<span class="comment">/***
+<h2 id="Socket-聊天程序"><a href="#Socket-聊天程序" class="headerlink" title="Socket 聊天程序"></a>Socket 聊天程序</h2><pre><code>&lt;?php
+/***
  * Ryan 2015.08.01
  * php socketChat.php
  * telnet 127.0.0.1 1935
-***/</span>
-header(<span class="string">"Content-type:text/html; charset=utf-8"</span>);
-date_default_timezone_set(<span class="string">"PRC"</span>);
-set_time_limit(<span class="number">0</span>);    
+***/
+header(&quot;Content-type:text/html; charset=utf-8&quot;);
+date_default_timezone_set(&quot;PRC&quot;);
+set_time_limit(0);    
 
-<span class="keyword">if</span>(!extension_loaded(<span class="string">"sockets"</span>)){    
-    <span class="comment">//提示开启PHP的SOCKET扩展</span>
-    <span class="keyword">die</span>(<span class="string">"please loaded php_sockets.dll"</span>);
+if(!extension_loaded(&quot;sockets&quot;)){    
+    //提示开启PHP的SOCKET扩展
+    die(&quot;please loaded php_sockets.dll&quot;);
 }
 
-<span class="variable">$socketIp</span> = <span class="string">"127.0.0.1"</span>;
-<span class="variable">$socketPort</span> = <span class="string">"1935"</span>;
+$socketIp = &quot;127.0.0.1&quot;;
+$socketPort = &quot;1935&quot;;
 
-<span class="keyword">if</span>((<span class="variable">$sock</span> = socket_create(AF_INET, SOCK_STREAM, SOL_TCP)) === <span class="keyword">false</span>){    
-    <span class="comment">//创建SOCKET</span>
-    <span class="keyword">echo</span> <span class="string">"socket_create() failed; reason : "</span> . socket_strerror(socket_last_error(<span class="variable">$sock</span>)) . <span class="string">"\r\n"</span>;
-    <span class="keyword">exit</span>;
+if(($sock = socket_create(AF_INET, SOCK_STREAM, SOL_TCP)) === false){    
+    //创建SOCKET
+    echo &quot;socket_create() failed; reason : &quot; . socket_strerror(socket_last_error($sock)) . &quot;\r\n&quot;;
+    exit;
 }
-<span class="keyword">if</span> (!socket_set_option(<span class="variable">$sock</span>, SOL_SOCKET, SO_REUSEADDR, <span class="number">1</span>)) {
-    <span class="comment">//设置端口重用</span>
-    <span class="keyword">echo</span> <span class="string">'socket_set_option() failed; reason : '</span>. socket_strerror(socket_last_error(<span class="variable">$sock</span>)) . <span class="string">"\r\n"</span>;
-    <span class="keyword">exit</span>;
+if (!socket_set_option($sock, SOL_SOCKET, SO_REUSEADDR, 1)) {
+    //设置端口重用
+    echo &apos;socket_set_option() failed; reason : &apos;. socket_strerror(socket_last_error($sock)) . &quot;\r\n&quot;;
+    exit;
 }
-<span class="keyword">if</span>(socket_bind(<span class="variable">$sock</span>, <span class="variable">$socketIp</span>, <span class="variable">$socketPort</span>) === <span class="keyword">false</span>){    
-    <span class="comment">//绑定地址和端口</span>
-    <span class="keyword">echo</span> <span class="string">"socket_bind() failed; reason : "</span> . socket_strerror(socket_last_error(<span class="variable">$sock</span>)) . <span class="string">"\r\n"</span>;
-    <span class="keyword">exit</span>;
+if(socket_bind($sock, $socketIp, $socketPort) === false){    
+    //绑定地址和端口
+    echo &quot;socket_bind() failed; reason : &quot; . socket_strerror(socket_last_error($sock)) . &quot;\r\n&quot;;
+    exit;
 }
-<span class="keyword">if</span>(socket_listen(<span class="variable">$sock</span>, <span class="number">15</span>) === <span class="keyword">false</span>){    
-    <span class="comment">//开启监听</span>
-    <span class="keyword">echo</span> <span class="string">"socket_listen() failed; reason : "</span> . socket_strerror(socket_last_error(<span class="variable">$sock</span>)) . <span class="string">"\r\n"</span>;
-    <span class="keyword">exit</span>;
+if(socket_listen($sock, 15) === false){    
+    //开启监听
+    echo &quot;socket_listen() failed; reason : &quot; . socket_strerror(socket_last_error($sock)) . &quot;\r\n&quot;;
+    exit;
 }
 
-<span class="comment">//设置非阻塞模式</span>
-socket_set_nonblock(<span class="variable">$sock</span>) <span class="keyword">or</span> <span class="keyword">die</span>(<span class="string">"not set nonblock"</span>);
+//设置非阻塞模式
+socket_set_nonblock($sock) or die(&quot;not set nonblock&quot;);
 
 
-<span class="comment">//设置输入字符串长度  </span>
-<span class="variable">$msgLen</span> = <span class="number">1024</span>;  
-<span class="comment">//信息结束标记.   </span>
-<span class="variable">$msgEof</span> = <span class="string">"\n"</span>;  
-<span class="variable">$connections</span> = <span class="keyword">array</span>();
-<span class="keyword">do</span>{
-    <span class="comment">//等待来自客户端的连接请求</span>
-    @<span class="variable">$connection</span> = socket_accept(<span class="variable">$sock</span>);    
-    <span class="keyword">if</span>(<span class="keyword">isset</span>(<span class="variable">$connection</span>) &amp;&amp; <span class="variable">$connection</span>) {
-        <span class="keyword">echo</span> <span class="string">"Connect Success!\r\n"</span>;
-        <span class="variable">$connections</span>[] = <span class="keyword">array</span>(
-            <span class="string">"connect"</span> =&gt; <span class="variable">$connection</span>, 
-            <span class="string">"bufs"</span> =&gt; <span class="string">""</span>
+//设置输入字符串长度  
+$msgLen = 1024;  
+//信息结束标记.   
+$msgEof = &quot;\n&quot;;  
+$connections = array();
+do{
+    //等待来自客户端的连接请求
+    @$connection = socket_accept($sock);    
+    if(isset($connection) &amp;&amp; $connection) {
+        echo &quot;Connect Success!\r\n&quot;;
+        $connections[] = array(
+            &quot;connect&quot; =&gt; $connection, 
+            &quot;bufs&quot; =&gt; &quot;&quot;
         );
-        <span class="comment">//返回初始化欢迎信息</span>
-        <span class="variable">$welcomeMsg</span> = <span class="string">"Hello, Welcome! There are "</span> . count(<span class="variable">$connections</span>) . <span class="string">" Client connect success!\r\n"</span>;
-        <span class="variable">$welcomeMsg</span> .= <span class="string">"Type 'quit' to quit!\r\n"</span>;
-        <span class="variable">$welcomeMsg</span> .= <span class="string">"Please type something as your nickname!\r\n\r\n"</span>;        
-        socket_write(<span class="variable">$connection</span>, <span class="variable">$welcomeMsg</span>, strlen(<span class="variable">$welcomeMsg</span>));    
+        //返回初始化欢迎信息
+        $welcomeMsg = &quot;Hello, Welcome! There are &quot; . count($connections) . &quot; Client connect success!\r\n&quot;;
+        $welcomeMsg .= &quot;Type &apos;quit&apos; to quit!\r\n&quot;;
+        $welcomeMsg .= &quot;Please type something as your nickname!\r\n\r\n&quot;;        
+        socket_write($connection, $welcomeMsg, strlen($welcomeMsg));    
     }
-    <span class="variable">$talkBufs</span> = <span class="string">""</span>;
-    <span class="keyword">foreach</span>(<span class="variable">$connections</span> <span class="keyword">as</span> <span class="variable">$xid</span> =&gt; &amp;<span class="variable">$client</span>) {
-        <span class="keyword">unset</span>(<span class="variable">$bufs</span>);
-        <span class="keyword">unset</span>(<span class="variable">$connection</span>);
-        <span class="variable">$connection</span> = <span class="variable">$client</span>[<span class="string">"connect"</span>];
-        <span class="variable">$bufs</span> = &amp;<span class="variable">$client</span>[<span class="string">"bufs"</span>];
+    $talkBufs = &quot;&quot;;
+    foreach($connections as $xid =&gt; &amp;$client) {
+        unset($bufs);
+        unset($connection);
+        $connection = $client[&quot;connect&quot;];
+        $bufs = &amp;$client[&quot;bufs&quot;];
 
-        <span class="keyword">if</span>(<span class="keyword">false</span> === socket_write(<span class="variable">$connection</span>, <span class="variable">$talkBack</span>, strlen(<span class="variable">$talkBack</span>))) {
-            <span class="keyword">echo</span> <span class="string">"socket_write() failed: reason: "</span> . socket_strerror(socket_last_error(<span class="variable">$connection</span>)) . <span class="string">"\r\n"</span>;
-            socket_close(<span class="variable">$connection</span>);
-            <span class="keyword">unset</span>(<span class="variable">$connections</span>[<span class="variable">$xid</span>]);
-            <span class="keyword">continue</span>;
+        if(false === socket_write($connection, $talkBack, strlen($talkBack))) {
+            echo &quot;socket_write() failed: reason: &quot; . socket_strerror(socket_last_error($connection)) . &quot;\r\n&quot;;
+            socket_close($connection);
+            unset($connections[$xid]);
+            continue;
         }
-        <span class="keyword">if</span> (<span class="keyword">false</span> === (<span class="variable">$buf</span> = socket_read(<span class="variable">$connection</span>, <span class="variable">$msgLen</span>))) {
-            <span class="keyword">continue</span>;
+        if (false === ($buf = socket_read($connection, $msgLen))) {
+            continue;
         }
-        <span class="variable">$bufs</span> .= <span class="variable">$buf</span>;
-        <span class="keyword">if</span>(<span class="keyword">false</span> === strpos(<span class="variable">$bufs</span>, <span class="variable">$msgEof</span>)) {
-            <span class="keyword">continue</span>;
+        $bufs .= $buf;
+        if(false === strpos($bufs, $msgEof)) {
+            continue;
         }
-        <span class="comment">//取得$bufs中结束标记符前的内容</span>
-        <span class="variable">$buf</span> = substr(<span class="variable">$bufs</span>, <span class="number">0</span>, strrpos(<span class="variable">$bufs</span>, <span class="variable">$msgEof</span>));    
-        <span class="variable">$bufs</span> = substr(strrchr(<span class="variable">$bufs</span>, <span class="variable">$msgEof</span>), <span class="number">1</span>);
-        <span class="keyword">if</span> (!<span class="variable">$buf</span> = trim(<span class="variable">$buf</span>)) {
-            <span class="keyword">continue</span>;
+        //取得$bufs中结束标记符前的内容
+        $buf = substr($bufs, 0, strrpos($bufs, $msgEof));    
+        $bufs = substr(strrchr($bufs, $msgEof), 1);
+        if (!$buf = trim($buf)) {
+            continue;
         }
-        <span class="keyword">if</span>(strrpos(<span class="variable">$buf</span>, <span class="variable">$msgEof</span>) || (strlen(<span class="variable">$buf</span>) &gt; <span class="variable">$msgLen</span>)) {
-            <span class="variable">$buf</span> = <span class="string">"quit"</span>;
+        if(strrpos($buf, $msgEof) || (strlen($buf) &gt; $msgLen)) {
+            $buf = &quot;quit&quot;;
         }
-        <span class="comment">//退出连接</span>
-        <span class="keyword">if</span> (<span class="variable">$buf</span> == <span class="string">"quit"</span>) {
-            socket_close(<span class="variable">$connection</span>);
-            <span class="keyword">unset</span>(<span class="variable">$connections</span>[<span class="variable">$xid</span>]);
-            <span class="keyword">continue</span>;
+        //退出连接
+        if ($buf == &quot;quit&quot;) {
+            socket_close($connection);
+            unset($connections[$xid]);
+            continue;
         }
-        <span class="comment">//处理聊天成员的昵称显示</span>
-        <span class="keyword">if</span>(!<span class="keyword">isset</span>(<span class="variable">$userName</span>[<span class="variable">$xid</span>])){
-            <span class="variable">$userName</span>[<span class="variable">$xid</span>] = <span class="variable">$buf</span>;
-            <span class="variable">$talkBufs</span> .= <span class="string">"Someone named "</span> . <span class="variable">$userName</span>[<span class="variable">$xid</span>] . <span class="string">" is in!\r\n\r\n"</span>;
-        } <span class="keyword">else</span> {
-            <span class="variable">$talkBufs</span> .= <span class="variable">$userName</span>[<span class="variable">$xid</span>] . <span class="string">" "</span> . date(<span class="string">"H:i:s"</span>) . <span class="string">" : \r\n$buf\r\n\r\n"</span>;
+        //处理聊天成员的昵称显示
+        if(!isset($userName[$xid])){
+            $userName[$xid] = $buf;
+            $talkBufs .= &quot;Someone named &quot; . $userName[$xid] . &quot; is in!\r\n\r\n&quot;;
+        } else {
+            $talkBufs .= $userName[$xid] . &quot; &quot; . date(&quot;H:i:s&quot;) . &quot; : \r\n$buf\r\n\r\n&quot;;
         }
     }
-    <span class="comment">//组包返回内容</span>
-    <span class="variable">$talkBack</span> = <span class="variable">$talkBufs</span>;
-    <span class="keyword">echo</span> <span class="variable">$talkBack</span>;
-} <span class="keyword">while</span> (<span class="keyword">true</span>);
-socket_close(<span class="variable">$sock</span>);</span>
-</code></pre><h4 id="效果截图-1">效果截图</h4><hr>
+    //组包返回内容
+    $talkBack = $talkBufs;
+    echo $talkBack;
+} while (true);
+socket_close($sock);
+</code></pre><h4 id="效果截图-1"><a href="#效果截图-1" class="headerlink" title="效果截图"></a>效果截图</h4><hr>
 <p><img src="/img/source/php_socket_pack_unpack/3.png" alt=""></p>
 <hr>
 <p>以上</p>
 
-	</div>
-		<footer class="article-footer clearfix">
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/PHP/">PHP</a><a href="/tags/Socket/">Socket</a>
-  </div>
-
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/笔记/">笔记</a>
-</div>
-
-
-
-<div class="article-share" id="share">
-
-  <div data-url="http://evercyan.github.io/2016/03/08/PHP_SocketNote/" data-title="关于 PHP Socket 及位字符串函数 pack &amp; unpack 的示例 | 在云端" data-tsina="1649089717" class="share clearfix">
-  </div>
-
-</div>
-</footer>
-	</article>
-	
-<nav class="article-nav clearfix">
- 
- <div class="prev" >
- <a href="/2016/04/01/PHP_Extension/" title="PHP 扩展开发笔记">
-  <strong>PREVIOUS:</strong><br/>
-  <span>
-  PHP 扩展开发笔记</span>
-</a>
-</div>
-
-
-<div class="next">
-<a href="/2016/03/01/Note_Less/"  title="LESS 笔记">
- <strong>NEXT:</strong><br/> 
- <span>LESS 笔记
-</span>
-</a>
-</div>
-
-</nav>
-
-	
-<section class="comment">
-	<div class="ds-thread"></div>
-</section>
-
-</div>
-
-      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
-
-<div id="asidepart">
-<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
-<aside class="clearfix">
-
-  
-<div class="categorieslist">
-	<p class="asidetitle">分类</p>
-		<ul>
-		
-			<li><a href="/categories/文章/" title="文章">文章<sup>2</sup></a></li>
-		
-			<li><a href="/categories/碎碎念/" title="碎碎念">碎碎念<sup>3</sup></a></li>
-		
-			<li><a href="/categories/笔记/" title="笔记">笔记<sup>5</sup></a></li>
-		
-		</ul>
-</div>
-
-
-  
-<div class="tagslist">
-	<p class="asidetitle">标签</p>
-		<ul class="clearfix">
-		
-			<li><a href="/tags/GTA5/" title="GTA5">GTA5<sup>1</sup></a></li>
-		
-			<li><a href="/tags/Gitbook/" title="Gitbook">Gitbook<sup>1</sup></a></li>
-		
-			<li><a href="/tags/Less/" title="Less">Less<sup>1</sup></a></li>
-		
-			<li><a href="/tags/PHP/" title="PHP">PHP<sup>4</sup></a></li>
-		
-			<li><a href="/tags/Socket/" title="Socket">Socket<sup>1</sup></a></li>
-		
-			<li><a href="/tags/扩展/" title="扩展">扩展<sup>1</sup></a></li>
-		
-		</ul>
-</div>
-
-
-  <div class="linkslist">
-  <p class="asidetitle">友情链接</p>
-    <ul>
-        
-          <li>
-            
-            	<a href="http://hexo.io" target="_blank" title="Hexo">Hexo</a>
-            
-          </li>
-        
-          <li>
-            
-            	<a href="https://github.com/A-limon/pacman" target="_blank" title="Pacman is a flat and responsive design theme for Hexo">Pacman</a>
-            
-          </li>
-        
-    </ul>
-</div>
-
-
-  <div class="weiboshow">
-  <p class="asidetitle">新浪微博</p>
-   <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=0&speed=0&skin=5&isTitle=1&noborder=1&isWeibo=1&isFans=1&uid=1649089717&verifier=743a2fc7&dpc=1"></iframe>
-</div>
-
-
-  <div class="rsspart">
-	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
-</div>
-
-</aside>
-</div>
-    </div>
-    <footer><div id="footer" >
-	
-
-	
-	<div class="line">
-		<span></span>
-		<div class="author"></div>
-	</div>
-	
-	
-	<section class="info">
-		<p> 踩中地雷后, 小明灵机一动, 在原地过了一辈子! <br/>
-			  </p>
-	</section>
-	 
-	<div class="social-font clearfix">
-		
-		<a href="http://weibo.com/aronleeyant" target="_blank" title="weibo"></a>
-		
-		
-		
-		<a href="https://github.com/everCyan" target="_blank" title="github"></a>
-		
-		
-		
-	</div>
-		<p class="copyright">由 <a href="http://hexo.io" target="_blank" title="Hexo">Hexo</a> 强力驱动  © 2016
-		
-		<a href="http://evercyan.github.io" target="_blank" title="严宇川">严宇川</a>
-		
-		</p>
-	
-</div>
-
-</footer>
-    <script src="/js/jquery-2.1.0.min.js"></script>
-<script type="text/javascript">
-$(document).ready(function(){
-  $('.navbar').click(function(){
-    $('header nav').toggleClass('shownav');
-  });
-  var myWidth = 0;
-  function getSize(){
-    if( typeof( window.innerWidth ) == 'number' ) {
-      myWidth = window.innerWidth;
-    } else if( document.documentElement && document.documentElement.clientWidth) {
-      myWidth = document.documentElement.clientWidth;
-    };
-  };
-  var m = $('#main'),
-      a = $('#asidepart'),
-      c = $('.closeaside'),
-      o = $('.openaside');
-  $(window).resize(function(){
-    getSize();
-    if (myWidth >= 1024) {
-      $('header nav').removeClass('shownav');
-    }else
-    {
-      m.removeClass('moveMain');
-      a.css('display', 'block').removeClass('fadeOut');
-      o.css('display', 'none');
       
-    }
-  });
-  c.click(function(){
-    a.addClass('fadeOut').css('display', 'none');
-    o.css('display', 'block').addClass('fadeIn');
-    m.addClass('moveMain');
-  });
-  o.click(function(){
-    o.css('display', 'none').removeClass('beforeFadeIn');
-    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');
-    m.removeClass('moveMain');
-  });
-  $(window).scroll(function(){
-    o.css("top",Math.max(80,260-$(this).scrollTop()));
-  });
-});
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2016/03/08/PHP_SocketNote/">关于 PHP Socket 及位字符串函数 pack &amp; unpack 的示例</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">在云端</a></p>
+        <p><span>发布时间:</span>2016-03-08, 00:00:00</p>
+        <p><span>最后更新:</span>2016-03-08, 00:00:00</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2016/03/08/PHP_SocketNote/" title="关于 PHP Socket 及位字符串函数 pack &amp; unpack 的示例">http://evercyan.xyz/2016/03/08/PHP_SocketNote/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://evercyan.xyz/2016/03/08/PHP_SocketNote/　　作者: 在云端" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2016/04/01/PHP_Extension/">
+                    PHP 扩展开发笔记
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2016/03/01/Article_SomethingJustHappened/">
+                    躲不过的时间
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#pack-amp-unpack-的封装"><span class="toc-number">1.</span> <span class="toc-text">pack & unpack 的封装</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#socketCommon-php"><span class="toc-number">1.0.1.</span> <span class="toc-text">socketCommon.php</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#packDemo-php"><span class="toc-number">1.0.2.</span> <span class="toc-text">packDemo.php</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#简单的-Socket-交互"><span class="toc-number">2.</span> <span class="toc-text">简单的 Socket 交互</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#socketServer-php"><span class="toc-number">2.0.1.</span> <span class="toc-text">socketServer.php</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#socketClient-php"><span class="toc-number">2.0.2.</span> <span class="toc-text">socketClient.php</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#效果截图"><span class="toc-number">2.0.3.</span> <span class="toc-text">效果截图</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Socket-聊天程序"><span class="toc-number">3.</span> <span class="toc-text">Socket 聊天程序</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#效果截图-1"><span class="toc-number">3.0.1.</span> <span class="toc-text">效果截图</span></a></li></ol></li></ol></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+
+
+    
+      <div class="duoshuo" id="comments">
+    <div id="comment-box" ></div>
+    <div class="ds-thread" id="ds-thread" data-thread-key="2016/03/08/PHP_SocketNote/" data-title="关于 PHP Socket 及位字符串函数 pack &amp; unpack 的示例" data-url="http://evercyan.xyz/2016/03/08/PHP_SocketNote/"></div>
+    <script>
+        var duoshuoQuery = {short_name:"evercyan"};
+        var loadComment = function(){
+            var d = document, s = d.createElement('script');
+            s.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+            s.async = true; s.charset = 'UTF-8';
+            (d.head || d.body).appendChild(s);
+        }
+
+        
+    </script>
+    
+    <script> loadComment(); </script>
+
+</div>
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2016/04/01/PHP_Extension/" title="上一篇: PHP 扩展开发笔记">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2016/03/01/Article_SomethingJustHappened/" title="下一篇: 躲不过的时间">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016/06/04/Note_Gitbook/">Gitbook 笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/01/Tech_WhatHappened/">当时发生了什么？</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/01/PHP_ScrapyGta5/">GTA5 攻略</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/01/PHP_Extension/">PHP 扩展开发笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/08/PHP_SocketNote/">关于 PHP Socket 及位字符串函数 pack & unpack 的示例</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/01/Article_SomethingJustHappened/">躲不过的时间</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/01/Note_Less/">LESS 笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/14/Tech_HighConcurrency/">关于高并发的解决方案及其相关概念的初步认识</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/01/Article_Like/">古文</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/01/Article_Poetry/">涂鸦小记</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/01/helloWorld/">Hello World</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/01/About/">关于这个 BLOG</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2016 在云端
+            </div>
+            <div class="footer-right">
+                由 <a href="http://hexo.io" target="_blank" title="Hexo">Hexo</a> 强力驱动 <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_pv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_site_uv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+
+    </div>
+    
+    <script src="/js/GithubRepoWidget.js"></script>
+
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+             github: ".github-widget a", 
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
 </script>
 
-<script type="text/javascript">
-$(document).ready(function(){
-  var ai = $('.article-content>iframe'),
-      ae = $('.article-content>embed'),
-      t  = $('#toc'),
-      h  = $('article h2')
-      ah = $('article h2'),
-      ah1 = $('article h1'),
-      ta = $('#toc.toc-aside'),
-      o  = $('.openaside'),
-      c  = $('.closeaside');
-  if(ai.length>0){
-    ai.wrap('<div class="video-container" />');
-  };
-  if(ae.length>0){
-   ae.wrap('<div class="video-container" />');
-  };
-  if(ah.length==0 && ah1.length == 0){
-    t.css('display','none');
-  }else{
-    c.click(function(){
-      ta.css('display', 'block').addClass('fadeIn');
-    });
-    o.click(function(){
-      ta.css('display', 'none');
-    });
-    $(window).scroll(function(){
-      ta.css("top",Math.max(140,320-$(this).scrollTop()));
-    });
-  };
-});
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
 </script>
-
-
-<script type="text/javascript">
-$(document).ready(function(){
-  var $this = $('.share'),
-      url = $this.attr('data-url'),
-      encodedUrl = encodeURIComponent(url),
-      title = $this.attr('data-title'),
-      tsina = $this.attr('data-tsina');
-  /*
-  var html = [
-  '<a href="#" class="overlay" id="qrcode"></a>',
-  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#share"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
-  '<a href="#textlogo" class="article-back-to-top" title="Top"></a>',
-  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
-  '<a href="#qrcode" class="article-share-qrcode" title="QRcode"></a>',
-  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
-  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="Weibo"></a>',
-  '<span title="Share to"></span>'
-  ].join('');
-  */
-  var html = [
-  '<a href="#" class="overlay" id="qrcode"></a>',
-  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#share"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
-  '<a href="#textlogo" class="article-back-to-top" title="Top"></a>',
-  '<a href="#qrcode" class="article-share-qrcode" title="QRcode"></a>',
-  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="Weibo"></a>',
-  '<span title="Share to"></span>'
-  ].join('');
-
-  $this.append(html);
-  $('.article-share-qrcode').click(function(){
-    var imgSrc = $('#qrcode-pic').attr('data-src');
-    $('#qrcode-pic').attr('src', imgSrc);
-    $('#qrcode-pic').load(function(){
-        $('.qrcode strong').text(' ');
-    });
-  });
-});
-</script>
-
-
-<script type="text/javascript">
-  var duoshuoQuery = {short_name:"evercyan"};
-  (function() {
-    var ds = document.createElement('script');
-    ds.type = 'text/javascript';ds.async = true;
-    ds.src = '//static.duoshuo.com/embed.js';
-    ds.charset = 'UTF-8';
-    (document.getElementsByTagName('head')[0]
-    || document.getElementsByTagName('body')[0]).appendChild(ds);
-  })();
-</script>
-
-
-
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
-<script src="/fancybox/jquery.fancybox.pack.js"></script>
-<script type="text/javascript">
-$(document).ready(function(){
-  $('.article-content').each(function(i){
-    $(this).find('img').each(function(){
-      if ($(this).parent().hasClass('fancybox')) return;
-      var alt = this.alt;
-      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
-      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
-    });
-    $(this).find('.fancybox').each(function(){
-      $(this).attr('rel', 'article' + i);
-    });
-  });
-  if($.fancybox){
-    $('.fancybox').fancybox();
-  }
-});
-</script>
-
-<!-- Totop Begin -->
-
-	<div id="totop">
-	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
-	</div>
-	<script src="/js/totop.js"></script>
-
-
-<!-- Totop End -->
-
-
-  </body>
+  </div>
+</body>
 </html>
-
