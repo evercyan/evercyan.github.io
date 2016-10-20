@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://evercyan.xyz/"/>
-  <updated>2016-06-04T06:11:30.000Z</updated>
+  <updated>2016-10-19T16:00:00.000Z</updated>
   <id>http://evercyan.xyz/</id>
   
   <author>
@@ -14,6 +14,220 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>SublimeText 笔记</title>
+    <link href="http://evercyan.xyz/2016/10/20/Note_Sublime/"/>
+    <id>http://evercyan.xyz/2016/10/20/Note_Sublime/</id>
+    <published>2016-10-19T16:00:00.000Z</published>
+    <updated>2016-10-19T16:00:00.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="SublimeText-笔记"><a href="#SublimeText-笔记" class="headerlink" title="SublimeText 笔记"></a>SublimeText 笔记<a id="more"></a></h1><hr>
+<h2 id="快捷键"><a href="#快捷键" class="headerlink" title="快捷键"></a>快捷键</h2><blockquote>
+<p>均可在 Preferences/ Package Settings/ Key Bindings - Default/User 中设置</p>
+</blockquote>
+<hr>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><pre><code>{
+    &quot;auto_indent&quot;: true,
+    &quot;color_scheme&quot;: &quot;Packages/Color Scheme - Default/Monokai Bright.tmTheme&quot;,
+    &quot;default_line_ending&quot;: &quot;unix&quot;,
+    &quot;draw_minimap_border&quot;: true,
+    &quot;ensure_newline_at_eof_on_save&quot;: true,
+    &quot;font_face&quot;: &quot;courier new&quot;,
+    &quot;font_size&quot;: 14,
+    &quot;highlight_line&quot;: true,
+    &quot;highlight_modified_tabs&quot;: true,
+    &quot;ignored_packages&quot;:
+    [
+        &quot;Vintage&quot;
+    ],
+    &quot;line_numbers&quot;: true,
+    &quot;original_color_scheme&quot;: &quot;Packages/Color Scheme - Default/Monokai.tmTheme&quot;,
+    &quot;scroll_past_end&quot;: false,
+    &quot;smart_indent&quot;: false,
+    &quot;tab_size&quot;: 4,
+    &quot;translate_tabs_to_spaces&quot;: false,
+    &quot;trim_trailing_white_space_on_save&quot;: true,
+    &quot;update_check&quot;: false,
+    &quot;word_wrap&quot;: true,
+    &quot;drag_text&quot;: false,
+    &quot;open_files_in_new_window&quot;: false
+}
+</code></pre><hr>
+<h2 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h2><pre><code>Ctrl+Shift+P     打开命令面板
+
+ctrl + P         文件定位
+ctrl + ;        词语定位 #
+ctrl + R         函数定位 @
+ctrl + G         行号定位 :
+</code></pre><hr>
+<h2 id="插件"><a href="#插件" class="headerlink" title="插件"></a>插件</h2><blockquote>
+<p>~/Library/Application Support/Sublime Text 3/Packages</p>
+</blockquote>
+<h3 id="安装-Package-Control"><a href="#安装-Package-Control" class="headerlink" title="安装 Package Control"></a>安装 Package Control</h3><pre><code>ctrl+`
+import urllib.request,os,hashlib; h = &apos;2915d1851351e5ee549c20394736b442&apos; + &apos;8bc59f460fa1548d1514676163dafc88&apos;; pf = &apos;Package Control.sublime-package&apos;; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( &apos;http://packagecontrol.io/&apos; + pf.replace(&apos; &apos;, &apos;%20&apos;)).read(); dh = hashlib.sha256(by).hexdigest(); print(&apos;Error validating download (got %s instead of %s), please try manual install&apos; % (dh, h)) if dh != h else open(os.path.join( ipp, pf), &apos;wb&apos; ).write(by)
+</code></pre><hr>
+<h3 id="常用插件"><a href="#常用插件" class="headerlink" title="常用插件"></a>常用插件</h3><h4 id="Markdown-Preview"><a href="#Markdown-Preview" class="headerlink" title="Markdown Preview"></a>Markdown Preview</h4><pre><code>预览 MD 文件
+{&quot;keys&quot;: [&quot;super+m&quot;], &quot;command&quot;: &quot;markdown_preview&quot;, &quot;args&quot;: { &quot;target&quot;: &quot;browser&quot;}
+
+&quot;enabled_parsers&quot;: [&quot;markdown&quot;]
+</code></pre><h4 id="Markdown-Editing"><a href="#Markdown-Editing" class="headerlink" title="Markdown Editing"></a>Markdown Editing</h4><pre><code>Markdown 编辑
+</code></pre><h4 id="ConvertToUTF8"><a href="#ConvertToUTF8" class="headerlink" title="ConvertToUTF8"></a>ConvertToUTF8</h4><pre><code>转码
+</code></pre><h4 id="ChineseLocalization"><a href="#ChineseLocalization" class="headerlink" title="ChineseLocalization"></a>ChineseLocalization</h4><pre><code>中文汉化插件
+</code></pre><h4 id="Tortoise-SVN"><a href="#Tortoise-SVN" class="headerlink" title="Tortoise SVN"></a>Tortoise SVN</h4><pre><code>{
+    &quot;autoCloseUpdateDialog&quot;: false,
+    &quot;autoCloseCommitDialog&quot;: true,
+    &quot;tortoiseproc_path&quot;: &quot;path&quot;
+}
+alt + c : commit
+alt + l : log
+alt + u : update
+</code></pre><h4 id="Emmet"><a href="#Emmet" class="headerlink" title="Emmet"></a>Emmet</h4><pre><code>HTML代码自动补充神器
+).nav&gt;ul&gt;li
+).div+p
+).div+div&gt;p&gt;span+em^bq
+).div&gt;(header&gt;ul&gt;li*2&gt;a)+footer&gt;p
+).ul&gt;li*2
+).ul&gt;li.item$*3
+).#header
+).title
+).form#search.wide
+).HTML
+    !
+    a
+    br
+    link
+    link:css
+    meta
+    meta:utf
+    style
+    script
+    script:src
+    form
+</code></pre><h4 id="SideBarEnhancements"><a href="#SideBarEnhancements" class="headerlink" title="SideBarEnhancements"></a>SideBarEnhancements</h4><pre><code>{
+    &quot;statusbar_modified_time&quot;: true,
+    //&quot;statusbar_modified_time_format&quot;: &quot;%A %b %d %H:%M:%S %Y&quot;,
+    &quot;statusbar_modified_time_format&quot;: &quot;%Y-%m-%d %H:%M:%S &quot;,
+    &quot;statusbar_file_size&quot;: true,
+    &quot;close_affected_buffers_when_deleting_even_if_dirty&quot;: true,
+    &quot;hide_open_with_entries_when_there_are_no_applicable&quot;: false,
+    &quot;confirm_before_deleting&quot;: false,
+    &quot;new_files_relative_to_project_root&quot;: false,
+    &quot;disabled_menuitem_edit&quot;: true,
+    &quot;disabled_menuitem_edit_to_right&quot;: true,
+    &quot;disabled_menuitem_open_run&quot;: true,
+    &quot;disabled_menuitem_open_in_browser&quot;: true,
+    &quot;disabled_menuitem_open_in_new_window&quot;: true,
+    &quot;disabled_menuitem_find_in_project&quot;: true,
+    &quot;disabled_menuitem_copy_name&quot;: true,
+    &quot;disabled_menuitem_copy_path&quot;: true,
+    &quot;disabled_menuitem_copy_dir_path&quot;: true,
+    &quot;disabled_menuitem_paste_in_parent&quot;: true,
+    &quot;disabled_menuitem_empty&quot;: true,
+    //if installed in a default location maybe this works.
+    &quot;default_browser&quot;: &quot;&quot;, //one of this list: firefox, aurora, chrome, canary, chromium, opera, safari
+    &quot;portable_browser&quot;: &quot;&quot;, // for example:  C:/Program Files (x86)/Nightly/firefox.exe
+    &quot;disable_send_to_trash&quot;: true,
+    &quot;use_powershell&quot;: false,
+    &quot;auto_close_empty_groups&quot;: false
+}
+</code></pre><h4 id="BracketHighlighter"><a href="#BracketHighlighter" class="headerlink" title="BracketHighlighter　"></a>BracketHighlighter　</h4><pre><code>匹配括号引号, 高亮函数作用域等等
+</code></pre><h4 id="AllAutocomplete"><a href="#AllAutocomplete" class="headerlink" title="AllAutocomplete"></a>AllAutocomplete</h4><pre><code>全局补全
+</code></pre><h4 id="DocBlockr"><a href="#DocBlockr" class="headerlink" title="DocBlockr"></a>DocBlockr</h4><pre><code>https://github.com/nikhilkalige/docblockr
+代码注释插件
+</code></pre><h4 id="Git"><a href="#Git" class="headerlink" title="Git"></a>Git</h4><pre><code>github
+</code></pre><h4 id="SublimeLinter-amp-SublimeLinter-php"><a href="#SublimeLinter-amp-SublimeLinter-php" class="headerlink" title="SublimeLinter &amp; SublimeLinter-php"></a>SublimeLinter &amp; SublimeLinter-php</h4><pre><code>lint_mode : save only
+paths.osx : php 路径
+</code></pre><h4 id="PlainTasks"><a href="#PlainTasks" class="headerlink" title="PlainTasks"></a>PlainTasks</h4><h4 id="ChainOfCommand"><a href="#ChainOfCommand" class="headerlink" title="ChainOfCommand"></a>ChainOfCommand</h4><pre><code>配合快捷键, 选中直接查找
+</code></pre><h4 id="TrailingSpaces"><a href="#TrailingSpaces" class="headerlink" title="TrailingSpaces"></a>TrailingSpaces</h4><pre><code>删除行尾空格插件, 空格特殊标识, 配合 trim_trailing_white_space_on_save: true;
+</code></pre><h4 id="jquery"><a href="#jquery" class="headerlink" title="jquery"></a>jquery</h4><h4 id="jsformat"><a href="#jsformat" class="headerlink" title="jsformat"></a>jsformat</h4><h4 id="Terminal"><a href="#Terminal" class="headerlink" title="Terminal"></a>Terminal</h4><pre><code>打开终端, 具体配置
+~/Library/Application Support/Sublime Text 3/Packages/Terminal/readme.md
+{
+    &quot;terminal&quot;: &quot;iTerm2-v3.sh&quot;,
+    &quot;parameters&quot;: [&quot;--open-in-tab&quot;]
+}
+</code></pre><hr>
+<h3 id="卸载插件"><a href="#卸载插件" class="headerlink" title="卸载插件"></a>卸载插件</h3><ul>
+<li>通过ctrl+shift+p打开命令面板</li>
+<li>输入 remove package 后回车，弹出的列表就是可进行卸载的插件了</li>
+</ul>
+<hr>
+<h2 id="小贴士"><a href="#小贴士" class="headerlink" title="小贴士"></a>小贴士</h2><h3 id="直接跳转函数定义"><a href="#直接跳转函数定义" class="headerlink" title="直接跳转函数定义"></a>直接跳转函数定义</h3><pre><code>{ &quot;keys&quot;: [&quot;super+e&quot;], &quot;command&quot;: &quot;goto_definition&quot; }
+</code></pre><h3 id="双击选中-直接查找"><a href="#双击选中-直接查找" class="headerlink" title="双击选中, 直接查找"></a>双击选中, 直接查找</h3><pre><code>安装 ChainOfCommand
+{
+  &quot;keys&quot;: [&quot;super+f&quot;],
+  &quot;command&quot;: &quot;chain&quot;,
+  &quot;args&quot;: {
+    &quot;commands&quot;: [
+        [&quot;slurp_find_string&quot;],
+        [&quot;show_panel&quot;, {&quot;panel&quot;: &quot;replace&quot;, &quot;reverse&quot;: false}]
+    ]
+  }
+}
+</code></pre><hr>
+<h2 id="Sublime-Text-3-配置"><a href="#Sublime-Text-3-配置" class="headerlink" title="Sublime Text 3 配置"></a>Sublime Text 3 配置</h2><h3 id="Key-Bindings"><a href="#Key-Bindings" class="headerlink" title="Key Bindings"></a>Key Bindings</h3><pre><code>[
+    { &quot;keys&quot;: [&quot;super+e&quot;], &quot;command&quot;: &quot;goto_definition&quot; },
+      {
+        &quot;keys&quot;: [&quot;super+f&quot;],
+        &quot;command&quot;: &quot;chain&quot;,
+        &quot;args&quot;: {
+              &quot;commands&quot;: [
+                  [&quot;slurp_find_string&quot;],
+                  [&quot;show_panel&quot;, {&quot;panel&quot;: &quot;replace&quot;, &quot;reverse&quot;: false}]
+              ]
+        }
+      },
+      {&quot;keys&quot;: [&quot;super+m&quot;], &quot;command&quot;: &quot;markdown_preview&quot;, &quot;args&quot;: { &quot;target&quot;: &quot;browser&quot;}}
+]
+</code></pre><h3 id="Setting-User"><a href="#Setting-User" class="headerlink" title="Setting - User"></a>Setting - User</h3><pre><code>{
+    &quot;auto_indent&quot;: true,
+    &quot;color_scheme&quot;: &quot;Packages/User/SublimeLinter/Monokai Extended Origin (SL).tmTheme&quot;,
+    &quot;default_line_ending&quot;: &quot;unix&quot;,
+    &quot;drag_text&quot;: false,
+    &quot;draw_minimap_border&quot;: true,
+    &quot;ensure_newline_at_eof_on_save&quot;: true,
+    &quot;font_face&quot;: &quot;courier new&quot;,
+    &quot;font_size&quot;: 14,
+    &quot;highlight_line&quot;: true,
+    &quot;highlight_modified_tabs&quot;: true,
+    &quot;ignored_packages&quot;:
+    [
+        &quot;Vintage&quot;
+    ],
+    &quot;line_numbers&quot;: true,
+    &quot;open_files_in_new_window&quot;: false,
+    &quot;original_color_scheme&quot;: &quot;Packages/Color Scheme - Default/Monokai.tmTheme&quot;,
+    &quot;scroll_past_end&quot;: false,
+    &quot;smart_indent&quot;: false,
+    &quot;tab_size&quot;: 4,
+    &quot;translate_tabs_to_spaces&quot;: false,
+    &quot;trim_trailing_white_space_on_save&quot;: true,
+    &quot;update_check&quot;: false,
+    &quot;word_wrap&quot;: true
+}
+</code></pre><hr>
+<h2 id="PHP-编译"><a href="#PHP-编译" class="headerlink" title="PHP 编译"></a>PHP 编译</h2><pre><code>php.sublime-build
+
+{
+    &quot;cmd&quot;: [&quot;php&quot;, &quot;$file&quot;],
+    &quot;file_regex&quot;: &quot;php$&quot;,
+    &quot;selector&quot;: &quot;source.php&quot;
+}
+</code></pre><hr>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;SublimeText-笔记&quot;&gt;&lt;a href=&quot;#SublimeText-笔记&quot; class=&quot;headerlink&quot; title=&quot;SublimeText 笔记&quot;&gt;&lt;/a&gt;SublimeText 笔记
+    
+    </summary>
+    
+      <category term="笔记" scheme="http://evercyan.xyz/categories/%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="SublimeText" scheme="http://evercyan.xyz/tags/SublimeText/"/>
+    
+  </entry>
   
   <entry>
     <title>Gitbook 笔记</title>
@@ -533,6 +747,105 @@ Host: google.com
   </entry>
   
   <entry>
+    <title>PHP 扩展开发笔记</title>
+    <link href="http://evercyan.xyz/2016/04/01/PHP_Extension/"/>
+    <id>http://evercyan.xyz/2016/04/01/PHP_Extension/</id>
+    <published>2016-03-31T16:00:00.000Z</published>
+    <updated>2016-03-31T16:00:00.000Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<p>PHP 扩展开发笔记<a id="more"></a></p>
+<p>以下基于 VirtualBox + Ubuntu 实现<br>虚拟机中已安装 PHP + Apache<br>编辑器推荐使用 Sublime Text 3<br>使用 root 账号, 不然记得加上 sudo</p>
+</blockquote>
+<hr>
+<h2 id="1-代码目录"><a href="#1-代码目录" class="headerlink" title="1). 代码目录"></a>1). 代码目录</h2><pre><code>cd /
+mkdir ever
+cd ever
+</code></pre><hr>
+<h2 id="2-安装编译工具"><a href="#2-安装编译工具" class="headerlink" title="2). 安装编译工具"></a>2). 安装编译工具</h2><pre><code>sudo apt-get install gcc make autoconf
+</code></pre><hr>
+<h2 id="3-下载PHP源码-需要用到-ext-ext-skel"><a href="#3-下载PHP源码-需要用到-ext-ext-skel" class="headerlink" title="3). 下载PHP源码, 需要用到 ./ext/ext_skel"></a>3). 下载PHP源码, 需要用到 ./ext/ext_skel</h2><h3 id="http-php-net"><a href="#http-php-net" class="headerlink" title="http://php.net/"></a><a href="http://php.net/" target="_blank" rel="external">http://php.net/</a></h3><pre><code>下载 php-5.6.9.tar.bz2 
+</code></pre><h3 id="解压到目录-ever-php-src-下"><a href="#解压到目录-ever-php-src-下" class="headerlink" title="解压到目录 ./ever/php-src/下"></a>解压到目录 ./ever/php-src/下</h3><pre><code>tar -jxvf xx.tar.bz2  
+</code></pre><hr>
+<h2 id="4-创建默认扩展"><a href="#4-创建默认扩展" class="headerlink" title="4). 创建默认扩展"></a>4). 创建默认扩展</h2><h3 id="进入-ext-目录"><a href="#进入-ext-目录" class="headerlink" title="进入 ext 目录"></a>进入 ext 目录</h3><pre><code>cd php-src/ext
+</code></pre><h3 id="ext-skel-–extname-test"><a href="#ext-skel-–extname-test" class="headerlink" title="ext_skel –extname=test"></a>ext_skel –extname=test</h3><pre><code>创建 test 扩展, 将会在当前目录, 也就是 ./ext/ 下新建 test 目录及 C 文件, 
+</code></pre><h3 id="cd-test"><a href="#cd-test" class="headerlink" title="cd test"></a>cd test</h3><h3 id="启用扩展"><a href="#启用扩展" class="headerlink" title="启用扩展"></a>启用扩展</h3><pre><code>vim config.m4  
+</code></pre><p>将 :     </p>
+<pre><code>dnl PHP_ARG_ENABLE(test, whether to enable test support,  
+dnl Make sure that the comment is aligned:  
+dnl [  --enable-test           Enable test support])   
+</code></pre><p>更改为 :    </p>
+<pre><code>PHP_ARG_ENABLE(test, whether to enable test support,  
+[  --enable-test           Enable test support])    
+</code></pre><h3 id="编译-依次执行"><a href="#编译-依次执行" class="headerlink" title="编译, 依次执行"></a>编译, 依次执行</h3><pre><code>phpize
+./configure
+make
+make install
+</code></pre><h3 id="编辑-php-ini-开启-test-扩展"><a href="#编辑-php-ini-开启-test-扩展" class="headerlink" title="编辑 php.ini, 开启 test 扩展"></a>编辑 php.ini, 开启 test 扩展</h3><pre><code>php -i | grep &apos;php.ini&apos;
+vim /etc/php5/cli/php.ini
+extension=test.so
+</code></pre><h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><pre><code>&lt;?php
+echo confirm_test_compiled(&quot;hello world&quot;);
+</code></pre><p>终端执行 :  </p>
+<pre><code>php demo.php  
+</code></pre><hr>
+<h2 id="5-开发扩展"><a href="#5-开发扩展" class="headerlink" title="5). 开发扩展"></a>5). 开发扩展</h2><h3 id="编辑-test-c"><a href="#编辑-test-c" class="headerlink" title="编辑 test.c"></a>编辑 test.c</h3><pre><code>const zend_function_entry test_functions[] = {
+    PHP_FE(confirm_test_compiled,    NULL)        /* For testing, remove later. */
+    //新增
+    PHP_FE(hello,    NULL)    
+    PHP_FE_END    /* Must be the last line in test_functions[] */
+};
+</code></pre><p>新增 :  </p>
+<pre><code>PHP_FUNCTION(hello)
+{
+    long a;
+    long b;
+    char *c;
+    int c_len;
+
+    if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, &quot;lls&quot;, &amp;a, &amp;b, &amp;c, &amp;c_len) == FAILURE) {
+        return;
+    }
+    char *str;
+    int len = spprintf(&amp;str, 0, &quot;%s : %d\n&quot;, c,  a*b );
+    RETURN_STRINGL(str, len, 0);    
+
+}    
+</code></pre><h3 id="重编译"><a href="#重编译" class="headerlink" title="重编译"></a>重编译</h3><pre><code>make 
+make install
+</code></pre><h3 id="测试-1"><a href="#测试-1" class="headerlink" title="测试"></a>测试</h3><pre><code>&lt;?php
+echo hello(2, 3, &quot;hey&quot;);
+</code></pre><p>终端执行 :  </p>
+<pre><code>php demo.php
+</code></pre><hr>
+<h2 id="6-Web-访问-Apache"><a href="#6-Web-访问-Apache" class="headerlink" title="6). Web 访问 (Apache)"></a>6). Web 访问 (Apache)</h2><h3 id="找到-Apache-的-php-ini-文件"><a href="#找到-Apache-的-php-ini-文件" class="headerlink" title="找到 Apache 的 php.ini 文件"></a>找到 Apache 的 php.ini 文件</h3><pre><code>vim /etc/php5/Apache/php.ini   
+新增 extension=test.so
+</code></pre><h3 id="service-apache2-restart"><a href="#service-apache2-restart" class="headerlink" title="service apache2 restart"></a>service apache2 restart</h3><h3 id="浏览器访问相应文件即可-可与-phpinfo-里查看扩展是否有开启"><a href="#浏览器访问相应文件即可-可与-phpinfo-里查看扩展是否有开启" class="headerlink" title="浏览器访问相应文件即可, 可与 phpinfo() 里查看扩展是否有开启"></a>浏览器访问相应文件即可, 可与 phpinfo() 里查看扩展是否有开启</h3><hr>
+<h2 id="7-帮助文档"><a href="#7-帮助文档" class="headerlink" title="7). 帮助文档"></a>7). 帮助文档</h2><blockquote>
+<p><a href="http://wiki.swoole.com/wiki/page/238.html" target="_blank" rel="external">http://wiki.swoole.com/wiki/page/238.html</a><br><a href="http://blog.csdn.net/taft/article/details/596291" target="_blank" rel="external">http://blog.csdn.net/taft/article/details/596291</a></p>
+</blockquote>
+<hr>
+<p>以上</p>
+<hr>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;PHP 扩展开发笔记
+    
+    </summary>
+    
+      <category term="笔记" scheme="http://evercyan.xyz/categories/%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="扩展" scheme="http://evercyan.xyz/tags/%E6%89%A9%E5%B1%95/"/>
+    
+      <category term="PHP" scheme="http://evercyan.xyz/tags/PHP/"/>
+    
+  </entry>
+  
+  <entry>
     <title>GTA5 攻略</title>
     <link href="http://evercyan.xyz/2016/04/01/PHP_ScrapyGta5/"/>
     <id>http://evercyan.xyz/2016/04/01/PHP_ScrapyGta5/</id>
@@ -783,105 +1096,6 @@ Host: google.com
       <category term="PHP" scheme="http://evercyan.xyz/tags/PHP/"/>
     
       <category term="GTA5" scheme="http://evercyan.xyz/tags/GTA5/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>PHP 扩展开发笔记</title>
-    <link href="http://evercyan.xyz/2016/04/01/PHP_Extension/"/>
-    <id>http://evercyan.xyz/2016/04/01/PHP_Extension/</id>
-    <published>2016-03-31T16:00:00.000Z</published>
-    <updated>2016-03-31T16:00:00.000Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote>
-<p>PHP 扩展开发笔记<a id="more"></a></p>
-<p>以下基于 VirtualBox + Ubuntu 实现<br>虚拟机中已安装 PHP + Apache<br>编辑器推荐使用 Sublime Text 3<br>使用 root 账号, 不然记得加上 sudo</p>
-</blockquote>
-<hr>
-<h2 id="1-代码目录"><a href="#1-代码目录" class="headerlink" title="1). 代码目录"></a>1). 代码目录</h2><pre><code>cd /
-mkdir ever
-cd ever
-</code></pre><hr>
-<h2 id="2-安装编译工具"><a href="#2-安装编译工具" class="headerlink" title="2). 安装编译工具"></a>2). 安装编译工具</h2><pre><code>sudo apt-get install gcc make autoconf
-</code></pre><hr>
-<h2 id="3-下载PHP源码-需要用到-ext-ext-skel"><a href="#3-下载PHP源码-需要用到-ext-ext-skel" class="headerlink" title="3). 下载PHP源码, 需要用到 ./ext/ext_skel"></a>3). 下载PHP源码, 需要用到 ./ext/ext_skel</h2><h3 id="http-php-net"><a href="#http-php-net" class="headerlink" title="http://php.net/"></a><a href="http://php.net/" target="_blank" rel="external">http://php.net/</a></h3><pre><code>下载 php-5.6.9.tar.bz2 
-</code></pre><h3 id="解压到目录-ever-php-src-下"><a href="#解压到目录-ever-php-src-下" class="headerlink" title="解压到目录 ./ever/php-src/下"></a>解压到目录 ./ever/php-src/下</h3><pre><code>tar -jxvf xx.tar.bz2  
-</code></pre><hr>
-<h2 id="4-创建默认扩展"><a href="#4-创建默认扩展" class="headerlink" title="4). 创建默认扩展"></a>4). 创建默认扩展</h2><h3 id="进入-ext-目录"><a href="#进入-ext-目录" class="headerlink" title="进入 ext 目录"></a>进入 ext 目录</h3><pre><code>cd php-src/ext
-</code></pre><h3 id="ext-skel-–extname-test"><a href="#ext-skel-–extname-test" class="headerlink" title="ext_skel –extname=test"></a>ext_skel –extname=test</h3><pre><code>创建 test 扩展, 将会在当前目录, 也就是 ./ext/ 下新建 test 目录及 C 文件, 
-</code></pre><h3 id="cd-test"><a href="#cd-test" class="headerlink" title="cd test"></a>cd test</h3><h3 id="启用扩展"><a href="#启用扩展" class="headerlink" title="启用扩展"></a>启用扩展</h3><pre><code>vim config.m4  
-</code></pre><p>将 :     </p>
-<pre><code>dnl PHP_ARG_ENABLE(test, whether to enable test support,  
-dnl Make sure that the comment is aligned:  
-dnl [  --enable-test           Enable test support])   
-</code></pre><p>更改为 :    </p>
-<pre><code>PHP_ARG_ENABLE(test, whether to enable test support,  
-[  --enable-test           Enable test support])    
-</code></pre><h3 id="编译-依次执行"><a href="#编译-依次执行" class="headerlink" title="编译, 依次执行"></a>编译, 依次执行</h3><pre><code>phpize
-./configure
-make
-make install
-</code></pre><h3 id="编辑-php-ini-开启-test-扩展"><a href="#编辑-php-ini-开启-test-扩展" class="headerlink" title="编辑 php.ini, 开启 test 扩展"></a>编辑 php.ini, 开启 test 扩展</h3><pre><code>php -i | grep &apos;php.ini&apos;
-vim /etc/php5/cli/php.ini
-extension=test.so
-</code></pre><h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><pre><code>&lt;?php
-echo confirm_test_compiled(&quot;hello world&quot;);
-</code></pre><p>终端执行 :  </p>
-<pre><code>php demo.php  
-</code></pre><hr>
-<h2 id="5-开发扩展"><a href="#5-开发扩展" class="headerlink" title="5). 开发扩展"></a>5). 开发扩展</h2><h3 id="编辑-test-c"><a href="#编辑-test-c" class="headerlink" title="编辑 test.c"></a>编辑 test.c</h3><pre><code>const zend_function_entry test_functions[] = {
-    PHP_FE(confirm_test_compiled,    NULL)        /* For testing, remove later. */
-    //新增
-    PHP_FE(hello,    NULL)    
-    PHP_FE_END    /* Must be the last line in test_functions[] */
-};
-</code></pre><p>新增 :  </p>
-<pre><code>PHP_FUNCTION(hello)
-{
-    long a;
-    long b;
-    char *c;
-    int c_len;
-
-    if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, &quot;lls&quot;, &amp;a, &amp;b, &amp;c, &amp;c_len) == FAILURE) {
-        return;
-    }
-    char *str;
-    int len = spprintf(&amp;str, 0, &quot;%s : %d\n&quot;, c,  a*b );
-    RETURN_STRINGL(str, len, 0);    
-
-}    
-</code></pre><h3 id="重编译"><a href="#重编译" class="headerlink" title="重编译"></a>重编译</h3><pre><code>make 
-make install
-</code></pre><h3 id="测试-1"><a href="#测试-1" class="headerlink" title="测试"></a>测试</h3><pre><code>&lt;?php
-echo hello(2, 3, &quot;hey&quot;);
-</code></pre><p>终端执行 :  </p>
-<pre><code>php demo.php
-</code></pre><hr>
-<h2 id="6-Web-访问-Apache"><a href="#6-Web-访问-Apache" class="headerlink" title="6). Web 访问 (Apache)"></a>6). Web 访问 (Apache)</h2><h3 id="找到-Apache-的-php-ini-文件"><a href="#找到-Apache-的-php-ini-文件" class="headerlink" title="找到 Apache 的 php.ini 文件"></a>找到 Apache 的 php.ini 文件</h3><pre><code>vim /etc/php5/Apache/php.ini   
-新增 extension=test.so
-</code></pre><h3 id="service-apache2-restart"><a href="#service-apache2-restart" class="headerlink" title="service apache2 restart"></a>service apache2 restart</h3><h3 id="浏览器访问相应文件即可-可与-phpinfo-里查看扩展是否有开启"><a href="#浏览器访问相应文件即可-可与-phpinfo-里查看扩展是否有开启" class="headerlink" title="浏览器访问相应文件即可, 可与 phpinfo() 里查看扩展是否有开启"></a>浏览器访问相应文件即可, 可与 phpinfo() 里查看扩展是否有开启</h3><hr>
-<h2 id="7-帮助文档"><a href="#7-帮助文档" class="headerlink" title="7). 帮助文档"></a>7). 帮助文档</h2><blockquote>
-<p><a href="http://wiki.swoole.com/wiki/page/238.html" target="_blank" rel="external">http://wiki.swoole.com/wiki/page/238.html</a><br><a href="http://blog.csdn.net/taft/article/details/596291" target="_blank" rel="external">http://blog.csdn.net/taft/article/details/596291</a></p>
-</blockquote>
-<hr>
-<p>以上</p>
-<hr>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;PHP 扩展开发笔记
-    
-    </summary>
-    
-      <category term="笔记" scheme="http://evercyan.xyz/categories/%E7%AC%94%E8%AE%B0/"/>
-    
-    
-      <category term="扩展" scheme="http://evercyan.xyz/tags/%E6%89%A9%E5%B1%95/"/>
-    
-      <category term="PHP" scheme="http://evercyan.xyz/tags/PHP/"/>
     
   </entry>
   
