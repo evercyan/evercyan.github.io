@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://evercyan.xyz/"/>
-  <updated>2016-10-19T16:00:00.000Z</updated>
+  <updated>2016-10-23T16:00:00.000Z</updated>
   <id>http://evercyan.xyz/</id>
   
   <author>
@@ -14,6 +14,68 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>PHP 扩展开发备注</title>
+    <link href="http://evercyan.xyz/2016/10/24/PHP_Extension/"/>
+    <id>http://evercyan.xyz/2016/10/24/PHP_Extension/</id>
+    <published>2016-10-23T16:00:00.000Z</published>
+    <updated>2016-10-23T16:00:00.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="PHP-扩展开发备注"><a href="#PHP-扩展开发备注" class="headerlink" title="PHP 扩展开发备注 "></a>PHP 扩展开发备注 <a id="more"></a></h1><blockquote>
+<p>基于 MAC OS.<br>本次扩展名称为 demo, 最终结果会生 demo.so, 并被 php.ini 加载.</p>
+</blockquote>
+<hr>
+<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><ul>
+<li>安装编译工具<br>  sudo apt-get install gcc make autoconf</li>
+<li>PHP官网下载相应版本<br>  <a href="http://php.net/downloads.php" target="_blank" rel="external">http://php.net/downloads.php</a></li>
+<li>解压下载好的 PHP 代码, 本次测试在 ~/Documents/php-7.0.10/</li>
+</ul>
+<hr>
+<h2 id="生成扩展"><a href="#生成扩展" class="headerlink" title="生成扩展"></a>生成扩展</h2><ul>
+<li>cd ~/Documents/php-7.0.10/ext/</li>
+<li>./ext_skel –extname=demo</li>
+<li>cd demo</li>
+<li><p>vim config.m4</p>
+<p>  将<br>  dnl PHP_ARG_ENABLE(test, whether to enable test support,<br>  dnl Make sure that the comment is aligned:<br>  dnl [  –enable-test           Enable test support])<br>  三行前面的 dnl 干掉</p>
+</li>
+<li><p>phpize</p>
+</li>
+<li>./configure</li>
+<li>sudo make</li>
+<li>sudo make install</li>
+<li>ls -alt ./modules<br>  目录下会有一个 demo.so<br>  全路径为 /User/Cyan/Documents/php-7.0.10/ext/demo/modules/demo.so</li>
+</ul>
+<hr>
+<h2 id="加载扩展并执行"><a href="#加载扩展并执行" class="headerlink" title="加载扩展并执行"></a>加载扩展并执行</h2><ul>
+<li>php -i | grep ‘php.ini’<br>  查找当前生效的 PHP 配置文件, 本机为 Applications/MAMP/bin/php/php7.0.10/conf/php.ini</li>
+<li>vim Applications/MAMP/bin/php/php7.0.10/conf/php.ini<br>  添加扩展<br>  extension=/User/Cyan/Documents/php-7.0.10/ext/demo/modules/demo.so</li>
+</ul>
+<hr>
+<h2 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h2><blockquote>
+<p>php -m | grep ‘demo’<br>php -r ‘echo phpinfo();’ | grep ‘demo’<br>php -r ‘echo confirm_demo_compiled(“demo”);’<br>    终端输出 : Congratulations! You have successfully modified ext/lodash/config.m4. Module lodash is now compiled into PHP.</p>
+</blockquote>
+<hr>
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><blockquote>
+<p>以上仅为默认开发扩展的步骤, 具体扩展功能的实现请参考学习 <a href="http://www.cunmou.com/phpbook/index.md" target="_blank" rel="external">http://www.cunmou.com/phpbook/index.md</a></p>
+</blockquote>
+<hr>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;PHP-扩展开发备注&quot;&gt;&lt;a href=&quot;#PHP-扩展开发备注&quot; class=&quot;headerlink&quot; title=&quot;PHP 扩展开发备注 &quot;&gt;&lt;/a&gt;PHP 扩展开发备注
+    
+    </summary>
+    
+      <category term="笔记" scheme="http://evercyan.xyz/categories/%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="扩展" scheme="http://evercyan.xyz/tags/%E6%89%A9%E5%B1%95/"/>
+    
+      <category term="PHP" scheme="http://evercyan.xyz/tags/PHP/"/>
+    
+  </entry>
   
   <entry>
     <title>SublimeText 笔记</title>
@@ -743,105 +805,6 @@ Host: google.com
     
       <category term="文章" scheme="http://evercyan.xyz/categories/%E6%96%87%E7%AB%A0/"/>
     
-    
-  </entry>
-  
-  <entry>
-    <title>PHP 扩展开发笔记</title>
-    <link href="http://evercyan.xyz/2016/04/01/PHP_Extension/"/>
-    <id>http://evercyan.xyz/2016/04/01/PHP_Extension/</id>
-    <published>2016-03-31T16:00:00.000Z</published>
-    <updated>2016-03-31T16:00:00.000Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote>
-<p>PHP 扩展开发笔记<a id="more"></a></p>
-<p>以下基于 VirtualBox + Ubuntu 实现<br>虚拟机中已安装 PHP + Apache<br>编辑器推荐使用 Sublime Text 3<br>使用 root 账号, 不然记得加上 sudo</p>
-</blockquote>
-<hr>
-<h2 id="1-代码目录"><a href="#1-代码目录" class="headerlink" title="1). 代码目录"></a>1). 代码目录</h2><pre><code>cd /
-mkdir ever
-cd ever
-</code></pre><hr>
-<h2 id="2-安装编译工具"><a href="#2-安装编译工具" class="headerlink" title="2). 安装编译工具"></a>2). 安装编译工具</h2><pre><code>sudo apt-get install gcc make autoconf
-</code></pre><hr>
-<h2 id="3-下载PHP源码-需要用到-ext-ext-skel"><a href="#3-下载PHP源码-需要用到-ext-ext-skel" class="headerlink" title="3). 下载PHP源码, 需要用到 ./ext/ext_skel"></a>3). 下载PHP源码, 需要用到 ./ext/ext_skel</h2><h3 id="http-php-net"><a href="#http-php-net" class="headerlink" title="http://php.net/"></a><a href="http://php.net/" target="_blank" rel="external">http://php.net/</a></h3><pre><code>下载 php-5.6.9.tar.bz2 
-</code></pre><h3 id="解压到目录-ever-php-src-下"><a href="#解压到目录-ever-php-src-下" class="headerlink" title="解压到目录 ./ever/php-src/下"></a>解压到目录 ./ever/php-src/下</h3><pre><code>tar -jxvf xx.tar.bz2  
-</code></pre><hr>
-<h2 id="4-创建默认扩展"><a href="#4-创建默认扩展" class="headerlink" title="4). 创建默认扩展"></a>4). 创建默认扩展</h2><h3 id="进入-ext-目录"><a href="#进入-ext-目录" class="headerlink" title="进入 ext 目录"></a>进入 ext 目录</h3><pre><code>cd php-src/ext
-</code></pre><h3 id="ext-skel-–extname-test"><a href="#ext-skel-–extname-test" class="headerlink" title="ext_skel –extname=test"></a>ext_skel –extname=test</h3><pre><code>创建 test 扩展, 将会在当前目录, 也就是 ./ext/ 下新建 test 目录及 C 文件, 
-</code></pre><h3 id="cd-test"><a href="#cd-test" class="headerlink" title="cd test"></a>cd test</h3><h3 id="启用扩展"><a href="#启用扩展" class="headerlink" title="启用扩展"></a>启用扩展</h3><pre><code>vim config.m4  
-</code></pre><p>将 :     </p>
-<pre><code>dnl PHP_ARG_ENABLE(test, whether to enable test support,  
-dnl Make sure that the comment is aligned:  
-dnl [  --enable-test           Enable test support])   
-</code></pre><p>更改为 :    </p>
-<pre><code>PHP_ARG_ENABLE(test, whether to enable test support,  
-[  --enable-test           Enable test support])    
-</code></pre><h3 id="编译-依次执行"><a href="#编译-依次执行" class="headerlink" title="编译, 依次执行"></a>编译, 依次执行</h3><pre><code>phpize
-./configure
-make
-make install
-</code></pre><h3 id="编辑-php-ini-开启-test-扩展"><a href="#编辑-php-ini-开启-test-扩展" class="headerlink" title="编辑 php.ini, 开启 test 扩展"></a>编辑 php.ini, 开启 test 扩展</h3><pre><code>php -i | grep &apos;php.ini&apos;
-vim /etc/php5/cli/php.ini
-extension=test.so
-</code></pre><h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><pre><code>&lt;?php
-echo confirm_test_compiled(&quot;hello world&quot;);
-</code></pre><p>终端执行 :  </p>
-<pre><code>php demo.php  
-</code></pre><hr>
-<h2 id="5-开发扩展"><a href="#5-开发扩展" class="headerlink" title="5). 开发扩展"></a>5). 开发扩展</h2><h3 id="编辑-test-c"><a href="#编辑-test-c" class="headerlink" title="编辑 test.c"></a>编辑 test.c</h3><pre><code>const zend_function_entry test_functions[] = {
-    PHP_FE(confirm_test_compiled,    NULL)        /* For testing, remove later. */
-    //新增
-    PHP_FE(hello,    NULL)    
-    PHP_FE_END    /* Must be the last line in test_functions[] */
-};
-</code></pre><p>新增 :  </p>
-<pre><code>PHP_FUNCTION(hello)
-{
-    long a;
-    long b;
-    char *c;
-    int c_len;
-
-    if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, &quot;lls&quot;, &amp;a, &amp;b, &amp;c, &amp;c_len) == FAILURE) {
-        return;
-    }
-    char *str;
-    int len = spprintf(&amp;str, 0, &quot;%s : %d\n&quot;, c,  a*b );
-    RETURN_STRINGL(str, len, 0);    
-
-}    
-</code></pre><h3 id="重编译"><a href="#重编译" class="headerlink" title="重编译"></a>重编译</h3><pre><code>make 
-make install
-</code></pre><h3 id="测试-1"><a href="#测试-1" class="headerlink" title="测试"></a>测试</h3><pre><code>&lt;?php
-echo hello(2, 3, &quot;hey&quot;);
-</code></pre><p>终端执行 :  </p>
-<pre><code>php demo.php
-</code></pre><hr>
-<h2 id="6-Web-访问-Apache"><a href="#6-Web-访问-Apache" class="headerlink" title="6). Web 访问 (Apache)"></a>6). Web 访问 (Apache)</h2><h3 id="找到-Apache-的-php-ini-文件"><a href="#找到-Apache-的-php-ini-文件" class="headerlink" title="找到 Apache 的 php.ini 文件"></a>找到 Apache 的 php.ini 文件</h3><pre><code>vim /etc/php5/Apache/php.ini   
-新增 extension=test.so
-</code></pre><h3 id="service-apache2-restart"><a href="#service-apache2-restart" class="headerlink" title="service apache2 restart"></a>service apache2 restart</h3><h3 id="浏览器访问相应文件即可-可与-phpinfo-里查看扩展是否有开启"><a href="#浏览器访问相应文件即可-可与-phpinfo-里查看扩展是否有开启" class="headerlink" title="浏览器访问相应文件即可, 可与 phpinfo() 里查看扩展是否有开启"></a>浏览器访问相应文件即可, 可与 phpinfo() 里查看扩展是否有开启</h3><hr>
-<h2 id="7-帮助文档"><a href="#7-帮助文档" class="headerlink" title="7). 帮助文档"></a>7). 帮助文档</h2><blockquote>
-<p><a href="http://wiki.swoole.com/wiki/page/238.html" target="_blank" rel="external">http://wiki.swoole.com/wiki/page/238.html</a><br><a href="http://blog.csdn.net/taft/article/details/596291" target="_blank" rel="external">http://blog.csdn.net/taft/article/details/596291</a></p>
-</blockquote>
-<hr>
-<p>以上</p>
-<hr>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;PHP 扩展开发笔记
-    
-    </summary>
-    
-      <category term="笔记" scheme="http://evercyan.xyz/categories/%E7%AC%94%E8%AE%B0/"/>
-    
-    
-      <category term="扩展" scheme="http://evercyan.xyz/tags/%E6%89%A9%E5%B1%95/"/>
-    
-      <category term="PHP" scheme="http://evercyan.xyz/tags/PHP/"/>
     
   </entry>
   

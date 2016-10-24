@@ -15,16 +15,16 @@
 
 
 
-<meta name="description" content="一觉醒来，加内特还在森林狼，托雷斯还在马竞，魔力鸟还在切尔西，詹姆斯也还在骑士，谢霆锋王菲还在幸福的恋爱着……">
+<meta name="description" content="PHP 扩展开发备注">
 <meta property="og:type" content="article">
-<meta property="og:title" content="躲不过的时间">
-<meta property="og:url" content="http://evercyan.xyz/2016/03/01/Article_SomethingJustHappened/index.html">
+<meta property="og:title" content="PHP 扩展开发备注">
+<meta property="og:url" content="http://evercyan.xyz/2016/10/24/PHP_Extension/index.html">
 <meta property="og:site_name" content="在云端">
-<meta property="og:description" content="一觉醒来，加内特还在森林狼，托雷斯还在马竞，魔力鸟还在切尔西，詹姆斯也还在骑士，谢霆锋王菲还在幸福的恋爱着……">
-<meta property="og:updated_time" content="2016-02-29T16:00:00.000Z">
+<meta property="og:description" content="PHP 扩展开发备注">
+<meta property="og:updated_time" content="2016-10-23T16:00:00.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="躲不过的时间">
-<meta name="twitter:description" content="一觉醒来，加内特还在森林狼，托雷斯还在马竞，魔力鸟还在切尔西，詹姆斯也还在骑士，谢霆锋王菲还在幸福的恋爱着……">
+<meta name="twitter:title" content="PHP 扩展开发备注">
+<meta name="twitter:description" content="PHP 扩展开发备注">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -56,7 +56,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>躲不过的时间 | 在云端</title>
+<title>PHP 扩展开发备注 | 在云端</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -205,11 +205,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-Article_SomethingJustHappened" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-PHP_Extension" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/03/01/Article_SomethingJustHappened/" class="article-date">
-      <time datetime="2016-02-29T16:00:00.000Z" itemprop="datePublished">2016-03-01</time>
+      <a href="/2016/10/24/PHP_Extension/" class="article-date">
+      <time datetime="2016-10-23T16:00:00.000Z" itemprop="datePublished">2016-10-24</time>
 </a>
 
 
@@ -224,7 +224,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      躲不过的时间
+      PHP 扩展开发备注
     </h1>
   
 
@@ -233,11 +233,15 @@
       <div class="article-info article-info-post">
         
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/碎碎念/">碎碎念</a>
+    <a class="article-category-link" href="/categories/笔记/">笔记</a>
     </div>
 
 
         
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PHP/">PHP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/扩展/">扩展</a></li></ul>
+    </div>
+
         <div class="clearfix"></div>
       </div>
       
@@ -245,41 +249,44 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <blockquote>
-<p>一觉醒来，加内特还在森林狼，托雷斯还在马竞，魔力鸟还在切尔西，詹姆斯也还在骑士，谢霆锋王菲还在幸福的恋爱着……<a id="more"></a></p>
+        <h1 id="PHP-扩展开发备注"><a href="#PHP-扩展开发备注" class="headerlink" title="PHP 扩展开发备注 "></a>PHP 扩展开发备注 <a id="more"></a></h1><blockquote>
+<p>基于 MAC OS.<br>本次扩展名称为 demo, 最终结果会生 demo.so, 并被 php.ini 加载.</p>
 </blockquote>
 <hr>
-<blockquote>
-<p>你发现自己趴在熟悉的课桌上，同桌正朝你呲牙咧嘴，老师让你起立别睡觉，其他同学正在窃窃私语，窗外有树叶滑落。  </p>
+<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><ul>
+<li>安装编译工具<br>  sudo apt-get install gcc make autoconf</li>
+<li>PHP官网下载相应版本<br>  <a href="http://php.net/downloads.php" target="_blank" rel="external">http://php.net/downloads.php</a></li>
+<li>解压下载好的 PHP 代码, 本次测试在 ~/Documents/php-7.0.10/</li>
+</ul>
+<hr>
+<h2 id="生成扩展"><a href="#生成扩展" class="headerlink" title="生成扩展"></a>生成扩展</h2><ul>
+<li>cd ~/Documents/php-7.0.10/ext/</li>
+<li>./ext_skel –extname=demo</li>
+<li>cd demo</li>
+<li><p>vim config.m4</p>
+<p>  将<br>  dnl PHP_ARG_ENABLE(test, whether to enable test support,<br>  dnl Make sure that the comment is aligned:<br>  dnl [  –enable-test           Enable test support])<br>  三行前面的 dnl 干掉</p>
+</li>
+<li><p>phpize</p>
+</li>
+<li>./configure</li>
+<li>sudo make</li>
+<li>sudo make install</li>
+<li>ls -alt ./modules<br>  目录下会有一个 demo.so<br>  全路径为 /User/Cyan/Documents/php-7.0.10/ext/demo/modules/demo.so</li>
+</ul>
+<hr>
+<h2 id="加载扩展并执行"><a href="#加载扩展并执行" class="headerlink" title="加载扩展并执行"></a>加载扩展并执行</h2><ul>
+<li>php -i | grep ‘php.ini’<br>  查找当前生效的 PHP 配置文件, 本机为 Applications/MAMP/bin/php/php7.0.10/conf/php.ini</li>
+<li>vim Applications/MAMP/bin/php/php7.0.10/conf/php.ini<br>  添加扩展<br>  extension=/User/Cyan/Documents/php-7.0.10/ext/demo/modules/demo.so</li>
+</ul>
+<hr>
+<h2 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h2><blockquote>
+<p>php -m | grep ‘demo’<br>php -r ‘echo phpinfo();’ | grep ‘demo’<br>php -r ‘echo confirm_demo_compiled(“demo”);’<br>    终端输出 : Congratulations! You have successfully modified ext/lodash/config.m4. Module lodash is now compiled into PHP.</p>
 </blockquote>
 <hr>
-<blockquote>
-<p>阳光点点，你会觉得岁月静好。  </p>
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><blockquote>
+<p>以上仅为默认开发扩展的步骤, 具体扩展功能的实现请参考学习 <a href="http://www.cunmou.com/phpbook/index.md" target="_blank" rel="external">http://www.cunmou.com/phpbook/index.md</a></p>
 </blockquote>
 <hr>
-<blockquote>
-<p>一切如在十年前 。  </p>
-</blockquote>
-<hr>
-<blockquote>
-<p>然后。</p>
-</blockquote>
-<hr>
-<blockquote>
-<p>我们都有了长足的默契， 我不来烦你， 你也便不来扰我，彼此静静的躺在某一个分组。</p>
-</blockquote>
-<hr>
-<blockquote>
-<p>当有一天突然想起，或者想不起你的名字， 或者。</p>
-</blockquote>
-<hr>
-<blockquote>
-<p>查无此人。</p>
-</blockquote>
-<hr>
-<blockquote>
-<p>你看， 人生多奇妙。</p>
-</blockquote>
 
       
     </div>
@@ -288,13 +295,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2016/03/01/Article_SomethingJustHappened/">躲不过的时间</a></p>
+        <p><span>本文标题:</span><a href="/2016/10/24/PHP_Extension/">PHP 扩展开发备注</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">在云端</a></p>
-        <p><span>发布时间:</span>2016-03-01, 00:00:00</p>
-        <p><span>最后更新:</span>2016-03-01, 00:00:00</p>
+        <p><span>发布时间:</span>2016-10-24, 00:00:00</p>
+        <p><span>最后更新:</span>2016-10-24, 00:00:00</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2016/03/01/Article_SomethingJustHappened/" title="躲不过的时间">http://evercyan.xyz/2016/03/01/Article_SomethingJustHappened/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://evercyan.xyz/2016/03/01/Article_SomethingJustHappened/　　作者: 在云端" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2016/10/24/PHP_Extension/" title="PHP 扩展开发备注">http://evercyan.xyz/2016/10/24/PHP_Extension/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://evercyan.xyz/2016/10/24/PHP_Extension/　　作者: 在云端" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -306,16 +313,10 @@
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2016/03/01/Note_Less/">
-                    LESS 笔记
-                </a>
-            </div>
-        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2016/02/14/Tech_HighConcurrency/">
-                    关于高并发的解决方案及其相关概念的初步认识
+                <a href="/2016/10/20/Note_Sublime/">
+                    SublimeText 笔记
                 </a>
             </div>
         
@@ -327,7 +328,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#PHP-扩展开发备注"><span class="toc-number">1.</span> <span class="toc-text">PHP 扩展开发备注 </span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#准备工作"><span class="toc-number">1.1.</span> <span class="toc-text">准备工作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#生成扩展"><span class="toc-number">1.2.</span> <span class="toc-text">生成扩展</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#加载扩展并执行"><span class="toc-number">1.3.</span> <span class="toc-text">加载扩展并执行</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#验证"><span class="toc-number">1.4.</span> <span class="toc-text">验证</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#最后"><span class="toc-number">1.5.</span> <span class="toc-text">最后</span></a></li></ol></li></ol>
         
     </div>
     <style>
@@ -354,7 +355,7 @@
     
       <div class="duoshuo" id="comments">
     <div id="comment-box" ></div>
-    <div class="ds-thread" id="ds-thread" data-thread-key="2016/03/01/Article_SomethingJustHappened/" data-title="躲不过的时间" data-url="http://evercyan.xyz/2016/03/01/Article_SomethingJustHappened/"></div>
+    <div class="ds-thread" id="ds-thread" data-thread-key="2016/10/24/PHP_Extension/" data-title="PHP 扩展开发备注" data-url="http://evercyan.xyz/2016/10/24/PHP_Extension/"></div>
     <script>
         var duoshuoQuery = {short_name:"evercyan"};
         var loadComment = function(){
@@ -377,15 +378,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2016/03/01/Note_Less/" title="上一篇: LESS 笔记">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2016/02/14/Tech_HighConcurrency/" title="下一篇: 关于高并发的解决方案及其相关概念的初步认识">
+            <a href="/2016/10/20/Note_Sublime/" title="下一篇: SublimeText 笔记">
                 <i class="fa fa-angle-right"></i>
             </a>
         
