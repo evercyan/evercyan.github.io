@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="h-Hans">
+<head>
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="在云端" />
+
+
+
+<meta name="description" content="关于高并发的解决方案及其相关概念的初步认识">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关于高并发的解决方案及其相关概念的初步认识">
+<meta property="og:url" content="http://evercyan.xyz/2016/02/14/Tech_HighConcurrency/index.html">
+<meta property="og:site_name" content="在云端">
+<meta property="og:description" content="关于高并发的解决方案及其相关概念的初步认识">
+<meta property="og:updated_time" content="2016-02-13T16:00:00.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="关于高并发的解决方案及其相关概念的初步认识">
+<meta name="twitter:description" content="关于高并发的解决方案及其相关概念的初步认识">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="在云端" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/favicon.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>关于高并发的解决方案及其相关概念的初步认识 | 在云端</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: undefined
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">在云端</a></h1>
+        </hgroup>
+
+        
+
+        
+
+
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">文章</a></li>
+                        
+                            <li><a href="/tags/">标签云</a></li>
+                        
+                            <li><a href="/about/">关于</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" href="mailto:evercyan@qq.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" href="https://github.com/everCyan" title="GitHub"></a>
+                            
+                                <a class="fa RSS" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://moxfive.xyz/">MOxFIVE</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">在云端</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">在云端</a></h1>
+            </hgroup>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">文章</a></li>
+                
+                    <li><a href="/tags/">标签云</a></li>
+                
+                    <li><a href="/about/">关于</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="mailto:evercyan@qq.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/everCyan" title="GitHub"></a>
+                            
+                                <a class="fa RSS" target="_blank" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-Tech_HighConcurrency" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/02/14/Tech_HighConcurrency/" class="article-date">
+      <time datetime="2016-02-13T16:00:00.000Z" itemprop="datePublished">2016-02-14</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      关于高并发的解决方案及其相关概念的初步认识
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/笔记/">笔记</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PHP/">PHP</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>关于高并发的解决方案及其相关概念的初步认识<a id="more"></a></p>
+<hr>
+<blockquote>
+<p>以下基于 WEB = PHP + Nginx(Apache) + Mysql</p>
+</blockquote>
+<hr>
+<pre><code>前端:异步请求+资源静态化+cdn
+后端:请求队列+轮询分发+负载均衡+共享缓存
+数据层:redis缓存+数据分表+写队列
+存储:raid阵列+热备
+网络:dns轮询+DDOS攻击防护
+</code></pre><h2 id="LVS"><a href="#LVS" class="headerlink" title="LVS"></a>LVS</h2><p>Linux Virtual Server, 即Linux虚拟服务器</p>
+<h2 id="使用LVS服务器负载均衡，LVS服务器结合Keepalived做高可用；"><a href="#使用LVS服务器负载均衡，LVS服务器结合Keepalived做高可用；" class="headerlink" title="- ).使用LVS服务器负载均衡，LVS服务器结合Keepalived做高可用；"></a>- ).使用LVS服务器负载均衡，LVS服务器结合Keepalived做高可用；</h2><h2 id="Nginx-amp-Apache"><a href="#Nginx-amp-Apache" class="headerlink" title="Nginx &amp; Apache"></a>Nginx &amp; Apache</h2><hr>
+<pre><code>nginx 是一个web服务器和反向代理服务器，在静态页面中表现的不错，内存和CPU控制的相当到位
+，采用epool模型， 并发可达到5W，当前市场主流web服务
+反向代理可以用于负载均衡，工作于第四层中，nginx + keepalive，
+</code></pre><hr>
+<pre><code>apache 也是曾经用的比较火的web服务器，主要是动态页面用的多
+
+#mpm_perfork模块  
+
+ &lt;IfModulempm_prefork_module&gt;
+StartServers5#推荐设置：小=默认中=20~50大=50~100 
+MinSpareServers5#推荐设置：与StartServers保持一致
+MaxSpareServers10#推荐设置：小=20中=30~80大=80~120
+MaxClients150#推荐设置：小=500中=500~1500大型=1500~3000
+MaxRequestsPerChild0#推荐设置：小=10000中或大=10000~500000
+(此外，还需额外设置ServerLimit参数，该参数最好与MaxClients的值保持一致。)
+
+&lt;/IfModule&gt;
+</code></pre><h2 id="静态资源-amp-动态资源"><a href="#静态资源-amp-动态资源" class="headerlink" title="静态资源 &amp; 动态资源"></a>静态资源 &amp; 动态资源</h2><h2 id="1-使用页面缓存（Squid）或者Varnish做缓存代理，将经常访问的图片等静态内容缓存起来，提高访问速度；"><a href="#1-使用页面缓存（Squid）或者Varnish做缓存代理，将经常访问的图片等静态内容缓存起来，提高访问速度；" class="headerlink" title="- 1).使用页面缓存（Squid）或者Varnish做缓存代理，将经常访问的图片等静态内容缓存起来，提高访问速度；"></a>- 1).使用页面缓存（Squid）或者Varnish做缓存代理，将经常访问的图片等静态内容缓存起来，提高访问速度；</h2><h2 id="分布式文件系统"><a href="#分布式文件系统" class="headerlink" title="分布式文件系统"></a>分布式文件系统</h2><ul>
+<li>1、NFS<br>  比较简单就不扯了</li>
+</ul>
+<ul>
+<li><p>2、GFS</p>
+<p>  google出品必是大品</p>
+</li>
+<li><p>3、MFS </p>
+</li>
+</ul>
+<h2 id="mfs优势："><a href="#mfs优势：" class="headerlink" title="mfs优势："></a>mfs优势：</h2><pre><code>-1. Free(GPL)
+0. 通用文件系统，不需要修改上层应用就可以使用（那些需要专门api的dfs好麻烦哦！）。
+1. 可以在线扩容，体系架构可伸缩性极强。（官方的case可以扩到70台了！）
+2. 部署简单。（sa们特别高兴，领导们特别happy！）
+3. 体系架构高可用，所有组件无单点故障。 （您还等什么？）
+4. 文件对象高可用，可设置任意的文件冗余程度（提供比raid1+0更高的冗余级别），而绝对不会影响读或者写的性能，只会加速哦！）
+5. 提供Windows回收站的功能.（不怕误操作了，提供类似oralce 的闪回等高级dbms的即时回滚特性，oralce这些特性可是收费的哦！）
+6. 提供类似Java语言的 GC（垃圾回收）.
+7. 提供netapp，emc，ibm等商业存储的snapshot特性。
+8. google filesystem的一个c实现。（google在前面开路哦！）
+9. 提供web gui监控接口。
+10. 提高随机读或写的效率（有待进一步证明）。
+11. 提高海量小文件的读写效率（有待进一步证明）。
+</code></pre><h2 id="Web负载均衡"><a href="#Web负载均衡" class="headerlink" title="Web负载均衡"></a>Web负载均衡</h2><ul>
+<li>1).HTTP 重定向<br>  大规模访问量下，性能不佳。而且，给用户的体验也不好，实际请求发生重定向，增加了网络延时。</li>
+<li>2).反向代理负载均衡<br>  反向代理服务的核心工作主要是转发HTTP请求, 工作在HTTP层(第七层), 常见的一种是 Nginx<br>  使用 Nginx 保证同一登录用户的请求分配到同一台服务器<br>  ).配置反向代理的转发规则(分析COOKIE等)<br>  ).将 session 之类的信息专门用某个独立服务来存储, 例如 redis / memcache</li>
+<li>3).IP 负载均衡<br>  IP负载均衡服务是工作在网络层(修改IP)和传输层(修改端口, 第四层)<br>  对IP层的数据包的IP地址和端口信息进行修改, 达到负载均衡的目的<br>  常见的负载均衡方式, 是LVS(Linux Virtual Server, Linux虚拟服务), 通过IPVS(IP Virtual Server, IP虚拟服务)来实现</li>
+<li>4).DNS 负载均衡<br>  DNS(Domain Name System)负责域名解析的服务, 域名url实际上是服务器的别名, 实际映射是一个IP地址, 解析过程, 就是DNS完成域名到IP的映射. 而一个域名是可以配置成对应多个IP的. 因此, DNS也就可以作为负载均衡服务. </li>
+<li>5).DNS/GSLB负载均衡<br>  我们常用的CDN(Content Delivery Network, 内容分发网络)实现方式, 其实就是在同一个域名映射为多IP的基础上更进一步, 通过GSLB(Global Server Load Balance, 全局负载均衡)按照指定规则映射域名的IP. 一般情况下都是按照地理位置, 将离用户近的IP返回给用户, 减少网络传输中的路由节点之间的跳跃消耗.<br>  图中的”向上寻找”, 实际过程是LDNS(Local DNS)先向根域名服务(Root Name Server)获取到顶级根的Name Server(例如.com的), 然后得到指定域名的授权DNS, 然后再获得实际服务器IP. </li>
+</ul>
+<hr>
+<h2 id="缓存-memcached"><a href="#缓存-memcached" class="headerlink" title="缓存 memcached"></a>缓存 memcached</h2><p>– 非持久化，提高访问速度，它通过在内存中缓存数据和对象来减少读取数据库的次数，</p>
+<h2 id="缓存-redis"><a href="#缓存-redis" class="headerlink" title="缓存 redis"></a>缓存 redis</h2><p>–可基于内存亦可持久化的日志型、Key-Value数据库，</p>
+<p>—持入化日志型<br>– 主从集群</p>
+<p>–<br>    memcache和redis区别</p>
+<pre><code>redis和memecache的不同在于：
+1、存储方式：
+memecache 把数据全部存在内存之中，断电后会挂掉，数据不能超过内存大小
+redis有部份存在硬盘上，这样能保证数据的持久性。
+2、数据支持类型：
+redis在数据支持上要比memecache多的多。
+3、使用底层模型不同：
+新版本的redis直接自己构建了VM 机制 ，因为一般的系统调用系统函数的话，会浪费一定的时间去移动和请求。
+4、运行环境不同：
+redis目前官方只支持LINUX 上去行，从而省去了对于其它系统的支持，这样的话可以更好的把精力用于本系统 环境上的优化，虽然后来微软有一个小组为其写了补丁。但是没有放到主干上
+</code></pre><h2 id="mysql"><a href="#mysql" class="headerlink" title="mysql"></a>mysql</h2><h3 id="内部缓存"><a href="#内部缓存" class="headerlink" title="内部缓存"></a>内部缓存</h3><ul>
+<li>1).建立恰当的索引</li>
+<li>2).数据库连接线程池缓存<br>  使用pconnect（数据库长连接）可能会导致“数据库连接数耗尽”，因为建立连接并不回收，最终达到数据库的max_connections（最大连接数）<br>  建立数据库连接池服务, PHP的话，我推荐使用swoole</li>
+<li>3).分库/分表/分区</li>
+</ul>
+<h3 id="多台服务搭建"><a href="#多台服务搭建" class="headerlink" title="多台服务搭建"></a>多台服务搭建</h3><ul>
+<li>1).建立MySQL主从，从库作为备份</li>
+<li>2).读写分离, 主库写，从库读</li>
+<li><p>3).主主互备, 互为主从</p>
+</li>
+<li><p>).主从复制<br>  Mysql的主从复制是一句主服务器的二进制日志文件进行的，主服务器日志中记录的操作会在从服务器上重放，从而实现复制，所以主服务器必须开启二进制日志，自动记录所有对于主数据库的更新操作，从服务器再定时到主服务器取得二进制日志文件进行重放则完成了数据的复制。主从复制也用于自动备份。 </p>
+</li>
+<li>).数据库垂直分割<br>  数据库拆分为一个BLog库，一个论坛库</li>
+<li>).数据库水平分割<br>  水平分区意味着我们可以将同一个数据库表中的记录通过特定的算法进行分离，分别保存在不同的数据库表中.<br>  分库, 分表, 分区</li>
+</ul>
+<h3 id="数据库机器之间的数据同步"><a href="#数据库机器之间的数据同步" class="headerlink" title="数据库机器之间的数据同步"></a>数据库机器之间的数据同步</h3><ul>
+<li>1).MySQL自带多线程同步<br>  MySQL数据同步是通过binlog日志，主库写入到binlog日志的操作，是具有顺序的，尤其当SQL操作中含有对于表结构的修改等操作，对于后续的SQL语句操作是有影响的。因此，从库同步数据，必须走单进程。</li>
+<li>2).自己实现解析binlog，多线程写入。</li>
+</ul>
+<h3 id="在Web服务器和数据库之间建立缓存"><a href="#在Web服务器和数据库之间建立缓存" class="headerlink" title="在Web服务器和数据库之间建立缓存"></a>在Web服务器和数据库之间建立缓存</h3><ul>
+<li>1).页面静态化<br>  通过CGI生成的静态html页面缓存到Web服务器的磁盘本地<br>  但多台服务器时资源浪费</li>
+<li><p>2).单台内存缓存<br>  内存缓存的选择，主要有redis/memcache。从性能上说，两者差别不大，从功能丰富程度上说，Redis更胜一筹。 </p>
+</li>
+<li><p>3).内存缓存集群<br>  Redis cluster集群内的Redis互为多组主从，同时每个节点都可以接受请求，在拓展集群的时候比较方便。客户端可以向任意一个节点发送请求，如果是它的“负责”的内容，则直接返回内容。否则，查找实际负责Redis节点，然后将地址告知客户端，客户端重新请求。<br>  内存缓存服务在切换的时候，是有一定风险的。从A集群切换到B集群的过程中，必须保证B集群提前做好“预热”（B集群的内存中的热点数据，应该尽量与A集群相同，否则，切换的一瞬间大量请求内容，在B集群的内存缓存中查找不到，流量直接冲击后端的数据库服务，很可能导致数据库宕机）。</p>
+</li>
+<li>4).减少数据库“写”<br>  先将修改请求生效在cache中，让外界查询显示正常，然后将这些sql修改放入到一个队列中存储起来，队列满或者每隔一段时间，合并为一个请求到数据库中更新数据库。 </li>
+<li>5).NoSQL存储<br>  将数据库中某些被频繁读写的数据，分离出来，放在我们新搭建的Redis存储集群中，又进一步减轻原来MySQL数据库的压力，同时因为Redis本身是个内存级别的Cache，读写的性能都会大幅度提升。 </li>
+<li>6).空节点查询问题<br>  设计一张简单的记录映射表。将存在的记录存储起来，放入到一台内存cache中，这样的话，如果还有空节点查询，则在缓存这一层就被阻挡了。</li>
+</ul>
+<h3 id="异地部署（地理分布式）"><a href="#异地部署（地理分布式）" class="headerlink" title="异地部署（地理分布式）"></a>异地部署（地理分布式）</h3><ul>
+<li>1).核心集中与节点分散<br>  CDN只解决的静态资源的问题，没有解决后端庞大的系统服务还只集中在某个固定城市的问题。</li>
+<li>2).节点容灾和过载保护<br>  节点容灾是指，某个节点如果发生故障时，我们需要建立一个机制去保证服务仍然可用。<br>  过载保护，指的是一个节点已经达到最大容量，无法继续接接受更多请求了，系统必须有一个保护的机制。<pre><code>).拒绝服务，检测到满负载之后，就不再接受新的连接请求。例如网游登入中的排队。
+).分流到其他节点。这种的话，系统实现更为复杂，又涉及到负载均衡的问题。
+</code></pre></li>
+</ul>
+<hr>
+<p>以上</p>
+<hr>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2016/02/14/Tech_HighConcurrency/">关于高并发的解决方案及其相关概念的初步认识</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">在云端</a></p>
+        <p><span>发布时间:</span>2016-02-14, 00:00:00</p>
+        <p><span>最后更新:</span>2016-02-14, 00:00:00</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2016/02/14/Tech_HighConcurrency/" title="关于高并发的解决方案及其相关概念的初步认识">http://evercyan.xyz/2016/02/14/Tech_HighConcurrency/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://evercyan.xyz/2016/02/14/Tech_HighConcurrency/　　作者: 在云端" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2016/03/01/Article_SomethingJustHappened/">
+                    躲不过的时间
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2016/02/01/Article_Poetry/">
+                    涂鸦小记
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#LVS"><span class="toc-number">1.</span> <span class="toc-text">LVS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用LVS服务器负载均衡，LVS服务器结合Keepalived做高可用；"><span class="toc-number">2.</span> <span class="toc-text">- ).使用LVS服务器负载均衡，LVS服务器结合Keepalived做高可用；</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Nginx-amp-Apache"><span class="toc-number">3.</span> <span class="toc-text">Nginx & Apache</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#静态资源-amp-动态资源"><span class="toc-number">4.</span> <span class="toc-text">静态资源 & 动态资源</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-使用页面缓存（Squid）或者Varnish做缓存代理，将经常访问的图片等静态内容缓存起来，提高访问速度；"><span class="toc-number">5.</span> <span class="toc-text">- 1).使用页面缓存（Squid）或者Varnish做缓存代理，将经常访问的图片等静态内容缓存起来，提高访问速度；</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#分布式文件系统"><span class="toc-number">6.</span> <span class="toc-text">分布式文件系统</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mfs优势："><span class="toc-number">7.</span> <span class="toc-text">mfs优势：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Web负载均衡"><span class="toc-number">8.</span> <span class="toc-text">Web负载均衡</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#缓存-memcached"><span class="toc-number">9.</span> <span class="toc-text">缓存 memcached</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#缓存-redis"><span class="toc-number">10.</span> <span class="toc-text">缓存 redis</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mysql"><span class="toc-number">11.</span> <span class="toc-text">mysql</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#内部缓存"><span class="toc-number">11.1.</span> <span class="toc-text">内部缓存</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#多台服务搭建"><span class="toc-number">11.2.</span> <span class="toc-text">多台服务搭建</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数据库机器之间的数据同步"><span class="toc-number">11.3.</span> <span class="toc-text">数据库机器之间的数据同步</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#在Web服务器和数据库之间建立缓存"><span class="toc-number">11.4.</span> <span class="toc-text">在Web服务器和数据库之间建立缓存</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#异地部署（地理分布式）"><span class="toc-number">11.5.</span> <span class="toc-text">异地部署（地理分布式）</span></a></li></ol></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+
+
+    
+      <div class="duoshuo" id="comments">
+    <div id="comment-box" ></div>
+    <div class="ds-thread" id="ds-thread" data-thread-key="2016/02/14/Tech_HighConcurrency/" data-title="关于高并发的解决方案及其相关概念的初步认识" data-url="http://evercyan.xyz/2016/02/14/Tech_HighConcurrency/"></div>
+    <script>
+        var duoshuoQuery = {short_name:"evercyan"};
+        var loadComment = function(){
+            var d = document, s = d.createElement('script');
+            s.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+            s.async = true; s.charset = 'UTF-8';
+            (d.head || d.body).appendChild(s);
+        }
+
+        
+    </script>
+    
+    <script> loadComment(); </script>
+
+</div>
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2016/03/01/Article_SomethingJustHappened/" title="上一篇: 躲不过的时间">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2016/02/01/Article_Poetry/" title="下一篇: 涂鸦小记">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016/10/20/Note_Sublime/">SublimeText 笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/04/Note_Gitbook/">Gitbook 笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/01/Tech_WhatHappened/">当时发生了什么？</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/01/PHP_Extension/">PHP 扩展开发笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/01/PHP_ScrapyGta5/">GTA5 攻略</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/08/PHP_SocketNote/">关于 PHP Socket 及位字符串函数 pack & unpack 的示例</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/01/Note_Less/">LESS 笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/01/Article_SomethingJustHappened/">躲不过的时间</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/14/Tech_HighConcurrency/">关于高并发的解决方案及其相关概念的初步认识</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/01/Article_Poetry/">涂鸦小记</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/01/Article_Like/">古文</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/01/Hello_World/">Hello World</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2016 在云端
+            </div>
+            <div class="footer-right">
+                由 <a href="http://hexo.io" target="_blank" title="Hexo">Hexo</a> 强力驱动 <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+    </div>
+</footer>
+
+    </div>
+    
+    <script src="/js/GithubRepoWidget.js"></script>
+
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+             github: ".github-widget a", 
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>
