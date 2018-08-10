@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>
   
-  在云端
+  PHP 扩展开发备注 - 在云端
   
   </title>
   
@@ -88,140 +88,144 @@
 
 
  <script type="text/javascript">
-	$(function(){
-		$('#menu_item_index').addClass('is_active');
-	});
+  $(function(){
+    $('#menu_item_index').addClass('is_active');
+  });
 </script>
 <div class="row">
-	<div class="large-8 medium-8 columns">
-		<div class="markdown-body home-categories">
-		
-			<div class="article">
-                <a class="clearlink" href="15297817142226.html">
-                
-                  <h1>GTA5 攻略</h1>
-                  <div class="a-content">
-                      
-                      <div class="a-content-text">
-                        
-                        	<blockquote>
-<p>最近在玩 GTA5 , 用程序简单处理了下游民星空的攻略页面, 生成以下攻略.</p>
-</blockquote>
+  <div class="large-8 medium-8 columns">
+      <div class="markdown-body article-wrap">
+       <div class="article">
+          
+          <h1>PHP 扩展开发备注</h1>
 
+        <div class="read-more clearfix">
+          <span class="date">2016/5/1</span>
 
-                        
-                      </div>
-                  </div>
-                </a>
-                <div class="read-more clearfix">
-                  <div class="more-left left">
-                   <a href="15297817142226.html">Read more</a>&nbsp;&nbsp; 
-                    <span class="date">2016/7/1</span>
-                    <span>posted in&nbsp;</span> 
-          				  
-          					    <span class="posted-in"><a href='funny.html'>Funny</a></span>
-          				  
-                  </div>
-                  <div class="more-right right">
-                  <span class="comments">
-                      
+          <span>posted in&nbsp;</span> 
+          
+              <span class="posted-in"><a href='note.html'>Note</a></span>
+          
 
-                      
-                  </span>
-                  </div>
-                </div>
-              </div><!-- article -->
-        
-			<div class="article">
-                <a class="clearlink" href="15297817142560.html">
-                
-                  <h1>当时发生了什么?</h1>
-                  <div class="a-content">
-                      
-                      <div class="a-content-text">
-                        
-                        	<blockquote>
-<p>这个仓库试图回答一个古老的面试问题：当你在浏览器中输入 google.com 并且按下回车之后发生了什么？</p>
-</blockquote>
+          <span class="comments">
+            
 
+            
+          </span>
 
-                        
-                      </div>
-                  </div>
-                </a>
-                <div class="read-more clearfix">
-                  <div class="more-left left">
-                   <a href="15297817142560.html">Read more</a>&nbsp;&nbsp; 
-                    <span class="date">2016/6/1</span>
-                    <span>posted in&nbsp;</span> 
-          				  
-          					    <span class="posted-in"><a href='note.html'>Note</a></span>
-          				  
-                  </div>
-                  <div class="more-right right">
-                  <span class="comments">
-                      
+        </div>
+      </div><!-- article -->
 
-                      
-                  </span>
-                  </div>
-                </div>
-              </div><!-- article -->
-        
-			<div class="article">
-                <a class="clearlink" href="15297817142017.html">
-                
-                  <h1>PHP 扩展开发备注</h1>
-                  <div class="a-content">
-                      
-                      <div class="a-content-text">
-                        
-                        	<blockquote>
+      <div class="article-content">
+      <blockquote>
 <p>基于 MAC OS.<br/>
 本次扩展名称为 demo, 最终结果会生 demo.so, 并被 php.ini 加载.</p>
 </blockquote>
 
+<span id="more"></span><!-- more -->
 
-                        
-                      </div>
-                  </div>
-                </a>
-                <div class="read-more clearfix">
-                  <div class="more-left left">
-                   <a href="15297817142017.html">Read more</a>&nbsp;&nbsp; 
-                    <span class="date">2016/5/1</span>
-                    <span>posted in&nbsp;</span> 
-          				  
-          					    <span class="posted-in"><a href='note.html'>Note</a></span>
-          				  
-                  </div>
-                  <div class="more-right right">
-                  <span class="comments">
-                      
+<hr/>
 
-                      
-                  </span>
-                  </div>
-                </div>
-              </div><!-- article -->
-        
+<h2 id="toc_0">准备工作</h2>
+
+<ul>
+<li>安装编译工具<br/>
+sudo apt-get install gcc make autoconf</li>
+<li>PHP官网下载相应版本
+<a href="http://php.net/downloads.php">http://php.net/downloads.php</a></li>
+<li>解压下载好的 PHP 代码, 本次测试在 ~/Documents/php-7.0.10/</li>
+</ul>
+
+<hr/>
+
+<h2 id="toc_1">生成扩展</h2>
+
+<ul>
+<li>cd ~/Documents/php-7.0.10/ext/</li>
+<li>./ext_skel --extname=demo</li>
+<li>cd demo</li>
+<li><p>vim config.m4</p>
+<p>将<br/>
+dnl PHP_ARG_ENABLE(test, whether to enable test support,<br/>
+dnl Make sure that the comment is aligned:<br/>
+dnl [  --enable-test           Enable test support])<br/>
+三行前面的 dnl 干掉</p></li>
+<li><p>phpize</p></li>
+<li><p>./configure</p></li>
+<li><p>sudo make</p></li>
+<li><p>sudo make install</p></li>
+<li><p>ls -alt ./modules<br/>
+目录下会有一个 demo.so<br/>
+全路径为 /User/Cyan/Documents/php-7.0.10/ext/demo/modules/demo.so</p></li>
+</ul>
+
+<hr/>
+
+<h2 id="toc_2">加载扩展并执行</h2>
+
+<ul>
+<li>php -i | grep &#39;php.ini&#39;<br/>
+查找当前生效的 PHP 配置文件, 本机为 Applications/MAMP/bin/php/php7.0.10/conf/php.ini</li>
+<li>vim Applications/MAMP/bin/php/php7.0.10/conf/php.ini<br/>
+添加扩展<br/>
+extension=/User/Cyan/Documents/php-7.0.10/ext/demo/modules/demo.so</li>
+</ul>
+
+<hr/>
+
+<h2 id="toc_3">验证</h2>
+
+<blockquote>
+<p>php -m | grep &#39;demo&#39;<br/>
+php -r &#39;echo phpinfo();&#39; | grep &#39;demo&#39;<br/>
+php -r &#39;echo confirm_demo_compiled(&quot;demo&quot;);&#39;<br/>
+    终端输出 : Congratulations! You have successfully modified ext/lodash/config.m4. Module lodash is now compiled into PHP.</p>
+</blockquote>
+
+<hr/>
+
+<h2 id="toc_4">最后</h2>
+
+<blockquote>
+<p>以上仅为默认开发扩展的步骤, 具体扩展功能的实现请参考学习 <a href="http://www.cunmou.com/phpbook/index.md">http://www.cunmou.com/phpbook/index.md</a></p>
+</blockquote>
+
+<hr/>
 
 
 
-			<div class="row">
-			  <div class="large-6 columns">
-			  <p class="text-left" style="padding-top:25px;">
-			  
-			  </p>
-			  </div>
-			  <div class="large-6 columns">
-			<p class="text-right" style="padding-top:25px;">
-			
-			</p>
-			  </div>
-			</div>
-		</div>
-	</div><!-- large 8 -->
+
+      </div>
+
+      <div class="row">
+        <div class="large-6 columns">
+        <p class="text-left" style="padding:15px 0px;">
+      
+          <a href="15297817142560.html"
+          title="Previous Post: 当时发生了什么?">&laquo; 当时发生了什么?</a>
+      
+        </p>
+        </div>
+        <div class="large-6 columns">
+      <p class="text-right" style="padding:15px 0px;">
+      
+      </p>
+        </div>
+      </div>
+      <div class="comments-wrap">
+        <div class="share-comments">
+          
+
+          
+
+          
+        </div>
+      </div>
+    </div><!-- article-wrap -->
+  </div><!-- large 8 -->
+
+
+
 
  <div class="large-4 medium-4 columns">
   <div class="hide-for-small">
