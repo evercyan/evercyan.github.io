@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+    <script src="./L2Dwidget.min.js"></script>
+    <script src="./L2Dwidget.0.min.js"></script>
+    <script type="text/javascript">
+        // L2Dwidget.init();
+        L2Dwidget.init({
+            "model": { 
+                // https://unpkg.com/live2d-widget-model-shizuku@1.0.5/assets/shizuku.model.json
+                // https://unpkg.com/live2d-widget-model-chitose@1.0.5/assets/chitose.model.json
+                "jsonPath": "./model/shizuku.model.json", 
+                "scale": 1 
+            },
+            "display": {
+                "position": "center",
+                "width": 100,
+                "height": 200,
+                "hOffset": 10,
+                "vOffset": 10
+            },
+            "mobile": {
+                "show": true,
+                "scale": 0.5
+            },
+            "react": {
+                "opacityDefault": 0.7,
+                "opacityOnHover": 0.2
+            }
+        });
+    </script>
+</body>
+
+</html>
