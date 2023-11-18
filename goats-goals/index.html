@@ -144,16 +144,15 @@
 </body>
 
 <script>
-    let prefix = 'goats-goals/'
     let failed = [
         '033', '793', '816', '788', '794', '795',
     ]
-    fetch(`${prefix}list.json`).then((response) => response.json()).then((list) => {
+    fetch(`list.json`).then((response) => response.json()).then((list) => {
         let listHtml = ''
         for (let info of list) {
             let videoHtml = `
         <video controls autoplay="false" poster="images/placeholder.png" preload="none" class="video">
-            <source src="${prefix}videos/${info["v"]}" type="video/mp4">
+            <source src="videos/${info["v"]}" type="video/mp4">
         </video>
         `
             if (failed.indexOf(info["n"]) !== -1) {
@@ -164,7 +163,7 @@
                 No.${info["n"]}<span class="date">@${info["s"]}</span>
             </div>
             <div class="circle">
-                <img src="${prefix}images/${info["ta"]}" />
+                <img src="images/${info["ta"]}" />
             </div>
             <div class="content">
                 <p>${info["tn"]} VS ${info["on"]} @${info["cn"]}</p>
