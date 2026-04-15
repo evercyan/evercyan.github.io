@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0"
+        />
+        <title>游资追踪</title>
+        <style>
+            * {
+                box-sizing: border-box;
+            }
+
+            body,
+            html {
+                height: 100%;
+                margin: 0;
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+                overflow: hidden;
+                background: #1a1a2e;
+                color: #eee;
+            }
+
+            .container {
+                display: flex;
+                height: 100vh;
+            }
+
+            .nav {
+                width: 160px;
+                min-width: 160px;
+                max-width: 320px;
+                background: #16213e;
+                display: flex;
+                flex-direction: column;
+                border-right: 1px solid #0f3460;
+                position: relative;
+            }
+
+            .nav-header {
+                padding: 16px 20px;
+                border-bottom: 1px solid #0f3460;
+            }
+
+            .nav-header h1 {
+                margin: 0 0 12px 0;
+                font-size: 18px;
+                font-weight: 600;
+                color: #e94560;
+            }
+
+            .search-box {
+                position: relative;
+            }
+
+            .search-box input {
+                width: 100%;
+                padding: 8px 12px 8px 32px;
+                border: 1px solid #0f3460;
+                border-radius: 6px;
+                background: #1a1a2e;
+                color: #eee;
+                font-size: 13px;
+                outline: none;
+                transition: border-color 0.2s;
+            }
+
+            .search-box input:focus {
+                border-color: #e94560;
+            }
+
+            .search-box input::placeholder {
+                color: #666;
+            }
+
+            .search-box::before {
+                content: '🔍';
+                position: absolute;
+                left: 10px;
+                top: 50%;
+                transform: translateY(-50%);
+                font-size: 12px;
+            }
+
+            .nav-list {
+                flex: 1;
+                overflow-y: auto;
+                padding: 8px 0;
+            }
+
+            .nav-list::-webkit-scrollbar {
+                width: 6px;
+            }
+
+            .nav-list::-webkit-scrollbar-track {
+                background: transparent;
+            }
+
+            .nav-list::-webkit-scrollbar-thumb {
+                background: #0f3460;
+                border-radius: 3px;
+            }
+
+            .nav-list::-webkit-scrollbar-thumb:hover {
+                background: #e94560;
+            }
+
+            .nav a {
+                display: block;
+                padding: 10px 20px;
+                text-decoration: none;
+                color: #a0a0a0;
+                font-size: 13px;
+                transition: all 0.15s;
+                border-left: 3px solid transparent;
+                cursor: pointer;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+
+            .nav a:hover {
+                background: #0f3460;
+                color: #fff;
+            }
+
+            .nav a.active {
+                background: rgba(233, 69, 96, 0.15);
+                color: #e94560;
+                border-left-color: #e94560;
+            }
+
+            .nav a.visited {
+                color: #6a6a8a;
+                text-decoration: line-through;
+            }
+
+            .nav a.active.visited {
+                color: #e94560;
+                text-decoration: none;
+            }
+
+            .nav a.active.visited::before {
+                content: none;
+            }
+
+            .resize-handle {
+                position: absolute;
+                right: 0;
+                top: 0;
+                bottom: 0;
+                width: 12px;
+                cursor: col-resize;
+                background: transparent;
+                transition: background 0.2s;
+                z-index: 10;
+            }
+
+            .resize-handle::after {
+                content: '';
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+                width: 4px;
+                height: 40px;
+                background: transparent;
+                border-radius: 2px;
+                transition: background 0.2s;
+            }
+
+            .resize-handle:hover::after,
+            .resize-handle.active::after {
+                background: #e94560;
+            }
+
+            .resize-handle:hover,
+            .resize-handle.active {
+                background: rgba(233, 69, 96, 0.1);
+            }
+
+            .content {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                background: #0f0f1a;
+            }
+
+            iframe {
+                flex: 1;
+                width: 100%;
+                border: none;
+                background: #fff;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="container">
+            <div
+                class="nav"
+                id="nav"
+            >
+                <div class="nav-header">
+                    <h1>游资追踪</h1>
+                    <div class="search-box">
+                        <input
+                            type="text"
+                            id="searchInput"
+                            placeholder="搜索..."
+                        />
+                    </div>
+                </div>
+                <div
+                    class="nav-list"
+                    id="navList"
+                ></div>
+                <div
+                    class="resize-handle"
+                    id="resizeHandle"
+                ></div>
+            </div>
+            <div class="content">
+                <iframe
+                    id="iframe"
+                    src="about:blank"
+                ></iframe>
+            </div>
+        </div>
+
+        <script>
+            var list = JSON.parse("[{\"name\":\"徐留胜\",\"link\":\"徐留胜/龙虎榜票.html\"},{\"name\":\"曲江池\",\"link\":\"曲江池/龙虎榜票.html\"},{\"name\":\"南京帮\",\"link\":\"南京帮/龙虎榜票.html\"},{\"name\":\"zhouyu1933\",\"link\":\"zhouyu1933/龙虎榜票.html\"},{\"name\":\"苏南帮\",\"link\":\"苏南帮/龙虎榜票.html\"},{\"name\":\"轮回666\",\"link\":\"轮回666/龙虎榜票.html\"},{\"name\":\"金开大道\",\"link\":\"金开大道/龙虎榜票.html\"},{\"name\":\"广东帮\",\"link\":\"广东帮/龙虎榜票.html\"},{\"name\":\"江东猛龙\",\"link\":\"江东猛龙/龙虎榜票.html\"},{\"name\":\"玉兰路\",\"link\":\"玉兰路/龙虎榜票.html\"},{\"name\":\"王海祥\",\"link\":\"王海祥/龙虎榜票.html\"},{\"name\":\"申港广东分\",\"link\":\"申港广东分/龙虎榜票.html\"},{\"name\":\"陈小群\",\"link\":\"陈小群/龙虎榜票.html\"},{\"name\":\"三板组\",\"link\":\"三板组/龙虎榜票.html\"},{\"name\":\"山东帮\",\"link\":\"山东帮/龙虎榜票.html\"},{\"name\":\"徐晓\",\"link\":\"徐晓/龙虎榜票.html\"},{\"name\":\"湖滨四季\",\"link\":\"湖滨四季/龙虎榜票.html\"},{\"name\":\"瑞鹤仙\",\"link\":\"瑞鹤仙/龙虎榜票.html\"},{\"name\":\"越王大道\",\"link\":\"越王大道/龙虎榜票.html\"},{\"name\":\"量化打板\",\"link\":\"量化打板/龙虎榜票.html\"},{\"name\":\"成都系\",\"link\":\"成都系/龙虎榜票.html\"},{\"name\":\"流沙河\",\"link\":\"流沙河/龙虎榜票.html\"},{\"name\":\"涅盘重升\",\"link\":\"涅盘重升/龙虎榜票.html\"},{\"name\":\"章盟主\",\"link\":\"章盟主/龙虎榜票.html\"},{\"name\":\"鑫多多\",\"link\":\"鑫多多/龙虎榜票.html\"},{\"name\":\"92科比\",\"link\":\"92科比/龙虎榜票.html\"},{\"name\":\"低位挖掘\",\"link\":\"低位挖掘/龙虎榜票.html\"},{\"name\":\"招商深南东\",\"link\":\"招商深南东/龙虎榜票.html\"},{\"name\":\"杭州帮\",\"link\":\"杭州帮/龙虎榜票.html\"},{\"name\":\"牛散唐汉若\",\"link\":\"牛散唐汉若/龙虎榜票.html\"},{\"name\":\"独股一剑\",\"link\":\"独股一剑/龙虎榜票.html\"},{\"name\":\"真爱坤\",\"link\":\"真爱坤/龙虎榜票.html\"},{\"name\":\"粉葛\",\"link\":\"粉葛/龙虎榜票.html\"},{\"name\":\"北京中关村\",\"link\":\"北京中关村/龙虎榜票.html\"},{\"name\":\"呼家楼\",\"link\":\"呼家楼/龙虎榜票.html\"},{\"name\":\"敢死队\",\"link\":\"敢死队/龙虎榜票.html\"},{\"name\":\"Asking\",\"link\":\"Asking/龙虎榜票.html\"},{\"name\":\"余哥\",\"link\":\"余哥/龙虎榜票.html\"},{\"name\":\"佛山系\",\"link\":\"佛山系/龙虎榜票.html\"},{\"name\":\"叶庆均\",\"link\":\"叶庆均/龙虎榜票.html\"},{\"name\":\"孙哥\",\"link\":\"孙哥/龙虎榜票.html\"},{\"name\":\"消闲派\",\"link\":\"消闲派/龙虎榜票.html\"},{\"name\":\"交易猿\",\"link\":\"交易猿/龙虎榜票.html\"},{\"name\":\"屠文斌\",\"link\":\"屠文斌/龙虎榜票.html\"},{\"name\":\"欢乐海岸\",\"link\":\"欢乐海岸/龙虎榜票.html\"},{\"name\":\"金田路\",\"link\":\"金田路/龙虎榜票.html\"},{\"name\":\"华鑫宁波分\",\"link\":\"华鑫宁波分/龙虎榜票.html\"},{\"name\":\"古北路\",\"link\":\"古北路/龙虎榜票.html\"},{\"name\":\"乔帮主\",\"link\":\"乔帮主/龙虎榜票.html\"},{\"name\":\"上塘路\",\"link\":\"上塘路/龙虎榜票.html\"},{\"name\":\"作手新一\",\"link\":\"作手新一/龙虎榜票.html\"},{\"name\":\"宁波和源路\",\"link\":\"宁波和源路/龙虎榜票.html\"},{\"name\":\"浙江帮\",\"link\":\"浙江帮/龙虎榜票.html\"},{\"name\":\"湖里大道\",\"link\":\"湖里大道/龙虎榜票.html\"},{\"name\":\"N周二\",\"link\":\"N周二/龙虎榜票.html\"},{\"name\":\"温州帮\",\"link\":\"温州帮/龙虎榜票.html\"},{\"name\":\"炒股养家\",\"link\":\"炒股养家/龙虎榜票.html\"},{\"name\":\"中信总部\",\"link\":\"中信总部/龙虎榜票.html\"},{\"name\":\"原六一中路\",\"link\":\"原六一中路/龙虎榜票.html\"},{\"name\":\"校长\",\"link\":\"校长/龙虎榜票.html\"},{\"name\":\"赵老哥\",\"link\":\"赵老哥/龙虎榜票.html\"},{\"name\":\"T王\",\"link\":\"T王/龙虎榜票.html\"},{\"name\":\"一瞬流光\",\"link\":\"一瞬流光/龙虎榜票.html\"},{\"name\":\"交易者单骑\",\"link\":\"交易者单骑/龙虎榜票.html\"},{\"name\":\"机构专用\",\"link\":\"机构专用/龙虎榜票.html\"},{\"name\":\"深股通专用\",\"link\":\"深股通专用/龙虎榜票.html\"},{\"name\":\"湖州劳动路\",\"link\":\"湖州劳动路/龙虎榜票.html\"},{\"name\":\"中山东路\",\"link\":\"中山东路/龙虎榜票.html\"},{\"name\":\"北京帮\",\"link\":\"北京帮/龙虎榜票.html\"},{\"name\":\"宁波桑田路\",\"link\":\"宁波桑田路/龙虎榜票.html\"},{\"name\":\"宁波解放南\",\"link\":\"宁波解放南/龙虎榜票.html\"},{\"name\":\"小鳄鱼\",\"link\":\"小鳄鱼/龙虎榜票.html\"},{\"name\":\"成泉系\",\"link\":\"成泉系/龙虎榜票.html\"},{\"name\":\"正经哥\",\"link\":\"正经哥/龙虎榜票.html\"},{\"name\":\"苏州帮\",\"link\":\"苏州帮/龙虎榜票.html\"},{\"name\":\"大小说家\",\"link\":\"大小说家/龙虎榜票.html\"},{\"name\":\"小棉袄\",\"link\":\"小棉袄/龙虎榜票.html\"},{\"name\":\"思明南路\",\"link\":\"思明南路/龙虎榜票.html\"},{\"name\":\"新生代\",\"link\":\"新生代/龙虎榜票.html\"},{\"name\":\"bike770\",\"link\":\"bike770/龙虎榜票.html\"},{\"name\":\"歌神\",\"link\":\"歌神/龙虎榜票.html\"},{\"name\":\"毛老板\",\"link\":\"毛老板/龙虎榜票.html\"},{\"name\":\"炒新一族\",\"link\":\"炒新一族/龙虎榜票.html\"},{\"name\":\"红岭路\",\"link\":\"红岭路/龙虎榜票.html\"},{\"name\":\"量化基金\",\"link\":\"量化基金/龙虎榜票.html\"},{\"name\":\"iframe\",\"link\":\"iframe.html\"},{\"name\":\"天童南路\",\"link\":\"天童南路/龙虎榜票.html\"},{\"name\":\"方新侠\",\"link\":\"方新侠/龙虎榜票.html\"},{\"name\":\"沪股通专用\",\"link\":\"沪股通专用/龙虎榜票.html\"},{\"name\":\"落升(江南神鹰)\",\"link\":\"落升(江南神鹰)/龙虎榜票.html\"}]")
+            var visited = new Set()
+            var currentIndex = -1
+            var filteredList = [...list]
+
+            function renderList(filter) {
+                var navList = document.getElementById('navList')
+                var html = ''
+                filteredList = filter
+                    ? list.filter(function (item) {
+                          return item.name.toLowerCase().includes(filter.toLowerCase())
+                      })
+                    : [...list]
+
+                currentIndex = -1
+
+                filteredList.forEach(function (item, index) {
+                    var isVisited = visited.has(item.link)
+                    html +=
+                        '<a href="#" data-index="' +
+                        index +
+                        '" data-name="' +
+                        item.link +
+                        '" class="' +
+                        (isVisited ? 'visited' : '') +
+                        '" title="' +
+                        item.name +
+                        '" onclick="loadContent(\'' +
+                        item.link +
+                        '\', this)">' +
+                        item.name +
+                        '</a>'
+                })
+
+                navList.innerHTML = html || '<div style="padding:20px;color:#666;text-align:center">无匹配结果</div>'
+            }
+
+            function loadContent(url, dom) {
+                document.getElementById('iframe').src = url
+
+                visited.add(url)
+                document.querySelectorAll('.nav a').forEach(function (a) {
+                    if (visited.has(a.dataset.name)) a.classList.add('visited')
+                    a.classList.remove('active')
+                })
+                if (dom) {
+                    dom.classList.add('active')
+                    dom.scrollIntoView({ block: 'center' })
+                }
+
+            }
+
+            function refreshIframe() {
+                var iframe = document.getElementById('iframe')
+                iframe.src = iframe.src
+            }
+
+            function navigate(direction) {
+                var links = document.querySelectorAll('.nav a')
+                if (!links.length) return
+                if (currentIndex >= 0) links[currentIndex].classList.remove('active')
+                currentIndex = Math.max(0, Math.min(currentIndex + direction, links.length - 1))
+                links[currentIndex].classList.add('active')
+                links[currentIndex].scrollIntoView({ block: 'center' })
+            }
+
+            function openSelected() {
+                var links = document.querySelectorAll('.nav a')
+                if (currentIndex >= 0 && links[currentIndex]) {
+                    links[currentIndex].click()
+                }
+            }
+
+            document.getElementById('searchInput').addEventListener('input', function (e) {
+                renderList(e.target.value)
+            })
+
+            document.addEventListener('keydown', function (e) {
+                if (e.target.tagName === 'INPUT') return
+                if (e.key === '/') {
+                    e.preventDefault()
+                    document.getElementById('searchInput').focus()
+                }
+            })
+
+            
+            var nav = document.getElementById('nav')
+            var handle = document.getElementById('resizeHandle')
+            var minWidth = 160
+            var maxWidth = 320
+            var isResizing = false
+            var startX, startW
+
+            handle.addEventListener('mousedown', function (e) {
+                startX = e.clientX
+                startW = nav.offsetWidth
+                isResizing = true
+                handle.classList.add('active')
+                document.body.style.pointerEvents = 'none'
+                document.body.style.cursor = 'col-resize'
+                e.preventDefault()
+            })
+
+            document.addEventListener('mousemove', function (e) {
+                if (!isResizing) return
+                var diff = e.clientX - startX
+                var newWidth = Math.max(minWidth, Math.min(maxWidth, startW + diff))
+                nav.style.width = newWidth + 'px'
+            })
+
+            document.addEventListener('mouseup', function () {
+                if (isResizing) {
+                    isResizing = false
+                    handle.classList.remove('active')
+                    document.body.style.pointerEvents = ''
+                    document.body.style.cursor = ''
+                }
+            })
+
+            renderList()
+
+            
+            var params = new URLSearchParams(location.search)
+            var autoName = params.get('name')
+            if (autoName) {
+                var match = list.find(function (item) { return item.name === autoName })
+                if (match) {
+                    var dom = document.querySelector('[data-name="' + match.link + '"]')
+                    loadContent(match.link, dom)
+                }
+            }
+            setTimeout(function () {
+                var firstLink = document.querySelector('.nav a')
+                if (firstLink && !autoName) firstLink.click()
+            }, 0)
+        </script>
+    </body>
+</html>
