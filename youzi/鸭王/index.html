@@ -12,7 +12,7 @@
                 font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'PingFang SC', 'Hiragino Sans GB',
                     'Microsoft YaHei', sans-serif;
                 margin: 0;
-                padding: 2px;
+                padding: 10px;
                 background-color: #f8f9fa;
                 color: #212529;
             }
@@ -37,8 +37,8 @@
             .page-desc ul {
                 font-size: 12px;
                 margin: 0;
-                padding-left: 10px;
-                list-style-type: decimal;
+                padding-left: 0px;
+                list-style-type: none;
                 color: #343a40;
             }
             .page-desc ul li {
@@ -47,7 +47,6 @@
             .page-desc ul li:last-child {
                 margin-bottom: 0;
             }
-
             .table-container {
                 overflow-x: auto;
             }
@@ -87,18 +86,21 @@
                 background-color: #f1f3f4;
             }
             .col-date {
-                width: 90px;
+                width: 81px;
             }
-            .col-stock,
-            .col-code {
+            .col-stock {
                 width: 70px;
+                cursor: pointer;
+            }
+            .col-code {
+                width: 53px;
                 cursor: pointer;
             }
             .col-left {
                 text-align: left;
             }
             .col-remark{
-                width: 200px;
+                width: 100px;
             }
             td[data-num] {
                 font-weight: 500;
@@ -107,6 +109,20 @@
         </style>
     </head>
     <body>
+        
+        <div class="page-header">
+            <h1>鸭王</h1>
+            <p>席位: [寻龙掘金]</p>
+        </div>
+	        
+	        <div class="page-desc">
+	            <ul>
+	                
+	                <li>主打一个跑步进场</li>
+	                
+	            </ul>
+	        </div>
+	        
         
         <div class="table-container">
             <table
@@ -1406,7 +1422,6 @@
                         if (cell.dataset.range !== undefined) {
                             range = cell.dataset.range.split(',')
                         }
-                        console.log('range', range)
                         cell.style.backgroundColor = getColorByRange(value, range)
                     }
                 })

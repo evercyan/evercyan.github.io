@@ -1,0 +1,1424 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0"
+        />
+        <title>F.O.R.W.A.R.D</title>
+        <style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'PingFang SC', 'Hiragino Sans GB',
+                    'Microsoft YaHei', sans-serif;
+                margin: 0;
+                padding: 10px;
+                background-color: #f8f9fa;
+                color: #212529;
+            }
+            .page-header {
+                margin-bottom: 10px;
+            }
+            .page-header h1 {
+                margin: 0 0 5px 0;
+                font-size: 24px;
+            }
+            .page-header p {
+                margin: 0;
+                font-size: 14px;
+                color: #6c757d;
+            }
+            .page-desc {
+                border: 1px solid #dee2e6;
+                padding: 5px;
+                margin-bottom: 5px;
+                background-color: #fff;
+            }
+            .page-desc ul {
+                font-size: 12px;
+                margin: 0;
+                padding-left: 0px;
+                list-style-type: none;
+                color: #343a40;
+            }
+            .page-desc ul li {
+                margin-bottom: 4px;
+            }
+            .page-desc ul li:last-child {
+                margin-bottom: 0;
+            }
+            .table-container {
+                overflow-x: auto;
+            }
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                font-size: 14px;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+                background-color: #fff;
+                table-layout: fixed;
+            }
+            th,
+            td {
+                border: 1px solid #dee2e6;
+                padding: 6px 3px;
+                text-align: right;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+            thead th {
+                background-color: #e9ecef;
+                font-weight: 700;
+                text-align: right;
+                position: sticky;
+                top: 0;
+                z-index: 1;
+            }
+            tbody tr:nth-child(even) {
+                background-color: #f8f9fa;
+            }
+            tbody tr:hover {
+                background-color: #e2e6ea !important;
+            }
+            tfoot {
+                font-weight: bold;
+                background-color: #f1f3f4;
+            }
+            .col-date {
+                width: 81px;
+            }
+            .col-stock {
+                width: 70px;
+                cursor: pointer;
+            }
+            .col-code {
+                width: 53px;
+                cursor: pointer;
+            }
+            .col-left {
+                text-align: left;
+            }
+            .col-remark{
+                width: 100px;
+            }
+            td[data-num] {
+                font-weight: 500;
+                color: #111;
+            }
+        </style>
+    </head>
+    <body>
+        
+        <div class="page-header">
+            <h1>申港广东分</h1>
+            <p>席位: [东吴证券苏州干将东路] [申港证券广东分公司]</p>
+        </div>
+	        
+	        <div class="page-desc">
+	            <ul>
+	                
+	                <li>情绪周期先行者，近期连续参与并引导天保基建、中交地产、步步高、中兴商业等短线人气个股，实力剽悍执行力无比坚决。</li>
+	                
+	            </ul>
+	        </div>
+	        
+        
+        <div class="table-container">
+            <table
+                id="stock-table"
+                data-dynamic-cols="16"
+            >
+                <thead>
+                    <tr>
+                        <th class="col-left col-date">日期</th>
+                        <th class="col-left col-stock">股票</th>
+                        <th class="col-left col-code">代码</th>
+                        
+                        <th class="col-left col-remark">备注</th>
+                        
+                        <th>开盘价</th>
+                        <th>收盘价</th>
+                        <th>买入价</th>
+                        <th>竞价%</th>
+                        <th>当日%</th>
+                        <th>+1日%</th>
+                        <th>+2日%</th>
+                        <th>+3日%</th>
+                        <th>+4日%</th>
+                        <th>+5日%</th>
+                        <th>+6日%</th>
+                        <th>+7日%</th>
+                        <th>+8日%</th>
+                        <th>+9日%</th>
+                        <th>+10日%</th>
+                        <th>今天%</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    <tr>
+                        <td class="col-left col-date">2025-02-06</td>
+                        <td class="col-left col-stock" data-stock="603110"><a href="https://quote.eastmoney.com/basic/h5chart-iframe.html?code=603110&amp;market=1&amp;type=r" target="_blank">东方材料</a></td>
+                        <td class="col-left col-code" data-stock="603110">603110</td>
+                        
+                        <td class="col-left col-remark" title="净买: 1763.82万" data-num="5">净买: 1763.82万</td>
+                        
+                        <td>17.64</td>
+                        <td>17.64</td>
+                        <td>17.64</td>
+                        <td>9.98</td>
+                        <td data-num="0">0</td>
+                        <td data-num="9.98">9.98</td>
+                        <td data-num="3.91">3.91</td>
+                        <td data-num="1.47">1.47</td>
+                        <td data-num="11.62">11.62</td>
+                        <td data-num="22.79">22.79</td>
+                        <td data-num="15.02">15.02</td>
+                        <td data-num="26.53">26.53</td>
+                        <td data-num="32.65">32.65</td>
+                        <td data-num="28.74">28.74</td>
+                        <td data-num="21.77">21.77</td>
+                        <td data-num="0">0</td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="col-left col-date">2025-02-10</td>
+                        <td class="col-left col-stock" data-stock="603110"><a href="https://quote.eastmoney.com/basic/h5chart-iframe.html?code=603110&amp;market=1&amp;type=r" target="_blank">东方材料</a></td>
+                        <td class="col-left col-code" data-stock="603110">603110</td>
+                        
+                        <td class="col-left col-remark" title="净买: 486.49万" data-num="5">净买: 486.49万</td>
+                        
+                        <td>20.68</td>
+                        <td>18.33</td>
+                        <td>20.68</td>
+                        <td>6.6</td>
+                        <td data-num="-11.36">-11.36</td>
+                        <td data-num="-13.44">-13.44</td>
+                        <td data-num="-4.79">-4.79</td>
+                        <td data-num="4.74">4.74</td>
+                        <td data-num="-1.89">-1.89</td>
+                        <td data-num="7.93">7.93</td>
+                        <td data-num="13.15">13.15</td>
+                        <td data-num="9.82">9.82</td>
+                        <td data-num="3.87">3.87</td>
+                        <td data-num="6.53">6.53</td>
+                        <td data-num="-4.11">-4.11</td>
+                        <td data-num="-14.7">-14.7</td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="col-left col-date">2025-02-14</td>
+                        <td class="col-left col-stock" data-stock="603881"><a href="https://quote.eastmoney.com/basic/h5chart-iframe.html?code=603881&amp;market=1&amp;type=r" target="_blank">数据港</a></td>
+                        <td class="col-left col-code" data-stock="603881">603881</td>
+                        
+                        <td class="col-left col-remark" title="净买: 7242.53万" data-num="5">净买: 7242.53万</td>
+                        
+                        <td>33.75</td>
+                        <td>34.1</td>
+                        <td>33.75</td>
+                        <td>8.87</td>
+                        <td data-num="1.04">1.04</td>
+                        <td data-num="11.14">11.14</td>
+                        <td data-num="0.03">0.03</td>
+                        <td data-num="7.5">7.5</td>
+                        <td data-num="8.74">8.74</td>
+                        <td data-num="19.61">19.61</td>
+                        <td data-num="25.9">25.9</td>
+                        <td data-num="21.45">21.45</td>
+                        <td data-num="15.56">15.56</td>
+                        <td data-num="9.81">9.81</td>
+                        <td data-num="-0.74">-0.74</td>
+                        <td data-num="21.21">21.21</td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="col-left col-date">2025-02-18</td>
+                        <td class="col-left col-stock" data-stock="603881"><a href="https://quote.eastmoney.com/basic/h5chart-iframe.html?code=603881&amp;market=1&amp;type=r" target="_blank">数据港</a></td>
+                        <td class="col-left col-code" data-stock="603881">603881</td>
+                        
+                        <td class="col-left col-remark" title="净卖: -9194.30万" data-num="-5">净卖: -9194.30万</td>
+                        
+                        <td>35.8</td>
+                        <td>33.76</td>
+                        <td>35.8</td>
+                        <td>-4.56</td>
+                        <td data-num="-5.7">-5.7</td>
+                        <td data-num="1.34">1.34</td>
+                        <td data-num="2.51">2.51</td>
+                        <td data-num="12.77">12.77</td>
+                        <td data-num="18.69">18.69</td>
+                        <td data-num="14.5">14.5</td>
+                        <td data-num="8.94">8.94</td>
+                        <td data-num="3.52">3.52</td>
+                        <td data-num="-6.42">-6.42</td>
+                        <td data-num="-4.83">-4.83</td>
+                        <td data-num="-3.18">-3.18</td>
+                        <td data-num="14.27">14.27</td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="col-left col-date">2025-02-19</td>
+                        <td class="col-left col-stock" data-stock="000818"><a href="https://quote.eastmoney.com/basic/h5chart-iframe.html?code=000818&amp;market=0&amp;type=r" target="_blank">航锦科技</a></td>
+                        <td class="col-left col-code" data-stock="000818">000818</td>
+                        
+                        <td class="col-left col-remark" title="净买: 5099.54万" data-num="5">净买: 5099.54万</td>
+                        
+                        <td>37.5</td>
+                        <td>39.05</td>
+                        <td>37.5</td>
+                        <td>5.63</td>
+                        <td data-num="4.13">4.13</td>
+                        <td data-num="14.56">14.56</td>
+                        <td data-num="7.97">7.97</td>
+                        <td data-num="-2.83">-2.83</td>
+                        <td data-num="-12.53">-12.53</td>
+                        <td data-num="-15.63">-15.63</td>
+                        <td data-num="-12.8">-12.8</td>
+                        <td data-num="-16.13">-16.13</td>
+                        <td data-num="-19.84">-19.84</td>
+                        <td data-num="-20.37">-20.37</td>
+                        <td data-num="-19.6">-19.6</td>
+                        <td data-num="-60.19">-60.19</td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="col-left col-date">2025-02-24</td>
+                        <td class="col-left col-stock" data-stock="600590"><a href="https://quote.eastmoney.com/basic/h5chart-iframe.html?code=600590&amp;market=1&amp;type=r" target="_blank">泰豪科技</a></td>
+                        <td class="col-left col-code" data-stock="600590">600590</td>
+                        
+                        <td class="col-left col-remark" title="净买: 1013.84万" data-num="5">净买: 1013.84万</td>
+                        
+                        <td>9.2</td>
+                        <td>9.2</td>
+                        <td>9.2</td>
+                        <td>10.05</td>
+                        <td data-num="0">0</td>
+                        <td data-num="-2.39">-2.39</td>
+                        <td data-num="7.39">7.39</td>
+                        <td data-num="1.85">1.85</td>
+                        <td data-num="1.63">1.63</td>
+                        <td data-num="-5.76">-5.76</td>
+                        <td data-num="-3.48">-3.48</td>
+                        <td data-num="6.2">6.2</td>
+                        <td data-num="16.85">16.85</td>
+                        <td data-num="26.41">26.41</td>
+                        <td data-num="21.74">21.74</td>
+                        <td data-num="72.17">72.17</td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="col-left col-date">2025-02-24</td>
+                        <td class="col-left col-stock" data-stock="000818"><a href="https://quote.eastmoney.com/basic/h5chart-iframe.html?code=000818&amp;market=0&amp;type=r" target="_blank">航锦科技</a></td>
+                        <td class="col-left col-code" data-stock="000818">000818</td>
+                        
+                        <td class="col-left col-remark" title="净卖: -5301.29万" data-num="-5">净卖: -5301.29万</td>
+                        
+                        <td>36.44</td>
+                        <td>36.44</td>
+                        <td>36.44</td>
+                        <td>-10</td>
+                        <td data-num="0">0</td>
+                        <td data-num="-9.99">-9.99</td>
+                        <td data-num="-13.17">-13.17</td>
+                        <td data-num="-10.26">-10.26</td>
+                        <td data-num="-13.69">-13.69</td>
+                        <td data-num="-17.51">-17.51</td>
+                        <td data-num="-18.06">-18.06</td>
+                        <td data-num="-17.26">-17.26</td>
+                        <td data-num="-14.79">-14.79</td>
+                        <td data-num="-16.85">-16.85</td>
+                        <td data-num="-14.02">-14.02</td>
+                        <td data-num="-59.03">-59.03</td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="col-left col-date">2025-02-25</td>
+                        <td class="col-left col-stock" data-stock="002290"><a href="https://quote.eastmoney.com/basic/h5chart-iframe.html?code=002290&amp;market=0&amp;type=r" target="_blank">禾盛新材</a></td>
+                        <td class="col-left col-code" data-stock="002290">002290</td>
+                        
+                        <td class="col-left col-remark" title="净卖: -2168.44万" data-num="-5">净卖: -2168.44万</td>
+                        
+                        <td>24</td>
+                        <td>23.87</td>
+                        <td>24</td>
+                        <td>-9.5</td>
+                        <td data-num="-0.54">-0.54</td>
+                        <td data-num="0">0</td>
+                        <td data-num="0.33">0.33</td>
+                        <td data-num="3.33">3.33</td>
+                        <td data-num="-7">-7</td>
+                        <td data-num="-1.67">-1.67</td>
+                        <td data-num="6.04">6.04</td>
+                        <td data-num="7.58">7.58</td>
+                        <td data-num="12.71">12.71</td>
+                        <td data-num="16.92">16.92</td>
+                        <td data-num="12.79">12.79</td>
+                        <td data-num="210.42">210.42</td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="col-left col-date">2025-02-28</td>
+                        <td class="col-left col-stock" data-stock="605300"><a href="https://quote.eastmoney.com/basic/h5chart-iframe.html?code=605300&amp;market=1&amp;type=r" target="_blank">佳禾食品</a></td>
+                        <td class="col-left col-code" data-stock="605300">605300</td>
+                        
+                        <td class="col-left col-remark" title="净买: 1145.88万" data-num="5">净买: 1145.88万</td>
+                        
+                        <td>17</td>
+                        <td>18.43</td>
+                        <td>17</td>
+                        <td>1.49</td>
+                        <td data-num="8.41">8.41</td>
+                        <td data-num="-2.41">-2.41</td>
+                        <td data-num="-12.18">-12.18</td>
+                        <td data-num="-15">-15</td>
+                        <td data-num="-12.88">-12.88</td>
+                        <td data-num="-14.71">-14.71</td>
+                        <td data-num="-15.65">-15.65</td>
+                        <td data-num="-16.18">-16.18</td>
+                        <td data-num="-16.82">-16.82</td>
+                        <td data-num="-18.35">-18.35</td>
+                        <td data-num="-15.18">-15.18</td>
+                        <td data-num="-35.76">-35.76</td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="col-left col-date">2025-02-28</td>
+                        <td class="col-left col-stock" data-stock="605100"><a href="https://quote.eastmoney.com/basic/h5chart-iframe.html?code=605100&amp;market=1&amp;type=r" target="_blank">华丰股份</a></td>
+                        <td class="col-left col-code" data-stock="605100">605100</td>
+                        
+                        <td class="col-left col-remark" title="净买: 1795.46万" data-num="5">净买: 1795.46万</td>
+                        
+                        <td>25.32</td>
+                        <td>25.32</td>
+                        <td>25.32</td>
+                        <td>9.99</td>
+                        <td data-num="0">0</td>
+                        <td data-num="-9.16">-9.16</td>
+                        <td data-num="-0.08">-0.08</td>
+                        <td data-num="0">0</td>
+                        <td data-num="9.99">9.99</td>
+                        <td data-num="-0.99">-0.99</td>
+                        <td data-num="8.93">8.93</td>
+                        <td data-num="19.83">19.83</td>
+                        <td data-num="12.16">12.16</td>
+                        <td data-num="23.38">23.38</td>
+                        <td data-num="13.07">13.07</td>
+                        <td data-num="89.81">89.81</td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="col-left col-date">2025-03-05</td>
+                        <td class="col-left col-stock" data-stock="605300"><a href="https://quote.eastmoney.com/basic/h5chart-iframe.html?code=605300&amp;market=1&amp;type=r" target="_blank">佳禾食品</a></td>
+                        <td class="col-left col-code" data-stock="605300">605300</td>
+                        
+                        <td class="col-left col-remark" title="净卖: -1034.72万" data-num="-5">净卖: -1034.72万</td>
+                        
+                        <td>14.13</td>
+                        <td>14.45</td>
+                        <td>14.13</td>
+                        <td>-5.36</td>
+                        <td data-num="2.26">2.26</td>
+                        <td data-num="4.81">4.81</td>
+                        <td data-num="2.62">2.62</td>
+                        <td data-num="1.49">1.49</td>
+                        <td data-num="0.85">0.85</td>
+                        <td data-num="0.07">0.07</td>
+                        <td data-num="-1.77">-1.77</td>
+                        <td data-num="2.05">2.05</td>
+                        <td data-num="0.85">0.85</td>
+                        <td data-num="0.21">0.21</td>
+                        <td data-num="-0.92">-0.92</td>
+                        <td data-num="-22.72">-22.72</td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="col-left col-date">2025-03-10</td>
+                        <td class="col-left col-stock" data-stock="002114"><a href="https://quote.eastmoney.com/basic/h5chart-iframe.html?code=002114&amp;market=0&amp;type=r" target="_blank">罗平锌电</a></td>
+                        <td class="col-left col-code" data-stock="002114">002114</td>
+                        
+                        <td class="col-left col-remark" title="净买: 1554.85万" data-num="5">净买: 1554.85万</td>
+                        
+                        <td>7.82</td>
+                        <td>7.83</td>
+                        <td>7.82</td>
+                        <td>9.83</td>
+                        <td data-num="0.13">0.13</td>
+                        <td data-num="-1.41">-1.41</td>
+                        <td data-num="-4.6">-4.6</td>
+                        <td data-num="-6.65">-6.65</td>
+                        <td data-num="-6.01">-6.01</td>
+                        <td data-num="-6.52">-6.52</td>
+                        <td data-num="-5.5">-5.5</td>
+                        <td data-num="-10.1">-10.1</td>
+                        <td data-num="-9.59">-9.59</td>
+                        <td data-num="-10.87">-10.87</td>
+                        <td data-num="-11.76">-11.76</td>
+                        <td data-num="13.94">13.94</td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="col-left col-date">2025-03-12</td>
+                        <td class="col-left col-stock" data-stock="605303"><a href="https://quote.eastmoney.com/basic/h5chart-iframe.html?code=605303&amp;market=1&amp;type=r" target="_blank">园林股份</a></td>
+                        <td class="col-left col-code" data-stock="605303">605303</td>
+                        
+                        <td class="col-left col-remark" title="净买: 1578.26万" data-num="5">净买: 1578.26万</td>
+                        
+                        <td>13.16</td>
+                        <td>13.16</td>
+                        <td>13.16</td>
+                        <td>10.03</td>
+                        <td data-num="0">0</td>
+                        <td data-num="-7.6">-7.6</td>
+                        <td data-num="-13.68">-13.68</td>
+                        <td data-num="-20.06">-20.06</td>
+                        <td data-num="-20.21">-20.21</td>
+                        <td data-num="-21.58">-21.58</td>
+                        <td data-num="-22.87">-22.87</td>
+                        <td data-num="-23.86">-23.86</td>
+                        <td data-num="-24.62">-24.62</td>
+                        <td data-num="-27.13">-27.13</td>
+                        <td data-num="-26.6">-26.6</td>
+                        <td data-num="85.71">85.71</td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="col-left col-date">2025-03-17</td>
+                        <td class="col-left col-stock" data-stock="605303"><a href="https://quote.eastmoney.com/basic/h5chart-iframe.html?code=605303&amp;market=1&amp;type=r" target="_blank">园林股份</a></td>
+                        <td class="col-left col-code" data-stock="605303">605303</td>
+                        
+                        <td class="col-left col-remark" title="净卖: -1462.35万" data-num="-5">净卖: -1462.35万</td>
+                        
+                        <td>11.07</td>
+                        <td>10.52</td>
+                        <td>11.07</td>
+                        <td>-2.55</td>
+                        <td data-num="-4.97">-4.97</td>
+                        <td data-num="-5.15">-5.15</td>
+                        <td data-num="-6.78">-6.78</td>
+                        <td data-num="-8.31">-8.31</td>
+                        <td data-num="-9.49">-9.49</td>
+                        <td data-num="-10.39">-10.39</td>
+                        <td data-num="-13.37">-13.37</td>
+                        <td data-num="-12.74">-12.74</td>
+                        <td data-num="-14.27">-14.27</td>
+                        <td data-num="-15.54">-15.54</td>
+                        <td data-num="-16.71">-16.71</td>
+                        <td data-num="120.78">120.78</td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="col-left col-date">2025-03-17</td>
+                        <td class="col-left col-stock" data-stock="600301"><a href="https://quote.eastmoney.com/basic/h5chart-iframe.html?code=600301&amp;market=1&amp;type=r" target="_blank">华锡有色</a></td>
+                        <td class="col-left col-code" data-stock="600301">600301</td>
+                        
+                        <td class="col-left col-remark" title="净卖: -3080.81万" data-num="-5">净卖: -3080.81万</td>
+                        
+                        <td>26</td>
+                        <td>24.8</td>
+                        <td>26</td>
+                        <td>-2.8</td>
+                        <td data-num="-4.62">-4.62</td>
+                        <td data-num="-5.96">-5.96</td>
+                        <td data-num="-4.88">-4.88</td>
+                        <td data-num="-5.27">-5.27</td>
+                        <td data-num="-3.31">-3.31</td>
+                        <td data-num="-7.19">-7.19</td>
+                        <td data-num="-7.88">-7.88</td>
+                        <td data-num="-7.88">-7.88</td>
+                        <td data-num="-10.35">-10.35</td>
+                        <td data-num="-11.15">-11.15</td>
+                        <td data-num="-14.38">-14.38</td>
+                        <td data-num="94.27">94.27</td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="col-left col-date">2025-03-18</td>
+                        <td class="col-left col-stock" data-stock="000815"><a href="https://quote.eastmoney.com/basic/h5chart-iframe.html?code=000815&amp;market=0&amp;type=r" target="_blank">美利云</a></td>
+                        <td class="col-left col-code" data-stock="000815">000815</td>
+                        
+                        <td class="col-left col-remark" title="净买: 5327.66万" data-num="5">净买: 5327.66万</td>
+                        
+                        <td>16.26</td>
+                        <td>16.74</td>
+                        <td>16.26</td>
+                        <td>2.39</td>
+                        <td data-num="2.95">2.95</td>
+                        <td data-num="-3.14">-3.14</td>
+                        <td data-num="-4.8">-4.8</td>
+                        <td data-num="-6.52">-6.52</td>
+                        <td data-num="-12.98">-12.98</td>
+                        <td data-num="-17.22">-17.22</td>
+                        <td data-num="-16.91">-16.91</td>
+                        <td data-num="-20.79">-20.79</td>
+                        <td data-num="-20.3">-20.3</td>
+                        <td data-num="-19.74">-19.74</td>
+                        <td data-num="-20.85">-20.85</td>
+                        <td data-num="32.84">32.84</td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="col-left col-date">2025-03-18</td>
+                        <td class="col-left col-stock" data-stock="603315"><a href="https://quote.eastmoney.com/basic/h5chart-iframe.html?code=603315&amp;market=1&amp;type=r" target="_blank">福鞍股份</a></td>
+                        <td class="col-left col-code" data-stock="603315">603315</td>
+                        
+                        <td class="col-left col-remark" title="净买: 2006.31万" data-num="5">净买: 2006.31万</td>
+                        
+                        <td>16.01</td>
+                        <td>16.01</td>
+                        <td>16.01</td>
+                        <td>10.03</td>
+                        <td data-num="0">0</td>
+                        <td data-num="9.99">9.99</td>
+                        <td data-num="20.99">20.99</td>
+                        <td data-num="8.87">8.87</td>
+                        <td data-num="-2">-2</td>
+                        <td data-num="-11.81">-11.81</td>
+                        <td data-num="-12.8">-12.8</td>
+                        <td data-num="-17.49">-17.49</td>
+                        <td data-num="-18.11">-18.11</td>
+                        <td data-num="-16.36">-16.36</td>
+                        <td data-num="-16.55">-16.55</td>
+                        <td data-num="15.68">15.68</td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="col-left col-date">2025-03-20</td>
+                        <td class="col-left col-stock" data-stock="603315"><a href="https://quote.eastmoney.com/basic/h5chart-iframe.html?code=603315&amp;market=1&amp;type=r" target="_blank">福鞍股份</a></td>
+                        <td class="col-left col-code" data-stock="603315">603315</td>
+                        
+                        <td class="col-left col-remark" title="净卖: -2227.67万" data-num="-5">净卖: -2227.67万</td>
+                        
+                        <td>16.87</td>
+                        <td>19.37</td>
+                        <td>16.87</td>
+                        <td>-4.2</td>
+                        <td data-num="14.82">14.82</td>
+                        <td data-num="3.32">3.32</td>
+                        <td data-num="-6.99">-6.99</td>
+                        <td data-num="-16.3">-16.3</td>
+                        <td data-num="-17.25">-17.25</td>
+                        <td data-num="-21.7">-21.7</td>
+                        <td data-num="-22.29">-22.29</td>
+                        <td data-num="-20.63">-20.63</td>
+                        <td data-num="-20.81">-20.81</td>
+                        <td data-num="-20.09">-20.09</td>
+                        <td data-num="-22.05">-22.05</td>
+                        <td data-num="9.78">9.78</td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="col-left col-date">2025-03-24</td>
+                        <td class="col-left col-stock" data-stock="000737"><a href="https://quote.eastmoney.com/basic/h5chart-iframe.html?code=000737&amp;market=0&amp;type=r" target="_blank">北方铜业</a></td>
+                        <td class="col-left col-code" data-stock="000737">000737</td>
+                        
+                        <td class="col-left col-remark" title="净买: 2607.05万" data-num="5">净买: 2607.05万</td>
+                        
+                        <td>10.23</td>
+                        <td>11.17</td>
+                        <td>10.23</td>
+                        <td>0.79</td>
+                        <td data-num="9.19">9.19</td>
+                        <td data-num="15.54">15.54</td>
+                        <td data-num="20.43">20.43</td>
+                        <td data-num="11.93">11.93</td>
+                        <td data-num="4.79">4.79</td>
+                        <td data-num="2.64">2.64</td>
+                        <td data-num="2.83">2.83</td>
+                        <td data-num="1.08">1.08</td>
+                        <td data-num="-2.15">-2.15</td>
+                        <td data-num="-11.93">-11.93</td>
+                        <td data-num="-19.65">-19.65</td>
+                        <td data-num="38.03">38.03</td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="col-left col-date">2025-03-24</td>
+                        <td class="col-left col-stock" data-stock="000779"><a href="https://quote.eastmoney.com/basic/h5chart-iframe.html?code=000779&amp;market=0&amp;type=r" target="_blank">甘咨询</a></td>
+                        <td class="col-left col-code" data-stock="000779">000779</td>
+                        
+                        <td class="col-left col-remark" title="净买: 1464.90万" data-num="5">净买: 1464.90万</td>
+                        
+                        <td>13.09</td>
+                        <td>11.21</td>
+                        <td>13.09</td>
+                        <td>9.36</td>
+                        <td data-num="-14.36">-14.36</td>
+                        <td data-num="-22.92">-22.92</td>
+                        <td data-num="-25.67">-25.67</td>
+                        <td data-num="-28.8">-28.8</td>
+                        <td data-num="-29.11">-29.11</td>
+                        <td data-num="-26.05">-26.05</td>
+                        <td data-num="-28.27">-28.27</td>
+                        <td data-num="-29.03">-29.03</td>
+                        <td data-num="-29.95">-29.95</td>
+                        <td data-num="-36.97">-36.97</td>
+                        <td data-num="-35.91">-35.91</td>
+                        <td data-num="-33.16">-33.16</td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="col-left col-date">2025-03-26</td>
+                        <td class="col-left col-stock" data-stock="600727"><a href="https://quote.eastmoney.com/basic/h5chart-iframe.html?code=600727&amp;market=1&amp;type=r" target="_blank">鲁北化工</a></td>
+                        <td class="col-left col-code" data-stock="600727">600727</td>
+                        
+                        <td class="col-left col-remark" title="净卖: -2220.75万" data-num="-5">净卖: -2220.75万</td>
+                        
+                        <td>9.19</td>
+                        <td>9.07</td>
+                        <td>9.19</td>
+                        <td>4.31</td>
+                        <td data-num="-1.31">-1.31</td>
+                        <td data-num="0.76">0.76</td>
+                        <td data-num="-9.36">-9.36</td>
+                        <td data-num="-13.71">-13.71</td>
+                        <td data-num="-11.32">-11.32</td>
+                        <td data-num="-12.08">-12.08</td>
+                        <td data-num="-7.51">-7.51</td>
+                        <td data-num="-16.76">-16.76</td>
+                        <td data-num="-15.13">-15.13</td>
+                        <td data-num="-16.76">-16.76</td>
+                        <td data-num="-15.67">-15.67</td>
+                        <td data-num="-16.32">-16.32</td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="col-left col-date">2025-03-28</td>
+                        <td class="col-left col-stock" data-stock="001217"><a href="https://quote.eastmoney.com/basic/h5chart-iframe.html?code=001217&amp;market=0&amp;type=r" target="_blank">华尔泰</a></td>
+                        <td class="col-left col-code" data-stock="001217">001217</td>
+                        
+                        <td class="col-left col-remark" title="净买: 3127.44万" data-num="5">净买: 3127.44万</td>
+                        
+                        <td>14.86</td>
+                        <td>14.86</td>
+                        <td>14.86</td>
+                        <td>9.99</td>
+                        <td data-num="0">0</td>
+                        <td data-num="-8.55">-8.55</td>
+                        <td data-num="-13.73">-13.73</td>
+                        <td data-num="-17.5">-17.5</td>
+                        <td data-num="-20.66">-20.66</td>
+                        <td data-num="-28.6">-28.6</td>
+                        <td data-num="-31.02">-31.02</td>
+                        <td data-num="-31.09">-31.09</td>
+                        <td data-num="-29.48">-29.48</td>
+                        <td data-num="-28.33">-28.33</td>
+                        <td data-num="-26.72">-26.72</td>
+                        <td data-num="-21.13">-21.13</td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="col-left col-date">2025-03-28</td>
+                        <td class="col-left col-stock" data-stock="000422"><a href="https://quote.eastmoney.com/basic/h5chart-iframe.html?code=000422&amp;market=0&amp;type=r" target="_blank">湖北宜化</a></td>
+                        <td class="col-left col-code" data-stock="000422">000422</td>
+                        
+                        <td class="col-left col-remark" title="净卖: -6435.12万" data-num="-5">净卖: -6435.12万</td>
+                        
+                        <td>14.93</td>
+                        <td>13.9</td>
+                        <td>14.93</td>
+                        <td>-3.3</td>
+                        <td data-num="-6.9">-6.9</td>
+                        <td data-num="-8.84">-8.84</td>
+                        <td data-num="-7.5">-7.5</td>
+                        <td data-num="-7.64">-7.64</td>
+                        <td data-num="-12.93">-12.93</td>
+                        <td data-num="-21.63">-21.63</td>
+                        <td data-num="-20.23">-20.23</td>
+                        <td data-num="-21.57">-21.57</td>
+                        <td data-num="-20.09">-20.09</td>
+                        <td data-num="-20.03">-20.03</td>
+                        <td data-num="-17.62">-17.62</td>
+                        <td data-num="6.03">6.03</td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="col-left col-date">2025-03-31</td>
+                        <td class="col-left col-stock" data-stock="001333"><a href="https://quote.eastmoney.com/basic/h5chart-iframe.html?code=001333&amp;market=0&amp;type=r" target="_blank">光华股份</a></td>
+                        <td class="col-left col-code" data-stock="001333">001333</td>
+                        
+                        <td class="col-left col-remark" title="净买: 1650.82万" data-num="5">净买: 1650.82万</td>
+                        
+                        <td>23.53</td>
+                        <td>26.38</td>
+                        <td>23.53</td>
+                        <td>-1.88</td>
+                        <td data-num="12.11">12.11</td>
+                        <td data-num="23.33">23.33</td>
+                        <td data-num="11.01">11.01</td>
+                        <td data-num="-0.08">-0.08</td>
+                        <td data-num="-10.07">-10.07</td>
+                        <td data-num="-18.1">-18.1</td>
+                        <td data-num="-17.47">-17.47</td>
+                        <td data-num="-15.81">-15.81</td>
+                        <td data-num="-10.96">-10.96</td>
+                        <td data-num="-8.75">-8.75</td>
+                        <td data-num="-10.28">-10.28</td>
+                        <td data-num="5.65">5.65</td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="col-left col-date">2025-04-08</td>
+                        <td class="col-left col-stock" data-stock="002365"><a href="https://quote.eastmoney.com/basic/h5chart-iframe.html?code=002365&amp;market=0&amp;type=r" target="_blank">永安药业</a></td>
+                        <td class="col-left col-code" data-stock="002365">002365</td>
+                        
+                        <td class="col-left col-remark" title="净卖: -918.91万" data-num="-5">净卖: -918.91万</td>
+                        
+                        <td>8.49</td>
+                        <td>10.19</td>
+                        <td>8.49</td>
+                        <td>-8.32</td>
+                        <td data-num="20.02">20.02</td>
+                        <td data-num="15.9">15.9</td>
+                        <td data-num="22.97">22.97</td>
+                        <td data-num="19.43">19.43</td>
+                        <td data-num="16.02">16.02</td>
+                        <td data-num="10.37">10.37</td>
+                        <td data-num="9.42">9.42</td>
+                        <td data-num="11.66">11.66</td>
+                        <td data-num="6.24">6.24</td>
+                        <td data-num="16.84">16.84</td>
+                        <td data-num="20.49">20.49</td>
+                        <td data-num="60.66">60.66</td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="col-left col-date">2025-04-16</td>
+                        <td class="col-left col-stock" data-stock="600180"><a href="https://quote.eastmoney.com/basic/h5chart-iframe.html?code=600180&amp;market=1&amp;type=r" target="_blank">瑞茂通</a></td>
+                        <td class="col-left col-code" data-stock="600180">600180</td>
+                        
+                        <td class="col-left col-remark" title="净卖: -1973.71万" data-num="-5">净卖: -1973.71万</td>
+                        
+                        <td>4.66</td>
+                        <td>4.67</td>
+                        <td>4.66</td>
+                        <td>-4.9</td>
+                        <td data-num="0.21">0.21</td>
+                        <td data-num="-1.93">-1.93</td>
+                        <td data-num="-3.86">-3.86</td>
+                        <td data-num="-2.58">-2.58</td>
+                        <td data-num="-1.5">-1.5</td>
+                        <td data-num="-3.43">-3.43</td>
+                        <td data-num="-5.79">-5.79</td>
+                        <td data-num="-4.94">-4.94</td>
+                        <td data-num="-8.58">-8.58</td>
+                        <td data-num="-7.73">-7.73</td>
+                        <td data-num="-8.37">-8.37</td>
+                        <td data-num="-30.9">-30.9</td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="col-left col-date">2025-09-29</td>
+                        <td class="col-left col-stock" data-stock="002743"><a href="https://quote.eastmoney.com/basic/h5chart-iframe.html?code=002743&amp;market=0&amp;type=r" target="_blank">富煌钢构</a></td>
+                        <td class="col-left col-code" data-stock="002743">002743</td>
+                        
+                        <td class="col-left col-remark" title="净卖: -345.80万" data-num="-5">净卖: -345.80万</td>
+                        
+                        <td>5.32</td>
+                        <td>5.32</td>
+                        <td>5.32</td>
+                        <td>-9.98</td>
+                        <td data-num="0">0</td>
+                        <td data-num="-5.83">-5.83</td>
+                        <td data-num="-3.38">-3.38</td>
+                        <td data-num="0.75">0.75</td>
+                        <td data-num="1.88">1.88</td>
+                        <td data-num="3.01">3.01</td>
+                        <td data-num="3.95">3.95</td>
+                        <td data-num="0.75">0.75</td>
+                        <td data-num="-0.19">-0.19</td>
+                        <td data-num="1.5">1.5</td>
+                        <td data-num="5.83">5.83</td>
+                        <td data-num="0">0</td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="col-left col-date">2025-10-17</td>
+                        <td class="col-left col-stock" data-stock="600173"><a href="https://quote.eastmoney.com/basic/h5chart-iframe.html?code=600173&amp;market=1&amp;type=r" target="_blank">卧龙新能</a></td>
+                        <td class="col-left col-code" data-stock="600173">600173</td>
+                        
+                        <td class="col-left col-remark" title="净卖: -1818.07万" data-num="-5">净卖: -1818.07万</td>
+                        
+                        <td>9.88</td>
+                        <td>9</td>
+                        <td>9.88</td>
+                        <td>-1.2</td>
+                        <td data-num="-8.91">-8.91</td>
+                        <td data-num="0.2">0.2</td>
+                        <td data-num="4.45">4.45</td>
+                        <td data-num="-2.94">-2.94</td>
+                        <td data-num="-7.89">-7.89</td>
+                        <td data-num="-12.45">-12.45</td>
+                        <td data-num="-11.84">-11.84</td>
+                        <td data-num="-8.1">-8.1</td>
+                        <td data-num="-5.36">-5.36</td>
+                        <td data-num="-2.53">-2.53</td>
+                        <td data-num="-3.54">-3.54</td>
+                        <td data-num="-19.13">-19.13</td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="col-left col-date">2025-10-23</td>
+                        <td class="col-left col-stock" data-stock="000637"><a href="https://quote.eastmoney.com/basic/h5chart-iframe.html?code=000637&amp;market=0&amp;type=r" target="_blank">茂化实华</a></td>
+                        <td class="col-left col-code" data-stock="000637">000637</td>
+                        
+                        <td class="col-left col-remark" title="净卖: -692.69万" data-num="-5">净卖: -692.69万</td>
+                        
+                        <td>4.96</td>
+                        <td>4.68</td>
+                        <td>4.96</td>
+                        <td>-4.62</td>
+                        <td data-num="-5.65">-5.65</td>
+                        <td data-num="3.83">3.83</td>
+                        <td data-num="-0.81">-0.81</td>
+                        <td data-num="0.6">0.6</td>
+                        <td data-num="-2.02">-2.02</td>
+                        <td data-num="-6.25">-6.25</td>
+                        <td data-num="-4.84">-4.84</td>
+                        <td data-num="-4.23">-4.23</td>
+                        <td data-num="-3.43">-3.43</td>
+                        <td data-num="-0.81">-0.81</td>
+                        <td data-num="-1.01">-1.01</td>
+                        <td data-num="-12.3">-12.3</td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="col-left col-date">2025-10-24</td>
+                        <td class="col-left col-stock" data-stock="003038"><a href="https://quote.eastmoney.com/basic/h5chart-iframe.html?code=003038&amp;market=0&amp;type=r" target="_blank">鑫铂股份</a></td>
+                        <td class="col-left col-code" data-stock="003038">003038</td>
+                        
+                        <td class="col-left col-remark" title="净买: 1673.87万" data-num="5">净买: 1673.87万</td>
+                        
+                        <td>19</td>
+                        <td>18.66</td>
+                        <td>19</td>
+                        <td>-3.7</td>
+                        <td data-num="-1.79">-1.79</td>
+                        <td data-num="-1.79">-1.79</td>
+                        <td data-num="-7.21">-7.21</td>
+                        <td data-num="-9">-9</td>
+                        <td data-num="-11.53">-11.53</td>
+                        <td data-num="-10.42">-10.42</td>
+                        <td data-num="-9.79">-9.79</td>
+                        <td data-num="-11.32">-11.32</td>
+                        <td data-num="-11.26">-11.26</td>
+                        <td data-num="-9.89">-9.89</td>
+                        <td data-num="-11.89">-11.89</td>
+                        <td data-num="-20.47">-20.47</td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="col-left col-date">2025-11-07</td>
+                        <td class="col-left col-stock" data-stock="300390"><a href="https://quote.eastmoney.com/basic/h5chart-iframe.html?code=300390&amp;market=0&amp;type=r" target="_blank">天华新能</a></td>
+                        <td class="col-left col-code" data-stock="300390">300390</td>
+                        
+                        <td class="col-left col-remark" title="净卖: -2712.20万" data-num="-5">净卖: -2712.20万</td>
+                        
+                        <td>34.46</td>
+                        <td>39.74</td>
+                        <td>34.46</td>
+                        <td>0</td>
+                        <td data-num="15.32">15.32</td>
+                        <td data-num="19.24">19.24</td>
+                        <td data-num="21.18">21.18</td>
+                        <td data-num="17.01">17.01</td>
+                        <td data-num="39.41">39.41</td>
+                        <td data-num="44.54">44.54</td>
+                        <td data-num="73.45">73.45</td>
+                        <td data-num="64.28">64.28</td>
+                        <td data-num="66.69">66.69</td>
+                        <td data-num="76.84">76.84</td>
+                        <td data-num="41.99">41.99</td>
+                        <td data-num="154.76">154.76</td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="col-left col-date">2025-12-22</td>
+                        <td class="col-left col-stock" data-stock="603829"><a href="https://quote.eastmoney.com/basic/h5chart-iframe.html?code=603829&amp;market=1&amp;type=r" target="_blank">洛凯股份</a></td>
+                        <td class="col-left col-code" data-stock="603829">603829</td>
+                        
+                        <td class="col-left col-remark" title="净卖: -2484.77万" data-num="-5">净卖: -2484.77万</td>
+                        
+                        <td>30.51</td>
+                        <td>27.41</td>
+                        <td>30.51</td>
+                        <td>0.16</td>
+                        <td data-num="-10.16">-10.16</td>
+                        <td data-num="-9.96">-9.96</td>
+                        <td data-num="-18.94">-18.94</td>
+                        <td data-num="-22.65">-22.65</td>
+                        <td data-num="-22.75">-22.75</td>
+                        <td data-num="-25.3">-25.3</td>
+                        <td data-num="-26.94">-26.94</td>
+                        <td data-num="-27.14">-27.14</td>
+                        <td data-num="-26.97">-26.97</td>
+                        <td data-num="-27.01">-27.01</td>
+                        <td data-num="-25.4">-25.4</td>
+                        <td data-num="-4.23">-4.23</td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="col-left col-date">2025-12-24</td>
+                        <td class="col-left col-stock" data-stock="603829"><a href="https://quote.eastmoney.com/basic/h5chart-iframe.html?code=603829&amp;market=1&amp;type=r" target="_blank">洛凯股份</a></td>
+                        <td class="col-left col-code" data-stock="603829">603829</td>
+                        
+                        <td class="col-left col-remark" title="净卖: -2802.75万" data-num="-5">净卖: -2802.75万</td>
+                        
+                        <td>27.51</td>
+                        <td>24.73</td>
+                        <td>27.51</td>
+                        <td>0.15</td>
+                        <td data-num="-10.11">-10.11</td>
+                        <td data-num="-14.21">-14.21</td>
+                        <td data-num="-14.32">-14.32</td>
+                        <td data-num="-17.16">-17.16</td>
+                        <td data-num="-18.97">-18.97</td>
+                        <td data-num="-19.19">-19.19</td>
+                        <td data-num="-19.01">-19.01</td>
+                        <td data-num="-19.05">-19.05</td>
+                        <td data-num="-17.27">-17.27</td>
+                        <td data-num="-15.92">-15.92</td>
+                        <td data-num="-14.76">-14.76</td>
+                        <td data-num="6.22">6.22</td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="col-left col-date">2026-01-26</td>
+                        <td class="col-left col-stock" data-stock="920427"><a href="https://quote.eastmoney.com/basic/h5chart-iframe.html?code=920427&amp;market=0&amp;type=r" target="_blank">华维设计</a></td>
+                        <td class="col-left col-code" data-stock="920427">920427</td>
+                        
+                        <td class="col-left col-remark" title="净买: 462.51万" data-num="5">净买: 462.51万</td>
+                        
+                        <td>20.5</td>
+                        <td>16.15</td>
+                        <td>20.5</td>
+                        <td>-8.89</td>
+                        <td data-num="-21.22">-21.22</td>
+                        <td data-num="-19.61">-19.61</td>
+                        <td data-num="-23.32">-23.32</td>
+                        <td data-num="-23.12">-23.12</td>
+                        <td data-num="-27.46">-27.46</td>
+                        <td data-num="-27.71">-27.71</td>
+                        <td data-num="-26.34">-26.34</td>
+                        <td data-num="-23.22">-23.22</td>
+                        <td data-num="-26.44">-26.44</td>
+                        <td data-num="-27.12">-27.12</td>
+                        <td data-num="-26.68">-26.68</td>
+                        <td data-num="-38.39">-38.39</td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="col-left col-date">2026-01-27</td>
+                        <td class="col-left col-stock" data-stock="920427"><a href="https://quote.eastmoney.com/basic/h5chart-iframe.html?code=920427&amp;market=0&amp;type=r" target="_blank">华维设计</a></td>
+                        <td class="col-left col-code" data-stock="920427">920427</td>
+                        
+                        <td class="col-left col-remark" title="净卖: -130.63万" data-num="-5">净卖: -130.63万</td>
+                        
+                        <td>15.45</td>
+                        <td>16.48</td>
+                        <td>15.45</td>
+                        <td>-4.33</td>
+                        <td data-num="6.67">6.67</td>
+                        <td data-num="1.75">1.75</td>
+                        <td data-num="2.01">2.01</td>
+                        <td data-num="-3.75">-3.75</td>
+                        <td data-num="-4.08">-4.08</td>
+                        <td data-num="-2.27">-2.27</td>
+                        <td data-num="1.88">1.88</td>
+                        <td data-num="-2.39">-2.39</td>
+                        <td data-num="-3.3">-3.3</td>
+                        <td data-num="-2.72">-2.72</td>
+                        <td data-num="-6.54">-6.54</td>
+                        <td data-num="-18.25">-18.25</td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="col-left col-date">2026-01-27</td>
+                        <td class="col-left col-stock" data-stock="603798"><a href="https://quote.eastmoney.com/basic/h5chart-iframe.html?code=603798&amp;market=1&amp;type=r" target="_blank">康普顿</a></td>
+                        <td class="col-left col-code" data-stock="603798">603798</td>
+                        
+                        <td class="col-left col-remark" title="净卖: -286.39万" data-num="-5">净卖: -286.39万</td>
+                        
+                        <td>16.66</td>
+                        <td>16.66</td>
+                        <td>16.66</td>
+                        <td>-9.99</td>
+                        <td data-num="0">0</td>
+                        <td data-num="-5.52">-5.52</td>
+                        <td data-num="-0.12">-0.12</td>
+                        <td data-num="-0.72">-0.72</td>
+                        <td data-num="-6.3">-6.3</td>
+                        <td data-num="-2.82">-2.82</td>
+                        <td data-num="-3.3">-3.3</td>
+                        <td data-num="-5.34">-5.34</td>
+                        <td data-num="-4.92">-4.92</td>
+                        <td data-num="0.72">0.72</td>
+                        <td data-num="-4.08">-4.08</td>
+                        <td data-num="0.54">0.54</td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="col-left col-date">2026-02-04</td>
+                        <td class="col-left col-stock" data-stock="603291"><a href="https://quote.eastmoney.com/basic/h5chart-iframe.html?code=603291&amp;market=1&amp;type=r" target="_blank">联合水务</a></td>
+                        <td class="col-left col-code" data-stock="603291">603291</td>
+                        
+                        <td class="col-left col-remark" title="净买: 465.04万" data-num="5">净买: 465.04万</td>
+                        
+                        <td>12.96</td>
+                        <td>11.44</td>
+                        <td>12.96</td>
+                        <td>1.97</td>
+                        <td data-num="-11.73">-11.73</td>
+                        <td data-num="-11.73">-11.73</td>
+                        <td data-num="-15.59">-15.59</td>
+                        <td data-num="-15.51">-15.51</td>
+                        <td data-num="-14.97">-14.97</td>
+                        <td data-num="-15.66">-15.66</td>
+                        <td data-num="-15.82">-15.82</td>
+                        <td data-num="-16.05">-16.05</td>
+                        <td data-num="-15.97">-15.97</td>
+                        <td data-num="-15.51">-15.51</td>
+                        <td data-num="-15.59">-15.59</td>
+                        <td data-num="-9.34">-9.34</td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="col-left col-date">2026-04-09</td>
+                        <td class="col-left col-stock" data-stock="603284"><a href="https://quote.eastmoney.com/basic/h5chart-iframe.html?code=603284&amp;market=1&amp;type=r" target="_blank">林平发展</a></td>
+                        <td class="col-left col-code" data-stock="603284">603284</td>
+                        
+                        <td class="col-left col-remark" title="净买: 1322.73万" data-num="5">净买: 1322.73万</td>
+                        
+                        <td>52.48</td>
+                        <td>54.66</td>
+                        <td>52.48</td>
+                        <td>-0.79</td>
+                        <td data-num="4.15">4.15</td>
+                        <td data-num="7.16">7.16</td>
+                        <td data-num="7.16">7.16</td>
+                        <td data-num="7.39">7.39</td>
+                        <td data-num="7.45">7.45</td>
+                        <td data-num="8.48">8.48</td>
+                        <td data-num="6.71">6.71</td>
+                        <td data-num=""></td>
+                        <td data-num=""></td>
+                        <td data-num=""></td>
+                        <td data-num=""></td>
+                        <td data-num="6.71">6.71</td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="col-left col-date">2026-04-15</td>
+                        <td class="col-left col-stock" data-stock="600605"><a href="https://quote.eastmoney.com/basic/h5chart-iframe.html?code=600605&amp;market=1&amp;type=r" target="_blank">汇通能源</a></td>
+                        <td class="col-left col-code" data-stock="600605">600605</td>
+                        
+                        <td class="col-left col-remark" title="净卖: -789.04万" data-num="-5">净卖: -789.04万</td>
+                        
+                        <td>31.3</td>
+                        <td>32.33</td>
+                        <td>31.3</td>
+                        <td>6.5</td>
+                        <td data-num="3.29">3.29</td>
+                        <td data-num="-0.16">-0.16</td>
+                        <td data-num="-1.47">-1.47</td>
+                        <td data-num=""></td>
+                        <td data-num=""></td>
+                        <td data-num=""></td>
+                        <td data-num=""></td>
+                        <td data-num=""></td>
+                        <td data-num=""></td>
+                        <td data-num=""></td>
+                        <td data-num=""></td>
+                        <td data-num="-1.47">-1.47</td>
+                    </tr>
+                    
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td class="col-left col-summary-label">&nbsp;</td>
+                        <td class="col-left"></td>
+                        <td class="col-left"></td>
+                        
+                        <td class="col-left"></td>
+                        
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="col-left col-date">纪录总数</td>
+                        <td class="col-left col-stock"></td>
+                        <td class="col-left col-code"></td>
+                        
+                        <td class="col-left col-remark"></td>
+                        
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td> 39 </td>
+                        <td> 39 </td>
+                        <td> 39 </td>
+                        <td> 38 </td>
+                        <td> 38 </td>
+                        <td> 38 </td>
+                        <td> 38 </td>
+                        <td> 37 </td>
+                        <td> 37 </td>
+                        <td> 37 </td>
+                        <td> 37 </td>
+                        <td> 39 </td>
+                    </tr>
+                    
+                    
+                    <tr>
+                        <td class="col-left col-date">上涨比例</td>
+                        <td class="col-left col-stock"></td>
+                        <td class="col-left col-code"></td>
+                        
+                        <td class="col-left col-remark"></td>
+                        
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td data-num="38.46" data-range="30,50,70"> 38.46% </td>
+                        <td data-num="41.03" data-range="30,50,70"> 41.03% </td>
+                        <td data-num="38.46" data-range="30,50,70"> 38.46% </td>
+                        <td data-num="36.84" data-range="30,50,70"> 36.84% </td>
+                        <td data-num="28.95" data-range="30,50,70"> 28.95% </td>
+                        <td data-num="26.32" data-range="30,50,70"> 26.32% </td>
+                        <td data-num="31.58" data-range="30,50,70"> 31.58% </td>
+                        <td data-num="32.43" data-range="30,50,70"> 32.43% </td>
+                        <td data-num="24.32" data-range="30,50,70"> 24.32% </td>
+                        <td data-num="29.73" data-range="30,50,70"> 29.73% </td>
+                        <td data-num="18.92" data-range="30,50,70"> 18.92% </td>
+                        <td data-num="51.28" data-range="30,50,70"> 51.28% </td>
+                    </tr>
+                    
+                    
+                    <tr>
+                        <td class="col-left col-date">平均涨幅</td>
+                        <td class="col-left col-stock"></td>
+                        <td class="col-left col-code"></td>
+                        
+                        <td class="col-left col-remark"></td>
+                        
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td data-num="-0.38" data-range="-4,0,4"> -0.38 </td>
+                        <td data-num="-0.74" data-range="-4,0,4"> -0.74 </td>
+                        <td data-num="-2.11" data-range="-4,0,4"> -2.11 </td>
+                        <td data-num="-4.14" data-range="-4,0,4"> -4.14 </td>
+                        <td data-num="-5.26" data-range="-4,0,4"> -5.26 </td>
+                        <td data-num="-6.6" data-range="-4,0,4"> -6.6 </td>
+                        <td data-num="-5.4" data-range="-4,0,4"> -5.4 </td>
+                        <td data-num="-6.06" data-range="-4,0,4"> -6.06 </td>
+                        <td data-num="-6.48" data-range="-4,0,4"> -6.48 </td>
+                        <td data-num="-5.55" data-range="-4,0,4"> -5.55 </td>
+                        <td data-num="-7.91" data-range="-4,0,4"> -7.91 </td>
+                        <td data-num="16.46" data-range="-4,0,4"> 16.46 </td>
+                    </tr>
+                    
+                </tfoot>
+            </table>
+        </div>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const table = document.getElementById('stock-table')
+                
+                const dynamicColsCount = parseInt(table.dataset.dynamicCols, 10)
+                const fixedColsWidth = 205
+                if (dynamicColsCount > 0) {
+                    const style = document.createElement('style')
+                    document.head.appendChild(style)
+                    const dynamicColWidth = `calc((100% - ${fixedColsWidth}px) / ${dynamicColsCount})`
+                    style.sheet.insertRule(`#stock-table th:not(.col-left), #stock-table td:not(.col-left) { width: ${dynamicColWidth}; }`, 0)
+                }
+                
+                
+                function hexToRgb(hex) {
+                    hex = hex.replace(/^#/, '')
+                    let r = parseInt(hex.substring(0, 2), 16)
+                    let g = parseInt(hex.substring(2, 4), 16)
+                    let b = parseInt(hex.substring(4, 6), 16)
+                    return { r, g, b }
+                }
+                
+                function rgbToHex(r, g, b) {
+                    r = Math.max(0, Math.min(255, Math.round(r)))
+                    g = Math.max(0, Math.min(255, Math.round(g)))
+                    b = Math.max(0, Math.min(255, Math.round(b)))
+                    return `#${((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1).toUpperCase()}`
+                }
+                
+                function interpolateColor(color1, color2, factor) {
+                    const rgb1 = hexToRgb(color1)
+                    const rgb2 = hexToRgb(color2)
+                    const r = rgb1.r + factor * (rgb2.r - rgb1.r)
+                    const g = rgb1.g + factor * (rgb2.g - rgb1.g)
+                    const b = rgb1.b + factor * (rgb2.b - rgb1.b)
+                    return rgbToHex(r, g, b)
+                }
+                
+                function getColorByRange(num, range) {
+                    let [min, mid, max] = range
+                    num = Math.max(min, Math.min(max, num))
+                    if (num <= mid) {
+                        const factor = (num - min) / (mid - min)
+                        return interpolateColor('#00B050', '#FFFFFF', factor)
+                    } else {
+                        const factor = (num - mid) / (max - mid)
+                        return interpolateColor('#FFFFFF', '#C00000', factor)
+                    }
+                }
+                const cells = document.querySelectorAll('td[data-num]')
+                cells.forEach((cell) => {
+                    const value = parseFloat(cell.dataset.num)
+                    if (!isNaN(value)) {
+                        let range = [-15, 0, 15]
+                        if (cell.dataset.range !== undefined) {
+                            range = cell.dataset.range.split(',')
+                        }
+                        cell.style.backgroundColor = getColorByRange(value, range)
+                    }
+                })
+            })
+        </script>
+
+        
+        <style>
+            .stock-modal {
+                position: fixed;
+                display: none;
+                opacity: 0;
+                background-color: var(--bg-secondary);
+                box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+                padding: 3px;
+                z-index: 9999;
+                transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
+                transform: scale(0.95);
+                pointer-events: none;
+            }
+            .stock-modal.visible {
+                display: block;
+                opacity: 1;
+                transform: scale(1);
+            }
+            .stock-modal-body {
+                display: grid;
+                grid-template-columns: 1fr auto;
+                gap: 1px;
+            }
+            .stock-modal-body img {
+                background-color: var(--bg-primary);
+                border-radius: 4px;
+                border: 1px solid var(--border-color);
+                display: block;
+            }
+        </style>
+        <div
+            id="stock-modal"
+            class="stock-modal"
+        >
+            <div class="stock-modal-body">
+                <img
+                    id="stock-modal-daily"
+                    src=""
+                    alt="日线缩略图"
+                    height="250"
+                />
+                <img
+                    id="stock-modal-intraday"
+                    src=""
+                    alt="分时缩略图"
+                    height="250"
+                />
+            </div>
+        </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const modal = document.getElementById('stock-modal')
+                if (!modal) {
+                    return
+                }
+                const dailyImg = document.getElementById('stock-modal-daily')
+                const intradayImg = document.getElementById('stock-modal-intraday')
+                const stockElements = document.querySelectorAll('[data-stock]')
+                if (stockElements.length === 0) {
+                    return
+                }
+                let hoverTimeout
+                const showModal = (event) => {
+                    clearTimeout(hoverTimeout)
+                    const el = event.currentTarget
+                    const stockCode = el.dataset.stock
+                    if (!stockCode) {
+                        return
+                    }
+                    const stockName = el.textContent
+                    let marketId = ''
+                    if (stockCode.length === 6) {
+                        marketId = '0'
+                        if (stockCode.startsWith('6') || stockCode.startsWith('9')) {
+                            marketId = '1'
+                        } else if (stockCode.startsWith('0') || stockCode.startsWith('3') || stockCode.startsWith('1')) {
+                            marketId = '2'
+                        } else if (stockCode.startsWith('8') || stockCode.startsWith('4')) {
+                            marketId = '1'
+                        }
+                    }
+                    const imageId = stockCode + marketId
+                    const dailyUrl = `https://webquoteklinepic.eastmoney.com/GetPic.aspx?id=${imageId}&formula=MACD&imageType=KXL`
+                    const intradayUrl = `https://webquotepic.eastmoney.com/GetPic.aspx?id=${imageId}&formula=MACD&imageType=r`
+                    dailyImg.src = dailyUrl
+                    intradayImg.src = intradayUrl
+                    const modalWidth = modal.offsetWidth || 640
+                    const modalHeight = modal.offsetHeight || 260
+                    let left = event.clientX + 5
+                    let top = event.clientY + 5
+                    if (left + modalWidth > window.innerWidth) {
+                        left = event.clientX - modalWidth - 15
+                    }
+                    if (top + modalHeight > window.innerHeight) {
+                        top = event.clientY - modalHeight - 15
+                    }
+                    if (left < 0) left = 5
+                    if (top < 0) top = 5
+                    modal.style.left = `${left}px`
+                    modal.style.top = `${top}px`
+                    modal.classList.add('visible')
+                }
+                const hideModal = () => {
+                    hoverTimeout = setTimeout(() => {
+                        modal.classList.remove('visible')
+                    }, 100)
+                }
+                stockElements.forEach((el) => {
+                    el.addEventListener('mouseenter', showModal)
+                    el.addEventListener('mouseleave', hideModal)
+                })
+                modal.addEventListener('mouseenter', () => clearTimeout(hoverTimeout))
+                modal.addEventListener('mouseleave', hideModal)
+            })
+        </script>
+        
+    </body>
+</html>

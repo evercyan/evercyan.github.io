@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0"
+        />
+        <title>F.O.R.W.A.R.D</title>
+        <style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'PingFang SC', 'Hiragino Sans GB',
+                    'Microsoft YaHei', sans-serif;
+                margin: 0;
+                padding: 10px;
+                background-color: #f8f9fa;
+                color: #212529;
+            }
+            .page-header {
+                margin-bottom: 10px;
+            }
+            .page-header h1 {
+                margin: 0 0 5px 0;
+                font-size: 24px;
+            }
+            .page-header p {
+                margin: 0;
+                font-size: 14px;
+                color: #6c757d;
+            }
+            .page-desc {
+                border: 1px solid #dee2e6;
+                padding: 5px;
+                margin-bottom: 5px;
+                background-color: #fff;
+            }
+            .page-desc ul {
+                font-size: 12px;
+                margin: 0;
+                padding-left: 0px;
+                list-style-type: none;
+                color: #343a40;
+            }
+            .page-desc ul li {
+                margin-bottom: 4px;
+            }
+            .page-desc ul li:last-child {
+                margin-bottom: 0;
+            }
+            .table-container {
+                overflow-x: auto;
+            }
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                font-size: 14px;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+                background-color: #fff;
+                table-layout: fixed;
+            }
+            th,
+            td {
+                border: 1px solid #dee2e6;
+                padding: 6px 3px;
+                text-align: right;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+            thead th {
+                background-color: #e9ecef;
+                font-weight: 700;
+                text-align: right;
+                position: sticky;
+                top: 0;
+                z-index: 1;
+            }
+            tbody tr:nth-child(even) {
+                background-color: #f8f9fa;
+            }
+            tbody tr:hover {
+                background-color: #e2e6ea !important;
+            }
+            tfoot {
+                font-weight: bold;
+                background-color: #f1f3f4;
+            }
+            .col-date {
+                width: 81px;
+            }
+            .col-stock {
+                width: 70px;
+                cursor: pointer;
+            }
+            .col-code {
+                width: 53px;
+                cursor: pointer;
+            }
+            .col-left {
+                text-align: left;
+            }
+            .col-remark{
+                width: 100px;
+            }
+            td[data-num] {
+                font-weight: 500;
+                color: #111;
+            }
+        </style>
+    </head>
+    <body>
+        
+        <div class="page-header">
+            <h1>江东猛龙</h1>
+            <p>席位: [万联证券上海分公司]</p>
+        </div>
+	        
+	        <div class="page-desc">
+	            <ul>
+	                
+	                <li>--</li>
+	                
+	            </ul>
+	        </div>
+	        
+        
+        <div class="table-container">
+            <table
+                id="stock-table"
+                data-dynamic-cols="16"
+            >
+                <thead>
+                    <tr>
+                        <th class="col-left col-date">日期</th>
+                        <th class="col-left col-stock">股票</th>
+                        <th class="col-left col-code">代码</th>
+                        
+                        <th class="col-left col-remark">备注</th>
+                        
+                        <th>开盘价</th>
+                        <th>收盘价</th>
+                        <th>买入价</th>
+                        <th>竞价%</th>
+                        <th>当日%</th>
+                        <th>+1日%</th>
+                        <th>+2日%</th>
+                        <th>+3日%</th>
+                        <th>+4日%</th>
+                        <th>+5日%</th>
+                        <th>+6日%</th>
+                        <th>+7日%</th>
+                        <th>+8日%</th>
+                        <th>+9日%</th>
+                        <th>+10日%</th>
+                        <th>今天%</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    <tr>
+                        <td class="col-left col-date">2025-03-07</td>
+                        <td class="col-left col-stock" data-stock="002361"><a href="https://quote.eastmoney.com/basic/h5chart-iframe.html?code=002361&amp;market=0&amp;type=r" target="_blank">神剑股份</a></td>
+                        <td class="col-left col-code" data-stock="002361">002361</td>
+                        
+                        <td class="col-left col-remark" title="净卖: -766.84万" data-num="-5">净卖: -766.84万</td>
+                        
+                        <td>5.58</td>
+                        <td>6.15</td>
+                        <td>5.58</td>
+                        <td>-0.18</td>
+                        <td data-num="10.22">10.22</td>
+                        <td data-num="8.42">8.42</td>
+                        <td data-num="9.14">9.14</td>
+                        <td data-num="14.52">14.52</td>
+                        <td data-num="25.99">25.99</td>
+                        <td data-num="25.27">25.27</td>
+                        <td data-num="22.58">22.58</td>
+                        <td data-num="21.15">21.15</td>
+                        <td data-num="25.09">25.09</td>
+                        <td data-num="28.49">28.49</td>
+                        <td data-num="21.86">21.86</td>
+                        <td data-num="236.02">236.02</td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="col-left col-date">2025-03-13</td>
+                        <td class="col-left col-stock" data-stock="002361"><a href="https://quote.eastmoney.com/basic/h5chart-iframe.html?code=002361&amp;market=0&amp;type=r" target="_blank">神剑股份</a></td>
+                        <td class="col-left col-code" data-stock="002361">002361</td>
+                        
+                        <td class="col-left col-remark" title="净卖: -845.97万" data-num="-5">净卖: -845.97万</td>
+                        
+                        <td>6.41</td>
+                        <td>7.03</td>
+                        <td>6.41</td>
+                        <td>0.31</td>
+                        <td data-num="9.67">9.67</td>
+                        <td data-num="9.05">9.05</td>
+                        <td data-num="6.71">6.71</td>
+                        <td data-num="5.46">5.46</td>
+                        <td data-num="8.89">8.89</td>
+                        <td data-num="11.86">11.86</td>
+                        <td data-num="6.08">6.08</td>
+                        <td data-num="-0.16">-0.16</td>
+                        <td data-num="0.47">0.47</td>
+                        <td data-num="0.62">0.62</td>
+                        <td data-num="10.76">10.76</td>
+                        <td data-num="192.51">192.51</td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="col-left col-date">2025-11-13</td>
+                        <td class="col-left col-stock" data-stock="300497"><a href="https://quote.eastmoney.com/basic/h5chart-iframe.html?code=300497&amp;market=0&amp;type=r" target="_blank">富祥药业</a></td>
+                        <td class="col-left col-code" data-stock="300497">300497</td>
+                        
+                        <td class="col-left col-remark" title="净卖: -2195.55万" data-num="-5">净卖: -2195.55万</td>
+                        
+                        <td>17.01</td>
+                        <td>17.5</td>
+                        <td>17.01</td>
+                        <td>16.67</td>
+                        <td data-num="2.88">2.88</td>
+                        <td data-num="10.88">10.88</td>
+                        <td data-num="24.34">24.34</td>
+                        <td data-num="5.76">5.76</td>
+                        <td data-num="6.7">6.7</td>
+                        <td data-num="7">7</td>
+                        <td data-num="-8.29">-8.29</td>
+                        <td data-num="-5.41">-5.41</td>
+                        <td data-num="-3.59">-3.59</td>
+                        <td data-num="-7.94">-7.94</td>
+                        <td data-num="-4.35">-4.35</td>
+                        <td data-num="10.76">10.76</td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="col-left col-date">2025-11-21</td>
+                        <td class="col-left col-stock" data-stock="603216"><a href="https://quote.eastmoney.com/basic/h5chart-iframe.html?code=603216&amp;market=1&amp;type=r" target="_blank">梦天家居</a></td>
+                        <td class="col-left col-code" data-stock="603216">603216</td>
+                        
+                        <td class="col-left col-remark" title="净买: 2090.40万" data-num="5">净买: 2090.40万</td>
+                        
+                        <td>20.9</td>
+                        <td>20.9</td>
+                        <td>20.9</td>
+                        <td>10</td>
+                        <td data-num="0">0</td>
+                        <td data-num="10">10</td>
+                        <td data-num="21">21</td>
+                        <td data-num="13.35">13.35</td>
+                        <td data-num="24.64">24.64</td>
+                        <td data-num="37.13">37.13</td>
+                        <td data-num="46.41">46.41</td>
+                        <td data-num="61.05">61.05</td>
+                        <td data-num="44.93">44.93</td>
+                        <td data-num="36.41">36.41</td>
+                        <td data-num="47.18">47.18</td>
+                        <td data-num="44.98">44.98</td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="col-left col-date">2026-01-20</td>
+                        <td class="col-left col-stock" data-stock="000949"><a href="https://quote.eastmoney.com/basic/h5chart-iframe.html?code=000949&amp;market=0&amp;type=r" target="_blank">新乡化纤</a></td>
+                        <td class="col-left col-code" data-stock="000949">000949</td>
+                        
+                        <td class="col-left col-remark" title="净卖: -2847.45万" data-num="-5">净卖: -2847.45万</td>
+                        
+                        <td>6.78</td>
+                        <td>7.46</td>
+                        <td>6.78</td>
+                        <td>0</td>
+                        <td data-num="10.03">10.03</td>
+                        <td data-num="12.24">12.24</td>
+                        <td data-num="10.62">10.62</td>
+                        <td data-num="6.93">6.93</td>
+                        <td data-num="3.98">3.98</td>
+                        <td data-num="4.87">4.87</td>
+                        <td data-num="10.62">10.62</td>
+                        <td data-num="11.5">11.5</td>
+                        <td data-num="7.23">7.23</td>
+                        <td data-num="-3.54">-3.54</td>
+                        <td data-num="0">0</td>
+                        <td data-num="7.82">7.82</td>
+                    </tr>
+                    
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td class="col-left col-summary-label">&nbsp;</td>
+                        <td class="col-left"></td>
+                        <td class="col-left"></td>
+                        
+                        <td class="col-left"></td>
+                        
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="col-left col-date">纪录总数</td>
+                        <td class="col-left col-stock"></td>
+                        <td class="col-left col-code"></td>
+                        
+                        <td class="col-left col-remark"></td>
+                        
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td> 5 </td>
+                        <td> 5 </td>
+                        <td> 5 </td>
+                        <td> 5 </td>
+                        <td> 5 </td>
+                        <td> 5 </td>
+                        <td> 5 </td>
+                        <td> 5 </td>
+                        <td> 5 </td>
+                        <td> 5 </td>
+                        <td> 5 </td>
+                        <td> 5 </td>
+                    </tr>
+                    
+                    
+                    <tr>
+                        <td class="col-left col-date">上涨比例</td>
+                        <td class="col-left col-stock"></td>
+                        <td class="col-left col-code"></td>
+                        
+                        <td class="col-left col-remark"></td>
+                        
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td data-num="80" data-range="30,50,70"> 80% </td>
+                        <td data-num="100" data-range="30,50,70"> 100% </td>
+                        <td data-num="100" data-range="30,50,70"> 100% </td>
+                        <td data-num="100" data-range="30,50,70"> 100% </td>
+                        <td data-num="100" data-range="30,50,70"> 100% </td>
+                        <td data-num="100" data-range="30,50,70"> 100% </td>
+                        <td data-num="80" data-range="30,50,70"> 80% </td>
+                        <td data-num="60" data-range="30,50,70"> 60% </td>
+                        <td data-num="80" data-range="30,50,70"> 80% </td>
+                        <td data-num="60" data-range="30,50,70"> 60% </td>
+                        <td data-num="60" data-range="30,50,70"> 60% </td>
+                        <td data-num="100" data-range="30,50,70"> 100% </td>
+                    </tr>
+                    
+                    
+                    <tr>
+                        <td class="col-left col-date">平均涨幅</td>
+                        <td class="col-left col-stock"></td>
+                        <td class="col-left col-code"></td>
+                        
+                        <td class="col-left col-remark"></td>
+                        
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td data-num="6.56" data-range="-4,0,4"> 6.56 </td>
+                        <td data-num="10.12" data-range="-4,0,4"> 10.12 </td>
+                        <td data-num="14.36" data-range="-4,0,4"> 14.36 </td>
+                        <td data-num="9.2" data-range="-4,0,4"> 9.2 </td>
+                        <td data-num="14.04" data-range="-4,0,4"> 14.04 </td>
+                        <td data-num="17.23" data-range="-4,0,4"> 17.23 </td>
+                        <td data-num="15.48" data-range="-4,0,4"> 15.48 </td>
+                        <td data-num="17.63" data-range="-4,0,4"> 17.63 </td>
+                        <td data-num="14.83" data-range="-4,0,4"> 14.83 </td>
+                        <td data-num="10.81" data-range="-4,0,4"> 10.81 </td>
+                        <td data-num="15.09" data-range="-4,0,4"> 15.09 </td>
+                        <td data-num="98.42" data-range="-4,0,4"> 98.42 </td>
+                    </tr>
+                    
+                </tfoot>
+            </table>
+        </div>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const table = document.getElementById('stock-table')
+                
+                const dynamicColsCount = parseInt(table.dataset.dynamicCols, 10)
+                const fixedColsWidth = 205
+                if (dynamicColsCount > 0) {
+                    const style = document.createElement('style')
+                    document.head.appendChild(style)
+                    const dynamicColWidth = `calc((100% - ${fixedColsWidth}px) / ${dynamicColsCount})`
+                    style.sheet.insertRule(`#stock-table th:not(.col-left), #stock-table td:not(.col-left) { width: ${dynamicColWidth}; }`, 0)
+                }
+                
+                
+                function hexToRgb(hex) {
+                    hex = hex.replace(/^#/, '')
+                    let r = parseInt(hex.substring(0, 2), 16)
+                    let g = parseInt(hex.substring(2, 4), 16)
+                    let b = parseInt(hex.substring(4, 6), 16)
+                    return { r, g, b }
+                }
+                
+                function rgbToHex(r, g, b) {
+                    r = Math.max(0, Math.min(255, Math.round(r)))
+                    g = Math.max(0, Math.min(255, Math.round(g)))
+                    b = Math.max(0, Math.min(255, Math.round(b)))
+                    return `#${((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1).toUpperCase()}`
+                }
+                
+                function interpolateColor(color1, color2, factor) {
+                    const rgb1 = hexToRgb(color1)
+                    const rgb2 = hexToRgb(color2)
+                    const r = rgb1.r + factor * (rgb2.r - rgb1.r)
+                    const g = rgb1.g + factor * (rgb2.g - rgb1.g)
+                    const b = rgb1.b + factor * (rgb2.b - rgb1.b)
+                    return rgbToHex(r, g, b)
+                }
+                
+                function getColorByRange(num, range) {
+                    let [min, mid, max] = range
+                    num = Math.max(min, Math.min(max, num))
+                    if (num <= mid) {
+                        const factor = (num - min) / (mid - min)
+                        return interpolateColor('#00B050', '#FFFFFF', factor)
+                    } else {
+                        const factor = (num - mid) / (max - mid)
+                        return interpolateColor('#FFFFFF', '#C00000', factor)
+                    }
+                }
+                const cells = document.querySelectorAll('td[data-num]')
+                cells.forEach((cell) => {
+                    const value = parseFloat(cell.dataset.num)
+                    if (!isNaN(value)) {
+                        let range = [-15, 0, 15]
+                        if (cell.dataset.range !== undefined) {
+                            range = cell.dataset.range.split(',')
+                        }
+                        cell.style.backgroundColor = getColorByRange(value, range)
+                    }
+                })
+            })
+        </script>
+
+        
+        <style>
+            .stock-modal {
+                position: fixed;
+                display: none;
+                opacity: 0;
+                background-color: var(--bg-secondary);
+                box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+                padding: 3px;
+                z-index: 9999;
+                transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
+                transform: scale(0.95);
+                pointer-events: none;
+            }
+            .stock-modal.visible {
+                display: block;
+                opacity: 1;
+                transform: scale(1);
+            }
+            .stock-modal-body {
+                display: grid;
+                grid-template-columns: 1fr auto;
+                gap: 1px;
+            }
+            .stock-modal-body img {
+                background-color: var(--bg-primary);
+                border-radius: 4px;
+                border: 1px solid var(--border-color);
+                display: block;
+            }
+        </style>
+        <div
+            id="stock-modal"
+            class="stock-modal"
+        >
+            <div class="stock-modal-body">
+                <img
+                    id="stock-modal-daily"
+                    src=""
+                    alt="日线缩略图"
+                    height="250"
+                />
+                <img
+                    id="stock-modal-intraday"
+                    src=""
+                    alt="分时缩略图"
+                    height="250"
+                />
+            </div>
+        </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const modal = document.getElementById('stock-modal')
+                if (!modal) {
+                    return
+                }
+                const dailyImg = document.getElementById('stock-modal-daily')
+                const intradayImg = document.getElementById('stock-modal-intraday')
+                const stockElements = document.querySelectorAll('[data-stock]')
+                if (stockElements.length === 0) {
+                    return
+                }
+                let hoverTimeout
+                const showModal = (event) => {
+                    clearTimeout(hoverTimeout)
+                    const el = event.currentTarget
+                    const stockCode = el.dataset.stock
+                    if (!stockCode) {
+                        return
+                    }
+                    const stockName = el.textContent
+                    let marketId = ''
+                    if (stockCode.length === 6) {
+                        marketId = '0'
+                        if (stockCode.startsWith('6') || stockCode.startsWith('9')) {
+                            marketId = '1'
+                        } else if (stockCode.startsWith('0') || stockCode.startsWith('3') || stockCode.startsWith('1')) {
+                            marketId = '2'
+                        } else if (stockCode.startsWith('8') || stockCode.startsWith('4')) {
+                            marketId = '1'
+                        }
+                    }
+                    const imageId = stockCode + marketId
+                    const dailyUrl = `https://webquoteklinepic.eastmoney.com/GetPic.aspx?id=${imageId}&formula=MACD&imageType=KXL`
+                    const intradayUrl = `https://webquotepic.eastmoney.com/GetPic.aspx?id=${imageId}&formula=MACD&imageType=r`
+                    dailyImg.src = dailyUrl
+                    intradayImg.src = intradayUrl
+                    const modalWidth = modal.offsetWidth || 640
+                    const modalHeight = modal.offsetHeight || 260
+                    let left = event.clientX + 5
+                    let top = event.clientY + 5
+                    if (left + modalWidth > window.innerWidth) {
+                        left = event.clientX - modalWidth - 15
+                    }
+                    if (top + modalHeight > window.innerHeight) {
+                        top = event.clientY - modalHeight - 15
+                    }
+                    if (left < 0) left = 5
+                    if (top < 0) top = 5
+                    modal.style.left = `${left}px`
+                    modal.style.top = `${top}px`
+                    modal.classList.add('visible')
+                }
+                const hideModal = () => {
+                    hoverTimeout = setTimeout(() => {
+                        modal.classList.remove('visible')
+                    }, 100)
+                }
+                stockElements.forEach((el) => {
+                    el.addEventListener('mouseenter', showModal)
+                    el.addEventListener('mouseleave', hideModal)
+                })
+                modal.addEventListener('mouseenter', () => clearTimeout(hoverTimeout))
+                modal.addEventListener('mouseleave', hideModal)
+            })
+        </script>
+        
+    </body>
+</html>

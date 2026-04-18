@@ -184,7 +184,36 @@
                 flex: 1;
                 display: flex;
                 flex-direction: column;
-                background: #0f0f1a;
+                background: #f8f9fa;
+                position: relative;
+            }
+
+            .loading-overlay {
+                position: absolute;
+                inset: 10px;
+                background: rgba(255,255,255,0.85);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 10;
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 0.15s;
+            }
+            .loading-overlay.show {
+                opacity: 1;
+                pointer-events: auto;
+            }
+            .spinner {
+                width: 36px;
+                height: 36px;
+                border: 3px solid #e94560;
+                border-top-color: transparent;
+                border-radius: 50%;
+                animation: spin 0.7s linear infinite;
+            }
+            @keyframes spin {
+                to { transform: rotate(360deg); }
             }
 
             iframe {
@@ -222,6 +251,7 @@
                 ></div>
             </div>
             <div class="content">
+                <div class="loading-overlay" id="loadingOverlay"><div class="spinner"></div></div>
                 <iframe
                     id="iframe"
                     src="about:blank"
@@ -230,7 +260,7 @@
         </div>
 
         <script>
-            var list = JSON.parse("[{\"name\":\"交易者单骑\",\"link\":\"交易者单骑/龙虎榜票.html\"},{\"name\":\"宁波桑田路\",\"link\":\"宁波桑田路/龙虎榜票.html\"},{\"name\":\"小鳄鱼\",\"link\":\"小鳄鱼/龙虎榜票.html\"},{\"name\":\"瑞鹤仙\",\"link\":\"瑞鹤仙/龙虎榜票.html\"},{\"name\":\"中山东路\",\"link\":\"中山东路/龙虎榜票.html\"},{\"name\":\"小棉袄\",\"link\":\"小棉袄/龙虎榜票.html\"},{\"name\":\"山东帮\",\"link\":\"山东帮/龙虎榜票.html\"},{\"name\":\"敢死队\",\"link\":\"敢死队/龙虎榜票.html\"},{\"name\":\"真爱坤\",\"link\":\"真爱坤/龙虎榜票.html\"},{\"name\":\"量化打板\",\"link\":\"量化打板/龙虎榜票.html\"},{\"name\":\"Asking\",\"link\":\"Asking/龙虎榜票.html\"},{\"name\":\"宁波解放南\",\"link\":\"宁波解放南/龙虎榜票.html\"},{\"name\":\"方新侠\",\"link\":\"方新侠/龙虎榜票.html\"},{\"name\":\"浙江帮\",\"link\":\"浙江帮/龙虎榜票.html\"},{\"name\":\"呼家楼\",\"link\":\"呼家楼/龙虎榜票.html\"},{\"name\":\"屠文斌\",\"link\":\"屠文斌/龙虎榜票.html\"},{\"name\":\"消闲派\",\"link\":\"消闲派/龙虎榜票.html\"},{\"name\":\"温州帮\",\"link\":\"温州帮/龙虎榜票.html\"},{\"name\":\"湖里大道\",\"link\":\"湖里大道/龙虎榜票.html\"},{\"name\":\"独股一剑\",\"link\":\"独股一剑/龙虎榜票.html\"},{\"name\":\"越王大道\",\"link\":\"越王大道/龙虎榜票.html\"},{\"name\":\"鸭王\",\"link\":\"鸭王/index.html\"},{\"name\":\"余哥\",\"link\":\"余哥/龙虎榜票.html\"},{\"name\":\"南京帮\",\"link\":\"南京帮/龙虎榜票.html\"},{\"name\":\"古北路\",\"link\":\"古北路/龙虎榜票.html\"},{\"name\":\"大小说家\",\"link\":\"大小说家/龙虎榜票.html\"},{\"name\":\"校长\",\"link\":\"校长/龙虎榜票.html\"},{\"name\":\"沪股通专用\",\"link\":\"沪股通专用/龙虎榜票.html\"},{\"name\":\"湖州劳动路\",\"link\":\"湖州劳动路/龙虎榜票.html\"},{\"name\":\"炒股养家\",\"link\":\"炒股养家/龙虎榜票.html\"},{\"name\":\"成泉系\",\"link\":\"成泉系/龙虎榜票.html\"},{\"name\":\"涅盘重升\",\"link\":\"涅盘重升/龙虎榜票.html\"},{\"name\":\"深股通专用\",\"link\":\"深股通专用/龙虎榜票.html\"},{\"name\":\"苏南帮\",\"link\":\"苏南帮/龙虎榜票.html\"},{\"name\":\"苏州帮\",\"link\":\"苏州帮/龙虎榜票.html\"},{\"name\":\"轮回666\",\"link\":\"轮回666/龙虎榜票.html\"},{\"name\":\"陈小群\",\"link\":\"陈小群/龙虎榜票.html\"},{\"name\":\"华鑫宁波分\",\"link\":\"华鑫宁波分/龙虎榜票.html\"},{\"name\":\"招商深南东\",\"link\":\"招商深南东/龙虎榜票.html\"},{\"name\":\"牛散唐汉若\",\"link\":\"牛散唐汉若/龙虎榜票.html\"},{\"name\":\"作手新一\",\"link\":\"作手新一/龙虎榜票.html\"},{\"name\":\"原六一中路\",\"link\":\"原六一中路/龙虎榜票.html\"},{\"name\":\"徐晓\",\"link\":\"徐晓/龙虎榜票.html\"},{\"name\":\"申港广东分\",\"link\":\"申港广东分/龙虎榜票.html\"},{\"name\":\"章盟主\",\"link\":\"章盟主/龙虎榜票.html\"},{\"name\":\"赵老哥\",\"link\":\"赵老哥/龙虎榜票.html\"},{\"name\":\"一瞬流光\",\"link\":\"一瞬流光/龙虎榜票.html\"},{\"name\":\"乔帮主\",\"link\":\"乔帮主/龙虎榜票.html\"},{\"name\":\"思明南路\",\"link\":\"思明南路/龙虎榜票.html\"},{\"name\":\"杭州帮\",\"link\":\"杭州帮/龙虎榜票.html\"},{\"name\":\"粉葛\",\"link\":\"粉葛/龙虎榜票.html\"},{\"name\":\"金开大道\",\"link\":\"金开大道/龙虎榜票.html\"},{\"name\":\"金田路\",\"link\":\"金田路/龙虎榜票.html\"},{\"name\":\"北京中关村\",\"link\":\"北京中关村/龙虎榜票.html\"},{\"name\":\"叶庆均\",\"link\":\"叶庆均/龙虎榜票.html\"},{\"name\":\"孙哥\",\"link\":\"孙哥/龙虎榜票.html\"},{\"name\":\"宁波和源路\",\"link\":\"宁波和源路/龙虎榜票.html\"},{\"name\":\"徐留胜\",\"link\":\"徐留胜/龙虎榜票.html\"},{\"name\":\"上塘路\",\"link\":\"上塘路/龙虎榜票.html\"},{\"name\":\"成都系\",\"link\":\"成都系/龙虎榜票.html\"},{\"name\":\"新生代\",\"link\":\"新生代/龙虎榜票.html\"},{\"name\":\"欢乐海岸\",\"link\":\"欢乐海岸/龙虎榜票.html\"},{\"name\":\"低位挖掘\",\"link\":\"低位挖掘/龙虎榜票.html\"},{\"name\":\"机构专用\",\"link\":\"机构专用/龙虎榜票.html\"},{\"name\":\"落升(江南神鹰)\",\"link\":\"落升(江南神鹰)/龙虎榜票.html\"},{\"name\":\"鑫多多\",\"link\":\"鑫多多/龙虎榜票.html\"},{\"name\":\"N周二\",\"link\":\"N周二/龙虎榜票.html\"},{\"name\":\"交易猿\",\"link\":\"交易猿/龙虎榜票.html\"},{\"name\":\"毛老板\",\"link\":\"毛老板/龙虎榜票.html\"},{\"name\":\"炒新一族\",\"link\":\"炒新一族/龙虎榜票.html\"},{\"name\":\"bike770\",\"link\":\"bike770/龙虎榜票.html\"},{\"name\":\"中信总部\",\"link\":\"中信总部/龙虎榜票.html\"},{\"name\":\"曲江池\",\"link\":\"曲江池/龙虎榜票.html\"},{\"name\":\"江东猛龙\",\"link\":\"江东猛龙/龙虎榜票.html\"},{\"name\":\"红岭路\",\"link\":\"红岭路/龙虎榜票.html\"},{\"name\":\"量化基金\",\"link\":\"量化基金/龙虎榜票.html\"},{\"name\":\"佛山系\",\"link\":\"佛山系/龙虎榜票.html\"},{\"name\":\"北京帮\",\"link\":\"北京帮/龙虎榜票.html\"},{\"name\":\"广东帮\",\"link\":\"广东帮/龙虎榜票.html\"},{\"name\":\"正经哥\",\"link\":\"正经哥/龙虎榜票.html\"},{\"name\":\"湖滨四季\",\"link\":\"湖滨四季/龙虎榜票.html\"},{\"name\":\"玉兰路\",\"link\":\"玉兰路/龙虎榜票.html\"},{\"name\":\"天童南路\",\"link\":\"天童南路/龙虎榜票.html\"},{\"name\":\"92科比\",\"link\":\"92科比/龙虎榜票.html\"},{\"name\":\"T王\",\"link\":\"T王/龙虎榜票.html\"},{\"name\":\"zhouyu1933\",\"link\":\"zhouyu1933/龙虎榜票.html\"},{\"name\":\"三板组\",\"link\":\"三板组/龙虎榜票.html\"},{\"name\":\"歌神\",\"link\":\"歌神/龙虎榜票.html\"},{\"name\":\"流沙河\",\"link\":\"流沙河/龙虎榜票.html\"},{\"name\":\"王海祥\",\"link\":\"王海祥/龙虎榜票.html\"}]")
+            var list = JSON.parse("[{\"name\":\"落升(江南神鹰)\",\"link\":\"落升(江南神鹰)/index.html\"},{\"name\":\"正经哥\",\"link\":\"正经哥/index.html\"},{\"name\":\"浙江帮\",\"link\":\"浙江帮/index.html\"},{\"name\":\"T王\",\"link\":\"T王/index.html\"},{\"name\":\"余哥\",\"link\":\"余哥/index.html\"},{\"name\":\"玉兰路\",\"link\":\"玉兰路/index.html\"},{\"name\":\"王海祥\",\"link\":\"王海祥/index.html\"},{\"name\":\"N周二\",\"link\":\"N周二/index.html\"},{\"name\":\"低位挖掘\",\"link\":\"低位挖掘/index.html\"},{\"name\":\"宁波桑田路\",\"link\":\"宁波桑田路/index.html\"},{\"name\":\"方新侠\",\"link\":\"方新侠/index.html\"},{\"name\":\"真爱坤\",\"link\":\"真爱坤/index.html\"},{\"name\":\"章盟主\",\"link\":\"章盟主/index.html\"},{\"name\":\"鑫多多\",\"link\":\"鑫多多/index.html\"},{\"name\":\"bike770\",\"link\":\"bike770/index.html\"},{\"name\":\"交易者单骑\",\"link\":\"交易者单骑/index.html\"},{\"name\":\"乔帮主\",\"link\":\"乔帮主/index.html\"},{\"name\":\"南京帮\",\"link\":\"南京帮/index.html\"},{\"name\":\"江东猛龙\",\"link\":\"江东猛龙/index.html\"},{\"name\":\"牛散唐汉若\",\"link\":\"牛散唐汉若/index.html\"},{\"name\":\"苏州帮\",\"link\":\"苏州帮/index.html\"},{\"name\":\"陈小群\",\"link\":\"陈小群/index.html\"},{\"name\":\"成泉系\",\"link\":\"成泉系/index.html\"},{\"name\":\"流沙河\",\"link\":\"流沙河/index.html\"},{\"name\":\"湖州劳动路\",\"link\":\"湖州劳动路/index.html\"},{\"name\":\"炒股养家\",\"link\":\"炒股养家/index.html\"},{\"name\":\"zhouyu1933\",\"link\":\"zhouyu1933/index.html\"},{\"name\":\"小鳄鱼\",\"link\":\"小鳄鱼/index.html\"},{\"name\":\"曲江池\",\"link\":\"曲江池/index.html\"},{\"name\":\"歌神\",\"link\":\"歌神/index.html\"},{\"name\":\"赵老哥\",\"link\":\"赵老哥/index.html\"},{\"name\":\"金田路\",\"link\":\"金田路/index.html\"},{\"name\":\"三板组\",\"link\":\"三板组/index.html\"},{\"name\":\"北京中关村\",\"link\":\"北京中关村/index.html\"},{\"name\":\"呼家楼\",\"link\":\"呼家楼/index.html\"},{\"name\":\"大小说家\",\"link\":\"大小说家/index.html\"},{\"name\":\"招商深南东\",\"link\":\"招商深南东/index.html\"},{\"name\":\"新生代\",\"link\":\"新生代/index.html\"},{\"name\":\"消闲派\",\"link\":\"消闲派/index.html\"},{\"name\":\"温州帮\",\"link\":\"温州帮/index.html\"},{\"name\":\"北京帮\",\"link\":\"北京帮/index.html\"},{\"name\":\"原六一中路\",\"link\":\"原六一中路/index.html\"},{\"name\":\"思明南路\",\"link\":\"思明南路/index.html\"},{\"name\":\"敢死队\",\"link\":\"敢死队/index.html\"},{\"name\":\"申港广东分\",\"link\":\"申港广东分/index.html\"},{\"name\":\"作手新一\",\"link\":\"作手新一/index.html\"},{\"name\":\"古北路\",\"link\":\"古北路/index.html\"},{\"name\":\"叶庆均\",\"link\":\"叶庆均/index.html\"},{\"name\":\"广东帮\",\"link\":\"广东帮/index.html\"},{\"name\":\"成都系\",\"link\":\"成都系/index.html\"},{\"name\":\"欢乐海岸\",\"link\":\"欢乐海岸/index.html\"},{\"name\":\"涅盘重升\",\"link\":\"涅盘重升/index.html\"},{\"name\":\"炒新一族\",\"link\":\"炒新一族/index.html\"},{\"name\":\"中山东路\",\"link\":\"中山东路/index.html\"},{\"name\":\"宁波和源路\",\"link\":\"宁波和源路/index.html\"},{\"name\":\"徐晓\",\"link\":\"徐晓/index.html\"},{\"name\":\"独股一剑\",\"link\":\"独股一剑/index.html\"},{\"name\":\"红岭路\",\"link\":\"红岭路/index.html\"},{\"name\":\"中信总部\",\"link\":\"中信总部/index.html\"},{\"name\":\"华鑫宁波分\",\"link\":\"华鑫宁波分/index.html\"},{\"name\":\"小棉袄\",\"link\":\"小棉袄/index.html\"},{\"name\":\"毛老板\",\"link\":\"毛老板/index.html\"},{\"name\":\"佛山系\",\"link\":\"佛山系/index.html\"},{\"name\":\"徐留胜\",\"link\":\"徐留胜/index.html\"},{\"name\":\"校长\",\"link\":\"校长/index.html\"},{\"name\":\"湖里大道\",\"link\":\"湖里大道/index.html\"},{\"name\":\"粉葛\",\"link\":\"粉葛/index.html\"},{\"name\":\"轮回666\",\"link\":\"轮回666/index.html\"},{\"name\":\"一瞬流光\",\"link\":\"一瞬流光/index.html\"},{\"name\":\"上塘路\",\"link\":\"上塘路/index.html\"},{\"name\":\"天童南路\",\"link\":\"天童南路/index.html\"},{\"name\":\"宁波解放南\",\"link\":\"宁波解放南/index.html\"},{\"name\":\"屠文斌\",\"link\":\"屠文斌/index.html\"},{\"name\":\"越王大道\",\"link\":\"越王大道/index.html\"},{\"name\":\"鸭王\",\"link\":\"鸭王/index.html\"},{\"name\":\"Asking\",\"link\":\"Asking/index.html\"},{\"name\":\"交易猿\",\"link\":\"交易猿/index.html\"},{\"name\":\"山东帮\",\"link\":\"山东帮/index.html\"},{\"name\":\"杭州帮\",\"link\":\"杭州帮/index.html\"},{\"name\":\"金开大道\",\"link\":\"金开大道/index.html\"},{\"name\":\"湖滨四季\",\"link\":\"湖滨四季/index.html\"},{\"name\":\"苏南帮\",\"link\":\"苏南帮/index.html\"},{\"name\":\"92科比\",\"link\":\"92科比/index.html\"},{\"name\":\"孙哥\",\"link\":\"孙哥/index.html\"},{\"name\":\"瑞鹤仙\",\"link\":\"瑞鹤仙/index.html\"}]")
             var visited = new Set()
             var currentIndex = -1
             var filteredList = [...list]
@@ -268,8 +298,13 @@
             }
 
             function loadContent(url, dom) {
-                document.getElementById('iframe').src = url
-
+                var overlay = document.getElementById('loadingOverlay')
+                var iframe = document.getElementById('iframe')
+                overlay.classList.add('show')
+                iframe.src = url
+                iframe.onload = function() {
+                    overlay.classList.remove('show')
+                }
                 visited.add(url)
                 document.querySelectorAll('.nav a').forEach(function (a) {
                     if (visited.has(a.dataset.name)) a.classList.add('visited')
